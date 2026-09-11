@@ -663,3 +663,33 @@ body.black-hole .editionChoice.selected{border-color:#d3baff!important;box-shado
 body.black-hole .brand,body.black-hole b,body.black-hole strong,body.black-hole .label,body.black-hole .sessionName,body.black-hole .subjectName,body.black-hole .metric b,body.black-hole .statsHero{color:#f7f8ff!important;}
 body.black-hole .small,body.black-hole .sub,body.black-hole .soft,body.black-hole .progressText,body.black-hole .sessionTime,body.black-hole .subjectMeta,body.black-hole .metric span{color:#d3d8e5!important;opacity:1!important;}
 body.black-hole .cosmosEdition{background:linear-gradient(90deg,#f3edff,#c9a8ff,#7bb2ff,#f3edff);-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:0 0 18px rgba(145,100,255,.18);}
+
+/* v22 Black Hole Edition — restore attendance and statistics semantic colours */
+body.black-hole .status.green{color:#b9ffd7!important;background:linear-gradient(145deg,rgba(18,80,52,.88),rgba(5,24,17,.94))!important;border-color:rgba(118,230,173,.78)!important;box-shadow:inset 0 1px 0 rgba(220,255,235,.18),0 5px 0 rgba(10,52,33,.82),0 0 16px rgba(76,225,145,.18)!important;}
+body.black-hole .status.red{color:#ffd0d0!important;background:linear-gradient(145deg,rgba(92,29,38,.90),rgba(30,7,12,.95))!important;border-color:rgba(255,154,152,.78)!important;box-shadow:inset 0 1px 0 rgba(255,225,225,.14),0 5px 0 rgba(65,16,25,.82),0 0 16px rgba(255,104,120,.15)!important;}
+body.black-hole .status.gray{color:#f0f3f8!important;background:linear-gradient(145deg,rgba(75,81,94,.90),rgba(22,25,33,.95))!important;border-color:rgba(185,192,205,.70)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 5px 0 rgba(35,39,48,.86),0 0 14px rgba(180,190,205,.10)!important;}
+body.black-hole .status.green.active{background:linear-gradient(145deg,rgba(31,125,78,.98),rgba(8,48,29,.98))!important;box-shadow:inset 0 2px 12px rgba(0,0,0,.35),0 0 22px rgba(118,230,173,.35)!important;}
+body.black-hole .status.red.active{background:linear-gradient(145deg,rgba(145,45,56,.98),rgba(55,9,17,.98))!important;box-shadow:inset 0 2px 12px rgba(0,0,0,.35),0 0 22px rgba(255,110,120,.30)!important;}
+body.black-hole .status.gray.active{background:linear-gradient(145deg,rgba(102,110,125,.98),rgba(35,39,49,.98))!important;box-shadow:inset 0 2px 12px rgba(0,0,0,.35),0 0 20px rgba(205,212,225,.20)!important;}
+body.black-hole .metric.presentMetric b,body.black-hole .metric.presentMetric span{color:#76e6ad!important;}
+body.black-hole .metric.absentMetric b,body.black-hole .metric.absentMetric span{color:#ff9a98!important;}
+body.black-hole .metric.pendingMetric b,body.black-hole .metric.pendingMetric span{color:#ffd47a!important;}
+body.black-hole .metric.totalMetric b,body.black-hole .metric.totalMetric span{color:#7bb2ff!important;}
+body.black-hole .metric.presentMetric{border-color:rgba(118,230,173,.62)!important;background:linear-gradient(145deg,rgba(12,57,37,.70),rgba(5,16,13,.62))!important;}
+body.black-hole .metric.absentMetric{border-color:rgba(255,154,152,.62)!important;background:linear-gradient(145deg,rgba(68,20,28,.70),rgba(18,5,9,.62))!important;}
+body.black-hole .metric.pendingMetric{border-color:rgba(255,212,122,.62)!important;background:linear-gradient(145deg,rgba(72,49,15,.68),rgba(20,13,3,.62))!important;}
+body.black-hole .metric.totalMetric{border-color:rgba(123,178,255,.62)!important;background:linear-gradient(145deg,rgba(18,47,83,.70),rgba(4,11,23,.62))!important;}
+
+/* v23 — stronger tactile 3D attendance controls */
+.statusRow .status{
+  transform:translateY(-3px);
+  box-shadow:0 7px 0 rgba(0,0,0,.42),0 13px 24px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .11s ease,box-shadow .11s ease,filter .11s ease;
+  will-change:transform;
+}
+.statusRow .status.green{box-shadow:0 7px 0 rgba(13,92,55,.9),0 13px 24px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.24)}
+.statusRow .status.red{box-shadow:0 7px 0 rgba(118,35,42,.9),0 13px 24px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.22)}
+.statusRow .status.gray{box-shadow:0 7px 0 rgba(70,76,88,.95),0 13px 24px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.18)}
+.statusRow .status:hover:not(:disabled){transform:translateY(-4px);filter:brightness(1.08)}
+.statusRow .status:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.45),0 5px 10px rgba(0,0,0,.2),inset 0 2px 7px rgba(0,0,0,.2)}
+.statusRow .status.active{transform:translateY(1px);filter:brightness(1.12)}
