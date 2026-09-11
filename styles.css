@@ -802,3 +802,32 @@ body.black-hole .statusRow .status.gray.active{
 body.black-hole .statusRow .status.green.active{box-shadow:0 8px 0 #075a35,0 14px 24px rgba(0,0,0,.34),0 0 24px rgba(85,227,155,.48),inset 0 1px 0 rgba(255,255,255,.26)!important;}
 body.black-hole .statusRow .status.red.active{box-shadow:0 8px 0 #74202a,0 14px 24px rgba(0,0,0,.34),0 0 24px rgba(255,120,133,.45),inset 0 1px 0 rgba(255,255,255,.24)!important;}
 body.black-hole .statusRow .status.gray.active{box-shadow:0 8px 0 #454b58,0 14px 24px rgba(0,0,0,.34),0 0 22px rgba(195,202,213,.32),inset 0 1px 0 rgba(255,255,255,.22)!important;}
+
+/* v28: Attendance status buttons — all editions.
+   Unmarked buttons stay flat; only the selected status is raised. */
+body:not(.black-hole) .statusRow .status:not(.active){
+  transform:none !important;
+  box-shadow:none !important;
+}
+body:not(.black-hole) .statusRow .status:not(.active):hover:not(:disabled){
+  transform:none !important;
+  box-shadow:none !important;
+  filter:none !important;
+}
+body:not(.black-hole) .statusRow .status.active{
+  transform:translateY(-4px) !important;
+}
+body:not(.black-hole) .statusRow .status.green.active{
+  box-shadow:0 8px 0 color-mix(in srgb,var(--green) 58%,#000),0 14px 24px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.24) !important;
+}
+body:not(.black-hole) .statusRow .status.red.active{
+  box-shadow:0 8px 0 color-mix(in srgb,var(--red) 58%,#000),0 14px 24px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.22) !important;
+}
+body:not(.black-hole) .statusRow .status.gray.active{
+  box-shadow:0 8px 0 #454b58,0 14px 24px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.18) !important;
+}
+/* During touch, every button still gives immediate press feedback. */
+body:not(.black-hole) .statusRow .status:active:not(:disabled),
+body:not(.black-hole) .statusRow .status.is-pressing{
+  transform:translateY(3px) !important;
+}
