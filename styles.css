@@ -752,3 +752,32 @@ body.black-hole .grid4 .pendingMetric > b,
 body.black-hole .grid4 .pendingMetric > span{color:#ffd166!important;text-shadow:0 0 10px rgba(255,209,102,.22)!important;}
 body.black-hole .grid4 .totalMetric > b,
 body.black-hole .grid4 .totalMetric > span{color:#72a7ff!important;text-shadow:0 0 10px rgba(114,167,255,.25)!important;}
+
+/* v26 Black Hole Edition — neutral before marking, semantic colour only after selection */
+body.black-hole .statusRow .status.green:not(.active),
+body.black-hole .statusRow .status.red:not(.active),
+body.black-hole .statusRow .status.gray:not(.active){
+  color:#f8f9ff!important;
+  background:linear-gradient(145deg,rgba(18,12,30,.94),rgba(7,8,15,.97))!important;
+  border:1px solid rgba(164,124,255,.55)!important;
+  text-shadow:none!important;
+  box-shadow:0 8px 0 rgba(46,25,75,.82),0 14px 24px rgba(0,0,0,.40),inset 0 1px 0 rgba(240,235,255,.14)!important;
+}
+body.black-hole .statusRow .status.green.active{
+  color:#e9fff2!important;
+  background:linear-gradient(145deg,#1b8b56,#08321f)!important;
+  border:2px solid #55e39b!important;
+  box-shadow:0 8px 0 #075a35,0 0 24px rgba(85,227,155,.48),inset 0 1px 0 rgba(255,255,255,.26)!important;
+}
+body.black-hole .statusRow .status.red.active{
+  color:#fff0f0!important;
+  background:linear-gradient(145deg,#b43a4d,#400b16)!important;
+  border:2px solid #ff7885!important;
+  box-shadow:0 8px 0 #74202a,0 0 24px rgba(255,120,133,.45),inset 0 1px 0 rgba(255,255,255,.24)!important;
+}
+body.black-hole .statusRow .status.gray.active{
+  color:#fff!important;
+  background:linear-gradient(145deg,#7b8493,#303641)!important;
+  border:2px solid #c3cad5!important;
+  box-shadow:0 8px 0 #454b58,0 0 22px rgba(195,202,213,.32),inset 0 1px 0 rgba(255,255,255,.22)!important;
+}
