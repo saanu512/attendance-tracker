@@ -856,3 +856,49 @@ body:not(.black-hole) .session .statusRow > button.status:not(.active).is-pressi
   transform:translateY(2px) !important;
   box-shadow:none !important;
 }
+
+/* v30 — definitive attendance button state across ALL editions.
+   Neutral buttons must never keep the coloured 3D base. */
+.statusRow > button.status.green:not(.active),
+.statusRow > button.status.red:not(.active),
+.statusRow > button.status.gray:not(.active){
+  transform:translateY(0) !important;
+  box-shadow:none !important;
+  filter:none !important;
+}
+.statusRow > button.status.green:not(.active):hover:not(:disabled),
+.statusRow > button.status.red:not(.active):hover:not(:disabled),
+.statusRow > button.status.gray:not(.active):hover:not(:disabled),
+.statusRow > button.status.green:not(.active):focus,
+.statusRow > button.status.red:not(.active):focus,
+.statusRow > button.status.gray:not(.active):focus{
+  transform:translateY(0) !important;
+  box-shadow:none !important;
+  filter:none !important;
+}
+/* Only the selected state owns the permanent coloured raised base. */
+.statusRow > button.status.green.active{
+  transform:translateY(-4px) !important;
+  box-shadow:0 8px 0 color-mix(in srgb,var(--green) 58%,#000),0 14px 24px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.24) !important;
+}
+.statusRow > button.status.red.active{
+  transform:translateY(-4px) !important;
+  box-shadow:0 8px 0 color-mix(in srgb,var(--red) 58%,#000),0 14px 24px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.22) !important;
+}
+.statusRow > button.status.gray.active{
+  transform:translateY(-4px) !important;
+  box-shadow:0 8px 0 #454b58,0 14px 24px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.18) !important;
+}
+/* Black Hole keeps its own stronger Event Horizon colours, but follows the same flat/raised rule. */
+body.black-hole .statusRow > button.status.green:not(.active),
+body.black-hole .statusRow > button.status.red:not(.active),
+body.black-hole .statusRow > button.status.gray:not(.active){
+  transform:translateY(0) !important;
+  box-shadow:0 2px 8px rgba(0,0,0,.26),inset 0 1px 0 rgba(240,235,255,.10) !important;
+}
+body.black-hole .statusRow > button.status.green.active,
+body.black-hole .statusRow > button.status.red.active,
+body.black-hole .statusRow > button.status.gray.active{transform:translateY(-4px) !important;}
+/* Touch feedback is temporary; it never becomes a persistent raised state unless selected. */
+.statusRow > button.status:not(.active):active,
+.statusRow > button.status:not(.active).is-pressing{transform:translateY(2px) !important;}
