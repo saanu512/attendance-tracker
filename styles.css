@@ -382,3 +382,30 @@ body.nebula-glass .btn,body.nebula-glass button{background-color:transparent!imp
 body.nebula-glass .btn:active,body.nebula-glass button:active{transform:translateY(2px) scale(.985);box-shadow:inset 0 2px 10px rgba(0,0,0,.3)!important;}
 body.nebula-glass .input:focus{border-color:rgba(70,220,255,.8)!important;box-shadow:0 0 0 2px rgba(70,220,255,.12),inset 0 1px 0 rgba(255,255,255,.2)!important;}
 body.nebula-glass .cosmosEdition{background:linear-gradient(90deg,#74e8ff,#b596ff,#74e8ff);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+/* V18 — Nebula Glass cosmic background override */
+body.nebula-glass, body[data-edition="nebula"], .nebula-glass {
+  background:
+    radial-gradient(ellipse at 18% 18%, rgba(117, 48, 171, .55) 0%, rgba(117,48,171,.20) 22%, transparent 48%),
+    radial-gradient(ellipse at 82% 26%, rgba(52, 92, 145, .45) 0%, rgba(52,92,145,.18) 25%, transparent 52%),
+    radial-gradient(ellipse at 52% 72%, rgba(77, 61, 112, .38) 0%, rgba(77,61,112,.14) 30%, transparent 58%),
+    radial-gradient(circle at 70% 48%, rgba(130, 80, 185, .24) 0%, transparent 28%),
+    linear-gradient(145deg, #020205 0%, #0a0712 35%, #11131a 62%, #030407 100%) !important;
+  background-attachment: fixed !important;
+}
+
+body.nebula-glass::before, body[data-edition="nebula"]::before {
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+  background:
+    radial-gradient(circle at 48% 34%, transparent 0 10%, rgba(169,87,255,.10) 17%, transparent 30%),
+    radial-gradient(ellipse at 48% 34%, rgba(61,104,175,.10) 0%, transparent 55%),
+    linear-gradient(115deg, transparent 20%, rgba(139,85,255,.07) 48%, transparent 72%);
+  filter: blur(1px);
+}
+
+body.nebula-glass .card, body.nebula-glass button, body.nebula-glass input, body.nebula-glass textarea,
+body[data-edition="nebula"] .card, body[data-edition="nebula"] button, body[data-edition="nebula"] input, body[data-edition="nebula"] textarea {
+  background-color: rgba(10, 8, 18, .16) !important;
+  border-color: rgba(172, 139, 255, .48) !important;
+  box-shadow: 0 0 0 1px rgba(78,129,181,.12), 0 10px 30px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.10) !important;
+}
