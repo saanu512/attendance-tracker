@@ -409,3 +409,44 @@ body[data-edition="nebula"] .card, body[data-edition="nebula"] button, body[data
   border-color: rgba(172, 139, 255, .48) !important;
   box-shadow: 0 0 0 1px rgba(78,129,181,.12), 0 10px 30px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.10) !important;
 }
+
+
+/* V19 — Galactic Night: deep star field + Milky Way, with transparent glass UI */
+.editionChoices{flex-wrap:wrap!important;justify-content:center!important;}
+.editionChoice{flex:0 0 auto!important;}
+body.galactic-night{
+  background:
+    radial-gradient(ellipse at 48% 50%, rgba(77,91,150,.16) 0%, transparent 42%),
+    radial-gradient(ellipse at 82% 18%, rgba(70,52,112,.20) 0%, transparent 34%),
+    radial-gradient(ellipse at 12% 82%, rgba(34,57,91,.16) 0%, transparent 38%),
+    linear-gradient(150deg,#010103 0%,#05060d 42%,#10101a 68%,#020207 100%)!important;
+  background-attachment:fixed!important;
+  overflow-x:hidden;
+}
+body.galactic-night::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.95;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.95) 0 1px,transparent 1.8px),
+    radial-gradient(circle,rgba(180,205,255,.8) 0 1px,transparent 1.7px),
+    radial-gradient(circle,rgba(255,255,255,.65) 0 .7px,transparent 1.5px),
+    radial-gradient(circle,rgba(210,190,255,.75) 0 1.1px,transparent 1.9px);
+  background-size:37px 41px,61px 67px,23px 29px,89px 97px;
+  background-position:3px 7px,17px 29px,9px 14px,41px 11px;
+}
+body.galactic-night::after{
+  content:"";position:fixed;pointer-events:none;z-index:-1;
+  width:150vw;height:36vh;left:-25vw;top:30vh;transform:rotate(-22deg);
+  background:
+    radial-gradient(ellipse at center,rgba(235,240,255,.16) 0%,rgba(135,160,220,.12) 22%,rgba(92,79,164,.12) 43%,rgba(25,28,63,.05) 63%,transparent 78%),
+    linear-gradient(90deg,transparent,rgba(113,104,194,.06),rgba(185,196,255,.08),rgba(72,92,160,.05),transparent);
+  filter:blur(5px);opacity:.95;
+}
+body.galactic-night .card,body.galactic-night .btn,body.galactic-night .input,body.galactic-night textarea,body.galactic-night .statCard,body.galactic-night .editionChoice,body.galactic-night .dateCard,body.galactic-night .navBtn{
+  background:linear-gradient(135deg,rgba(255,255,255,.035),rgba(80,100,155,.018))!important;
+  border:1px solid rgba(178,198,255,.36)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 10px 28px rgba(0,0,0,.16),0 0 20px rgba(105,130,220,.055)!important;
+  backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);
+}
+body.galactic-night .btn:active,body.galactic-night button:active{transform:translateY(2px) scale(.985);box-shadow:inset 0 2px 10px rgba(0,0,0,.32)!important;}
+body.galactic-night .editionChoice.selected{border-color:rgba(210,220,255,.82)!important;box-shadow:0 0 0 1px rgba(145,125,255,.26),0 0 18px rgba(130,110,255,.18)!important;}
+body.galactic-night .cosmosEdition{background:linear-gradient(90deg,#dce8ff,#a9b8ff,#d9c5ff);-webkit-background-clip:text;background-clip:text;color:transparent;}
