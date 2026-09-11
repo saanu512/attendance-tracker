@@ -374,3 +374,11 @@ html,body,#app,.app{min-height:100dvh}
 .editionChoices{justify-content:center!important;width:100%!important}
 .editionChoice{font-size:11px!important;padding:8px 11px!important}
 .attendanceEnough{color:var(--green)!important;font-weight:850}.cannotMiss{color:var(--red)!important;font-weight:850}
+/* Nebula Glass Edition */
+:root[data-edition="nebula-glass"] body, body.nebula-glass{background:radial-gradient(circle at 15% 15%,rgba(64,224,208,.18),transparent 28%),radial-gradient(circle at 85% 20%,rgba(124,92,255,.20),transparent 30%),radial-gradient(circle at 50% 90%,rgba(0,120,255,.14),transparent 35%),linear-gradient(145deg,#03050c,#08051a 48%,#020811);}
+body.nebula-glass .card,body.nebula-glass .btn,body.nebula-glass .input,body.nebula-glass .statCard,body.nebula-glass .editionChoice,body.nebula-glass .dateCard,body.nebula-glass .navBtn{background:linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.012))!important;border:1px solid rgba(170,220,255,.42)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 24px rgba(0,0,0,.22),0 0 18px rgba(90,140,255,.08)!important;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);}
+body.nebula-glass .card{outline:1px solid rgba(130,80,255,.10);}
+body.nebula-glass .btn,body.nebula-glass button{background-color:transparent!important;}
+body.nebula-glass .btn:active,body.nebula-glass button:active{transform:translateY(2px) scale(.985);box-shadow:inset 0 2px 10px rgba(0,0,0,.3)!important;}
+body.nebula-glass .input:focus{border-color:rgba(70,220,255,.8)!important;box-shadow:0 0 0 2px rgba(70,220,255,.12),inset 0 1px 0 rgba(255,255,255,.2)!important;}
+body.nebula-glass .cosmosEdition{background:linear-gradient(90deg,#74e8ff,#b596ff,#74e8ff);-webkit-background-clip:text;background-clip:text;color:transparent;}
