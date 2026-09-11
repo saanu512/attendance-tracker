@@ -616,3 +616,50 @@ body.galactic-night .card,body.galactic-night .btn,body.galactic-night .input,bo
 body.galactic-night .btn:active,body.galactic-night button:active{transform:translateY(2px) scale(.985);box-shadow:inset 0 2px 10px rgba(0,0,0,.32)!important;}
 body.galactic-night .editionChoice.selected{border-color:rgba(210,220,255,.82)!important;box-shadow:0 0 0 1px rgba(145,125,255,.26),0 0 18px rgba(130,110,255,.18)!important;}
 body.galactic-night .cosmosEdition{background:linear-gradient(90deg,#dce8ff,#a9b8ff,#d9c5ff);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+
+/* v21 Black Hole Edition — Event Horizon + Obsidian UI */
+body.black-hole{
+  --bg:#020205;--card:#08080d;--ink:#f5f7ff;--soft:#c5cad8;--line:rgba(143,115,205,.42);
+  --primary:#a47cff;--primarySoft:rgba(110,75,190,.20);--green:#76e6ad;--greenSoft:rgba(36,135,87,.22);
+  --red:#ff9a98;--redSoft:rgba(166,49,61,.24);--yellow:#ffd47a;--yellowSoft:rgba(130,92,28,.22);
+  --purple:#c6a6ff;--purpleSoft:rgba(116,76,180,.24);
+  background:
+    radial-gradient(circle at 52% 30%,#000 0 8%,rgba(0,0,0,.98) 9%,rgba(22,8,42,.78) 16%,rgba(81,28,132,.42) 23%,rgba(33,76,142,.24) 31%,transparent 48%),
+    radial-gradient(ellipse at 54% 31%,transparent 0 13%,rgba(145,58,220,.18) 18%,rgba(66,126,232,.13) 27%,transparent 43%),
+    radial-gradient(circle at 18% 78%,rgba(42,71,128,.17),transparent 36%),
+    linear-gradient(150deg,#000000 0%,#03030a 42%,#0a0613 70%,#000000 100%)!important;
+  background-attachment:fixed!important;
+  overflow-x:hidden;
+}
+body.black-hole::before{
+  content:"";position:fixed;z-index:-1;pointer-events:none;left:50%;top:28%;width:min(62vw,430px);height:min(62vw,430px);transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(0,0,0,1) 0 38%,rgba(2,2,5,1) 39% 43%,rgba(108,39,173,.32) 46%,rgba(60,105,220,.24) 52%,rgba(126,50,190,.10) 61%,transparent 74%);
+  box-shadow:0 0 28px rgba(118,57,220,.20),0 0 72px rgba(40,112,255,.13),inset 0 0 45px #000;
+}
+body.black-hole::after{
+  content:"";position:fixed;z-index:-1;pointer-events:none;left:-22vw;top:17vh;width:145vw;height:27vh;transform:rotate(-16deg);
+  background:radial-gradient(ellipse at center,transparent 0 20%,rgba(20,7,35,.18) 27%,rgba(114,41,182,.20) 38%,rgba(54,111,220,.17) 49%,rgba(142,74,215,.10) 58%,transparent 73%);
+  filter:blur(8px);opacity:.95;
+}
+body.black-hole .app,body.black-hole .header,body.black-hole .nav{background:transparent!important;}
+body.black-hole .card,body.black-hole .datebar,body.black-hole .editionChoice,body.black-hole .modalBox,body.black-hole .appDialog,body.black-hole .app-alert-box,body.black-hole .wheelTimeDialog,body.black-hole .activationCard{
+  background:linear-gradient(135deg,rgba(8,8,15,.78),rgba(19,10,31,.56))!important;
+  border:1px solid rgba(160,126,236,.48)!important;
+  box-shadow:inset 0 1px 0 rgba(225,215,255,.12),0 10px 30px rgba(0,0,0,.48),0 0 22px rgba(112,63,210,.08)!important;
+}
+body.black-hole .btn,body.black-hole .saveAttendance,body.black-hole .holiday,body.black-hole .scheduleManage,body.black-hole .navBtn,body.black-hole .iconbtn,body.black-hole .filter,body.black-hole .status,body.black-hole .editionChoice{
+  color:#f8f9ff!important;
+  background:linear-gradient(145deg,rgba(18,12,30,.88),rgba(7,8,15,.92))!important;
+  border:1px solid rgba(164,124,255,.55)!important;
+  box-shadow:inset 0 1px 0 rgba(240,235,255,.14),0 5px 0 rgba(46,25,75,.78),0 12px 24px rgba(0,0,0,.42)!important;
+}
+body.black-hole .input,body.black-hole textarea,body.black-hole select,body.black-hole .timeWheelTrigger,body.black-hole .activationInput{
+  background:rgba(2,3,8,.82)!important;color:#fff!important;border-color:rgba(157,129,225,.52)!important;
+  box-shadow:inset 0 2px 12px rgba(0,0,0,.5),0 0 12px rgba(95,70,180,.06)!important;
+}
+body.black-hole .btn:active,body.black-hole button:active{transform:translateY(3px) scale(.985);box-shadow:inset 0 3px 14px rgba(0,0,0,.75)!important;}
+body.black-hole .editionChoice.selected{border-color:#d3baff!important;box-shadow:0 0 0 1px rgba(189,152,255,.30),0 0 24px rgba(129,74,232,.28),inset 0 1px 0 rgba(255,255,255,.20)!important;}
+body.black-hole .brand,body.black-hole b,body.black-hole strong,body.black-hole .label,body.black-hole .sessionName,body.black-hole .subjectName,body.black-hole .metric b,body.black-hole .statsHero{color:#f7f8ff!important;}
+body.black-hole .small,body.black-hole .sub,body.black-hole .soft,body.black-hole .progressText,body.black-hole .sessionTime,body.black-hole .subjectMeta,body.black-hole .metric span{color:#d3d8e5!important;opacity:1!important;}
+body.black-hole .cosmosEdition{background:linear-gradient(90deg,#f3edff,#c9a8ff,#7bb2ff,#f3edff);-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:0 0 18px rgba(145,100,255,.18);}
