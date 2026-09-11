@@ -693,3 +693,62 @@ body.black-hole .metric.totalMetric{border-color:rgba(123,178,255,.62)!important
 .statusRow .status:hover:not(:disabled){transform:translateY(-4px);filter:brightness(1.08)}
 .statusRow .status:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.45),0 5px 10px rgba(0,0,0,.2),inset 0 2px 7px rgba(0,0,0,.2)}
 .statusRow .status.active{transform:translateY(1px);filter:brightness(1.12)}
+
+/* v24 — explicit tactile press system for attendance choices */
+.statusRow{padding:4px 0 10px;}
+.statusRow .status{
+  position:relative!important;
+  top:0!important;
+  transform:translateY(-4px)!important;
+  border-width:1px!important;
+  min-height:58px!important;
+  transition:transform 80ms cubic-bezier(.2,.8,.2,1),box-shadow 80ms cubic-bezier(.2,.8,.2,1),filter 80ms ease!important;
+}
+.statusRow .status.green{box-shadow:0 8px 0 #075a35,0 14px 24px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.25)!important;}
+.statusRow .status.red{box-shadow:0 8px 0 #74202a,0 14px 24px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.23)!important;}
+.statusRow .status.gray{box-shadow:0 8px 0 #454b58,0 14px 24px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.18)!important;}
+.statusRow .status.is-pressing,.statusRow .status:active:not(:disabled){
+  transform:translateY(4px)!important;
+  filter:brightness(.98)!important;
+}
+.statusRow .status.green.is-pressing,.statusRow .status.green:active:not(:disabled){box-shadow:0 1px 0 #075a35,0 4px 9px rgba(0,0,0,.28),inset 0 3px 8px rgba(0,0,0,.18)!important;}
+.statusRow .status.red.is-pressing,.statusRow .status.red:active:not(:disabled){box-shadow:0 1px 0 #74202a,0 4px 9px rgba(0,0,0,.28),inset 0 3px 8px rgba(0,0,0,.18)!important;}
+.statusRow .status.gray.is-pressing,.statusRow .status.gray:active:not(:disabled){box-shadow:0 1px 0 #454b58,0 4px 9px rgba(0,0,0,.28),inset 0 3px 8px rgba(0,0,0,.18)!important;}
+
+/* v25 Black Hole Edition — high-visibility attendance state and statistics colours */
+body.black-hole .statusRow .status.green,
+body.black-hole .statusRow .status.green.active{
+  color:#e9fff2!important;
+  background:linear-gradient(145deg,#187a4b,#082b1b)!important;
+  border:2px solid #55e39b!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.7)!important;
+}
+body.black-hole .statusRow .status.red,
+body.black-hole .statusRow .status.red.active{
+  color:#fff0f0!important;
+  background:linear-gradient(145deg,#a83243,#3a0b14)!important;
+  border:2px solid #ff7885!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.7)!important;
+}
+body.black-hole .statusRow .status.gray,
+body.black-hole .statusRow .status.gray.active{
+  color:#ffffff!important;
+  background:linear-gradient(145deg,#737b89,#2b3039)!important;
+  border:2px solid #c3cad5!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.7)!important;
+}
+
+/* Keep selected attendance unmistakably colour-coded */
+body.black-hole .statusRow .status.green.active{box-shadow:0 8px 0 #075a35,0 0 24px rgba(85,227,155,.48),inset 0 1px 0 rgba(255,255,255,.26)!important;}
+body.black-hole .statusRow .status.red.active{box-shadow:0 8px 0 #74202a,0 0 24px rgba(255,120,133,.45),inset 0 1px 0 rgba(255,255,255,.24)!important;}
+body.black-hole .statusRow .status.gray.active{box-shadow:0 8px 0 #454b58,0 0 22px rgba(195,202,213,.32),inset 0 1px 0 rgba(255,255,255,.22)!important;}
+
+/* Statistics numbers and labels retain their semantic colours in Black Hole Edition */
+body.black-hole .grid4 .presentMetric > b,
+body.black-hole .grid4 .presentMetric > span{color:#55e39b!important;text-shadow:0 0 10px rgba(85,227,155,.28)!important;}
+body.black-hole .grid4 .absentMetric > b,
+body.black-hole .grid4 .absentMetric > span{color:#ff7885!important;text-shadow:0 0 10px rgba(255,120,133,.25)!important;}
+body.black-hole .grid4 .pendingMetric > b,
+body.black-hole .grid4 .pendingMetric > span{color:#ffd166!important;text-shadow:0 0 10px rgba(255,209,102,.22)!important;}
+body.black-hole .grid4 .totalMetric > b,
+body.black-hole .grid4 .totalMetric > span{color:#72a7ff!important;text-shadow:0 0 10px rgba(114,167,255,.25)!important;}

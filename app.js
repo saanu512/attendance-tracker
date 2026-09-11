@@ -209,7 +209,7 @@ function hasMeaningfulStoredData(){
   return false;
 }
 const HAD_MEANINGFUL_APP_DATA_BEFORE_ACTIVATION = hasMeaningfulStoredData();
-load();applyTheme();watchSystemTheme();render();if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=24-black-hole").then(r=>r.update?.()).catch(()=>{}));
+load();applyTheme();watchSystemTheme();render();if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=25-black-hole").then(r=>r.update?.()).catch(()=>{}));
 
 // Robust Manage Schedule controls (direct handlers; independent of delegated clicks)
 function openManageSchedule(){
@@ -310,3 +310,15 @@ function appConfirm(message,title="Confirmation"){
     setTimeout(()=>ok.focus(),0);
   });
 }
+
+// v24 tactile feedback for Present / Absent / Not Held buttons (visual only)
+document.addEventListener('pointerdown', function(e){
+  const b=e.target.closest && e.target.closest('.statusRow .status');
+  if(b && !b.disabled) b.classList.add('is-pressing');
+}, true);
+['pointerup','pointercancel','pointerleave'].forEach(function(type){
+  document.addEventListener(type,function(e){
+    const b=e.target.closest && e.target.closest('.statusRow .status');
+    if(b) b.classList.remove('is-pressing');
+  }, true);
+});
