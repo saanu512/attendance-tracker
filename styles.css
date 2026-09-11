@@ -831,3 +831,28 @@ body:not(.black-hole) .statusRow .status:active:not(:disabled),
 body:not(.black-hole) .statusRow .status.is-pressing{
   transform:translateY(3px) !important;
 }
+
+/* v29 — FINAL attendance button elevation rule for EVERY edition.
+   Only the selected attendance status may remain raised. */
+body:not(.black-hole) .session .statusRow > button.status:not(.active),
+body:not(.black-hole) .statusRow > button.status:not(.active){
+  transform:translateY(0) !important;
+  box-shadow:none !important;
+  filter:none !important;
+}
+body:not(.black-hole) .session .statusRow > button.status:not(.active):hover:not(:disabled),
+body:not(.black-hole) .statusRow > button.status:not(.active):focus:not(:disabled){
+  transform:translateY(0) !important;
+  box-shadow:none !important;
+  filter:none !important;
+}
+/* The selected button alone gets the persistent raised depth. */
+body:not(.black-hole) .session .statusRow > button.status.active{
+  transform:translateY(-4px) !important;
+}
+/* Touch feedback is temporary only; after release an unmarked button is flat again. */
+body:not(.black-hole) .session .statusRow > button.status:not(.active):active,
+body:not(.black-hole) .session .statusRow > button.status:not(.active).is-pressing{
+  transform:translateY(2px) !important;
+  box-shadow:none !important;
+}
