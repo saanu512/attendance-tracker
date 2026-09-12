@@ -1486,3 +1486,13 @@ body.roshni .editionChoices .editionChoice.selected,
   font-weight:850!important;
 }
 body.roshni .editionChoices .editionChoice.selected::after{content:none!important;display:none!important;}
+
+
+/* V44 PERMANENT GLOBAL ATTENDANCE MESSAGE SEMANTIC COLORS
+   These colors are core app behavior and must not change with any edition/theme. */
+.attendanceAdvice .attendance-message-green,
+body .attendanceAdvice .attendance-message-green,
+[data-theme] .attendanceAdvice .attendance-message-green { color:#198754 !important; }
+.attendanceAdvice .attendance-message-red,
+body .attendanceAdvice .attendance-message-red,
+[data-theme] .attendanceAdvice .attendance-message-red { color:#dc3545 !important; }
