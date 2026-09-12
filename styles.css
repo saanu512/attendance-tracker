@@ -902,3 +902,66 @@ body.black-hole .statusRow > button.status.gray.active{transform:translateY(-4px
 /* Touch feedback is temporary; it never becomes a persistent raised state unless selected. */
 .statusRow > button.status:not(.active):active,
 .statusRow > button.status:not(.active).is-pressing{transform:translateY(2px) !important;}
+
+
+/* V31 — Heart Nebula Edition (IC 1805 inspired, procedural CSS; no background image) */
+body.heart-nebula{
+  color:#f5f6fb!important;
+  background:
+    radial-gradient(ellipse 46% 34% at 53% 53%, rgba(33,191,239,.78) 0%, rgba(31,126,203,.52) 24%, rgba(18,47,84,.12) 54%, transparent 73%),
+    radial-gradient(ellipse 60% 24% at 46% 42%, rgba(255,119,13,.82) 0%, rgba(224,69,8,.55) 26%, rgba(108,35,13,.22) 54%, transparent 74%),
+    radial-gradient(ellipse 26% 60% at 18% 64%, rgba(255,108,7,.55) 0%, rgba(173,49,7,.30) 33%, transparent 70%),
+    radial-gradient(ellipse 34% 18% at 84% 24%, rgba(255,113,11,.62) 0%, rgba(161,50,10,.28) 40%, transparent 74%),
+    radial-gradient(ellipse 28% 18% at 76% 83%, rgba(17,153,218,.48) 0%, rgba(10,76,132,.24) 44%, transparent 78%),
+    radial-gradient(circle at 50% 50%, rgba(4,10,18,.05), rgba(3,7,13,.68) 72%, #05080d 100%)!important;
+  background-attachment:fixed!important;
+  overflow-x:hidden;
+}
+body.heart-nebula::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.96;
+  background:
+    radial-gradient(ellipse 50% 11% at 45% 46%, transparent 0 18%, rgba(8,13,18,.66) 20%, transparent 42%),
+    radial-gradient(ellipse 38% 15% at 56% 63%, transparent 0 20%, rgba(5,10,15,.58) 23%, transparent 49%),
+    radial-gradient(ellipse 20% 35% at 68% 46%, transparent 0 22%, rgba(4,8,12,.55) 25%, transparent 52%),
+    linear-gradient(145deg, transparent 0 34%, rgba(255,145,32,.15) 43%, transparent 52%),
+    linear-gradient(35deg, transparent 0 46%, rgba(34,170,234,.12) 58%, transparent 70%);
+  filter:blur(14px) saturate(1.15);
+}
+body.heart-nebula::after{
+  content:"";position:fixed;left:0;top:0;width:1px;height:1px;pointer-events:none;z-index:-1;
+  background:#fff;border-radius:50%;opacity:.9;
+  box-shadow:
+    3vw 7vh 0 0.6px #fff,8vw 19vh 0 1px #d8efff,13vw 4vh 0 .5px #fff,17vw 31vh 0 .8px #fff,
+    23vw 12vh 0 .6px #cfe6ff,29vw 22vh 0 1px #fff,34vw 8vh 0 .5px #fff,39vw 35vh 0 .8px #dff5ff,
+    45vw 16vh 0 .6px #fff,52vw 7vh 0 1px #ffe8bf,58vw 28vh 0 .5px #fff,64vw 11vh 0 .8px #fff,
+    71vw 5vh 0 .6px #d7efff,78vw 18vh 0 1px #fff,85vw 9vh 0 .5px #fff,93vw 27vh 0 .8px #fff,
+    5vw 49vh 0 1px #fff,11vw 72vh 0 .5px #d7efff,18vw 88vh 0 .8px #fff,25vw 57vh 0 .6px #fff,
+    32vw 81vh 0 1px #fff,40vw 65vh 0 .5px #d7efff,48vw 93vh 0 .8px #fff,56vw 74vh 0 .6px #fff,
+    63vw 91vh 0 1px #ffe6bd,70vw 58vh 0 .5px #fff,76vw 76vh 0 .8px #d7efff,83vw 61vh 0 .6px #fff,
+    91vw 84vh 0 1px #fff,97vw 48vh 0 .5px #fff,22vw 44vh 0 .5px #fff,68vw 39vh 0 1px #fff;
+}
+/* Solid cosmic panels — intentionally NOT glass/crystal/transparent */
+body.heart-nebula .app,body.heart-nebula .header,body.heart-nebula .nav{background:transparent!important;}
+body.heart-nebula .card,body.heart-nebula .datebar,body.heart-nebula .modalBox,body.heart-nebula .appDialog,body.heart-nebula .app-alert-box,body.heart-nebula .wheelTimeDialog,body.heart-nebula .activationCard{
+  background:linear-gradient(145deg,rgba(12,20,32,.96),rgba(18,29,45,.94))!important;
+  border:1px solid rgba(127,185,225,.38)!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,185,112,.10)!important;
+}
+body.heart-nebula .card{border-left:4px solid rgba(255,132,28,.72)!important;}
+body.heart-nebula .btn,body.heart-nebula .saveAttendance,body.heart-nebula .holiday,body.heart-nebula .scheduleManage,body.heart-nebula .navBtn,body.heart-nebula .iconbtn,body.heart-nebula .filter,body.heart-nebula .editionChoice{
+  background:linear-gradient(145deg,#263c56,#172535)!important;
+  color:#f7f9ff!important;border:1px solid rgba(119,188,232,.48)!important;
+  box-shadow:0 4px 0 #0b131d,0 9px 18px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.12)!important;
+}
+body.heart-nebula .btn:active,body.heart-nebula button:active{transform:translateY(3px) scale(.985)!important;box-shadow:0 1px 0 #0b131d,inset 0 2px 10px rgba(0,0,0,.35)!important;}
+body.heart-nebula .editionChoice.selected{background:linear-gradient(145deg,#7c3214,#1e5876)!important;border-color:#ffad55!important;box-shadow:0 0 0 1px rgba(61,198,255,.26),0 4px 0 #42180a,0 0 22px rgba(255,112,20,.18)!important;}
+body.heart-nebula .input,body.heart-nebula textarea,body.heart-nebula select,body.heart-nebula .timeWheelTrigger,body.heart-nebula .activationInput{
+  background:#0b1622!important;color:#f5f7fb!important;border-color:rgba(87,176,226,.45)!important;box-shadow:inset 0 2px 8px rgba(0,0,0,.34)!important;
+}
+body.heart-nebula .brand,body.heart-nebula b,body.heart-nebula strong,body.heart-nebula .label,body.heart-nebula .sessionName,body.heart-nebula .subjectName,body.heart-nebula .metric b,body.heart-nebula .statsHero{color:#f8f9ff!important;}
+body.heart-nebula .small,body.heart-nebula .sub,body.heart-nebula .soft,body.heart-nebula .progressText,body.heart-nebula .sessionTime,body.heart-nebula .subjectMeta,body.heart-nebula .metric span{color:#d7e0eb!important;opacity:1!important;}
+body.heart-nebula .cosmosEdition{background:linear-gradient(90deg,#ffb05b,#ff6b24,#6fd9ff,#f5b26b);-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:0 0 18px rgba(255,115,30,.16);}
+body.heart-nebula .statusRow .status.green:not(.active),body.heart-nebula .statusRow .status.red:not(.active),body.heart-nebula .statusRow .status.gray:not(.active){background:#172535!important;border-color:rgba(119,188,232,.36)!important;box-shadow:none!important;transform:none!important;color:#d7e0eb!important;}
+body.heart-nebula .statusRow .status.green.active{background:linear-gradient(145deg,#138552,#063d28)!important;box-shadow:0 8px 0 #06442c,0 14px 24px rgba(0,0,0,.34),0 0 20px rgba(55,222,145,.28)!important;}
+body.heart-nebula .statusRow .status.red.active{background:linear-gradient(145deg,#b23d31,#5a1414)!important;box-shadow:0 8px 0 #681b1b,0 14px 24px rgba(0,0,0,.34),0 0 20px rgba(255,112,86,.26)!important;}
+body.heart-nebula .statusRow .status.gray.active{background:linear-gradient(145deg,#6c7684,#303946)!important;box-shadow:0 8px 0 #39414d,0 14px 24px rgba(0,0,0,.34)!important;}
