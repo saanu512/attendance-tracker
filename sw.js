@@ -1,4 +1,4 @@
-const CACHE = "attendance-tracker-roshni-pearl-v40";
+const CACHE = "attendance-tracker-roshni-pearl-v41";
 const ASSETS = ["./","./index.html","./manifest.json","./styles.css","./app.js","./icon-192.png","./icon-512.png"];
 
 self.addEventListener("install", event => {
