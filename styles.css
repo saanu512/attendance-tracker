@@ -2220,3 +2220,41 @@ body[data-edition="nebula-glass"] .status.gray.active{
   background:linear-gradient(135deg,#65706b,#3d4742)!important;
   border-color:transparent!important;
 }
+
+/* v59 — GLOBAL APP EDITION SELECTOR: unmistakable active edition
+   Only the currently selected edition is raised/highlighted. */
+.editionChoices .editionChoice.selected,
+body.nebula-glass .editionChoices .editionChoice.selected,
+body.galactic-night .editionChoices .editionChoice.selected,
+body.black-hole .editionChoices .editionChoice.selected,
+body.heart-nebula .editionChoices .editionChoice.selected,
+body.roshni .editionChoices .editionChoice.selected,
+body.opal-dream .editionChoices .editionChoice.selected,
+body.celestial-glass .editionChoices .editionChoice.selected{
+  position:relative!important;
+  z-index:2!important;
+  transform:translateY(-3px)!important;
+  border:2px solid color-mix(in srgb,var(--primary) 78%,#ffffff 22%)!important;
+  background:linear-gradient(145deg,
+    color-mix(in srgb,var(--primary) 30%,rgba(255,255,255,.20)),
+    color-mix(in srgb,var(--primary) 14%,rgba(255,255,255,.08)))!important;
+  color:var(--ink)!important;
+  font-weight:900!important;
+  box-shadow:
+    0 7px 0 color-mix(in srgb,var(--primary) 52%,#10131d 48%),
+    0 13px 24px color-mix(in srgb,var(--primary) 28%,transparent),
+    inset 0 1px 0 rgba(255,255,255,.42)!important;
+}
+.editionChoices .editionChoice.selected::before{
+  content:""!important;
+  position:absolute!important;
+  inset:-4px!important;
+  border-radius:inherit!important;
+  border:1px solid color-mix(in srgb,var(--primary) 42%,transparent)!important;
+  pointer-events:none!important;
+  opacity:.9!important;
+}
+.editionChoices .editionChoice:not(.selected){
+  transform:none!important;
+  opacity:.78!important;
+}
