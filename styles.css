@@ -2075,3 +2075,139 @@ body.celestial-glass .toast{
   font-weight:700!important;
   opacity:1!important;
 }
+
+/* v55 — CELESTIAL GLASS ULTRA-SMOOTH SCROLL
+   The cosmic scene is now one pre-rendered bitmap layer instead of many live CSS gradients.
+   This keeps the same fixed sun/planets/stars effect while dramatically reducing scroll compositing. */
+body.celestial-glass{
+  background:#eaf2fb!important;
+  background-image:none!important;
+}
+body.celestial-glass::before{
+  display:block!important;
+  content:""!important;
+  position:fixed!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  z-index:-1!important;
+  pointer-events:none!important;
+  opacity:1!important;
+  transform:none!important;
+  filter:none!important;
+  background:#eaf2fb url("celestial-bg.png") center center/cover no-repeat!important;
+  background-attachment:scroll!important;
+  will-change:auto!important;
+}
+/* Do not repaint an opaque app layer over the fixed universe. */
+body.celestial-glass .app,
+body.celestial-glass #app{
+  background:transparent!important;
+}
+/* Lightweight crystal surfaces: transparent, but without expensive blur/filter composition. */
+body.celestial-glass .card,
+body.celestial-glass .datebar,
+body.celestial-glass .editionCard,
+body.celestial-glass .editionChoice,
+body.celestial-glass .session,
+body.celestial-glass .subject,
+body.celestial-glass .metric,
+body.celestial-glass .progressCard,
+body.celestial-glass .formCard,
+body.celestial-glass .noteBox,
+body.celestial-glass .calendar,
+body.celestial-glass .nav{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 5px 14px rgba(57,103,142,.10)!important;
+}
+body.celestial-glass .btn,
+body.celestial-glass .saveAttendance,
+body.celestial-glass .holiday,
+body.celestial-glass .scheduleManage,
+body.celestial-glass .iconbtn,
+body.celestial-glass .filter,
+body.celestial-glass .status,
+body.celestial-glass .calDay{
+  box-shadow:none!important;
+  transition:none!important;
+}
+body.celestial-glass .status.active,
+body.celestial-glass .filter.active,
+body.celestial-glass .nav button.active,
+body.celestial-glass .editionChoice.selected{
+  transform:none!important;
+}
+/* Avoid sticky-layer blur and unnecessary GPU promotion while scrolling. */
+body.celestial-glass .header,
+body.celestial-glass .nav{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  transition:none!important;
+}
+/* Keep the toast fix permanent and highly readable. */
+body.celestial-glass .toast{
+  background:#1d3557!important;
+  color:#fff!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+
+/* v56 — CELESTIAL GLASS: CSS-ONLY FIXED COSMOS (NO IMAGE)
+   Keep the universe entirely in CSS and fixed behind the app. */
+body.celestial-glass{
+  background:#edf4fb!important;
+  background-image:none!important;
+  background-attachment:initial!important;
+}
+body.celestial-glass::before{
+  display:block!important;
+  content:""!important;
+  position:fixed!important;
+  inset:0!important;
+  width:100vw!important;
+  height:100vh!important;
+  z-index:-1!important;
+  pointer-events:none!important;
+  opacity:1!important;
+  transform:none!important;
+  filter:none!important;
+  will-change:auto!important;
+  background:
+    /* bright fixed sun */
+    radial-gradient(circle at 88% 16%,rgba(255,255,255,.98) 0 2%,rgba(255,246,180,.92) 3.5%,rgba(255,214,92,.58) 7%,rgba(255,196,77,.20) 12%,transparent 19%),
+    /* fixed blue planet */
+    radial-gradient(circle at 13% 72%,rgba(255,255,255,.72) 0 1%,rgba(120,211,255,.88) 2%,rgba(74,158,230,.62) 5.5%,transparent 10%),
+    /* fixed lavender planet */
+    radial-gradient(circle at 79% 76%,rgba(255,255,255,.75) 0 1%,rgba(219,190,255,.88) 2%,rgba(166,126,228,.62) 5.5%,transparent 10%),
+    /* soft fixed cosmic light */
+    radial-gradient(ellipse at 8% 10%,rgba(91,210,255,.38),transparent 29%),
+    radial-gradient(ellipse at 91% 70%,rgba(110,210,255,.30),transparent 32%),
+    radial-gradient(ellipse at 11% 57%,rgba(255,166,214,.22),transparent 31%),
+    radial-gradient(ellipse at 50% 40%,rgba(255,226,132,.18),transparent 27%),
+    /* lightweight stars */
+    radial-gradient(circle at 28% 9%,rgba(255,250,209,.95) 0 1px,transparent 2px),
+    radial-gradient(circle at 52% 16%,rgba(255,255,255,.95) 0 1.3px,transparent 2.4px),
+    radial-gradient(circle at 69% 31%,rgba(190,234,255,.95) 0 1px,transparent 2px),
+    radial-gradient(circle at 38% 63%,rgba(255,223,246,.95) 0 1px,transparent 2px),
+    radial-gradient(circle at 90% 92%,rgba(255,247,197,.95) 0 1px,transparent 2px),
+    linear-gradient(135deg,#dff7ff 0%,#eaf0ff 27%,#f7eaff 53%,#e4fbff 77%,#fff0f8 100%)!important;
+  background-size:100vw 100vh!important;
+  background-repeat:no-repeat!important;
+  background-attachment:initial!important;
+}
+/* Remove expensive repeated depth painting while scrolling. */
+body.celestial-glass .card,
+body.celestial-glass .datebar,
+body.celestial-glass .session,
+body.celestial-glass .subject,
+body.celestial-glass .metric,
+body.celestial-glass .progressCard,
+body.celestial-glass .formCard,
+body.celestial-glass .noteBox,
+body.celestial-glass .calendar,
+body.celestial-glass .nav{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.68)!important;
+}
+/* Keep the previously fixed high-contrast attendance toast. */
+body.celestial-glass .toast{background:#1d3557!important;color:#fff!important;}
