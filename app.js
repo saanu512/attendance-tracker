@@ -143,7 +143,7 @@ function attendanceAdvice(r){
   }
   if(r.pct>=req){
     let canMiss=Math.floor(r.attended/q-r.held+1e-9);if(canMiss<0)canMiss=0;
-    if(canMiss===0)return '<span class="adviceGreen">✓ Attendance is enough</span><span class="adviceRed"> — but you cannot miss the next class</span>';
+    if(canMiss===0)return '<span class="adviceGreen">✓ Attendance is enough,</span><span class="adviceRed"> ⚠ but you cannot miss the next class</span>';
     return '<span class="adviceGreen">✓ Attendance is enough — you can miss '+canMiss+' more class'+(canMiss===1?'':'es')+' and still stay at or above '+req+'%</span>';
   }
   let needed=Math.ceil((q*r.held-r.attended)/(1-q));if(needed<0)needed=0;
