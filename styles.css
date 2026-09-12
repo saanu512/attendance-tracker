@@ -1774,3 +1774,67 @@ body.opal-dream .tabs .filter.active{
   transform:translateY(-2px);
   box-shadow:0 6px 0 rgba(148,113,194,.28),0 14px 24px rgba(126,103,169,.18),inset 0 1px 0 rgba(255,255,255,.98)!important;
 }
+
+
+/* v50 — CELESTIAL GLASS EDITION: luminous light-universe crystal theme */
+body.celestial-glass{
+  --bg:#edf7ff;
+  --card:rgba(255,255,255,.18);
+  --ink:#1d3557;
+  --soft:#55708d;
+  --line:rgba(118,183,224,.32);
+  --primary:#4f9ed8;
+  --metric-present:#27885c;--metric-absent:#c54f4b;--metric-pending:#b67a12;--metric-total:#377fc7;
+  color:#1d3557!important;
+  background:
+    radial-gradient(ellipse at 12% 8%,rgba(180,235,255,.72),transparent 30%),
+    radial-gradient(ellipse at 88% 14%,rgba(220,205,255,.62),transparent 32%),
+    radial-gradient(ellipse at 18% 82%,rgba(255,214,238,.45),transparent 28%),
+    radial-gradient(ellipse at 78% 78%,rgba(174,231,255,.52),transparent 34%),
+    radial-gradient(circle at 56% 44%,rgba(255,255,255,.88),transparent 38%),
+    linear-gradient(135deg,#f8fdff 0%,#e8f6ff 34%,#f4efff 66%,#fff9fc 100%)!important;
+}
+body.celestial-glass::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.9;
+  background:
+    radial-gradient(circle at 8% 18%,rgba(255,255,255,.9) 0 1px,transparent 2px),
+    radial-gradient(circle at 27% 8%,rgba(126,195,255,.75) 0 1px,transparent 2px),
+    radial-gradient(circle at 82% 23%,rgba(196,163,255,.75) 0 1px,transparent 2px),
+    radial-gradient(circle at 68% 72%,rgba(255,255,255,.9) 0 1px,transparent 2px),
+    linear-gradient(112deg,transparent 18%,rgba(255,255,255,.64) 35%,rgba(174,224,255,.22) 44%,transparent 62%),
+    linear-gradient(28deg,transparent 40%,rgba(197,179,255,.18) 51%,transparent 64%);
+  background-size:190px 170px,230px 210px,260px 240px,210px 190px,100% 100%,100% 100%;
+  filter:blur(.15px);
+}
+body.celestial-glass .card,body.celestial-glass .datebar,body.celestial-glass .editionCard,
+body.celestial-glass .editionChoice,body.celestial-glass .nav,body.celestial-glass .navBtn,
+body.celestial-glass .modalBox,body.celestial-glass .appDialog,body.celestial-glass .app-alert-box,
+body.celestial-glass .wheelTimeDialog,body.celestial-glass .activationCard{
+  background:linear-gradient(135deg,rgba(255,255,255,.32),rgba(255,255,255,.08))!important;
+  border:1px solid rgba(255,255,255,.72)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),inset 0 0 28px rgba(170,222,255,.12),0 12px 30px rgba(74,130,177,.13)!important;
+  backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);
+}
+body.celestial-glass .btn,body.celestial-glass .saveAttendance,body.celestial-glass .holiday,
+body.celestial-glass .scheduleManage,body.celestial-glass .iconbtn,body.celestial-glass .filter{
+  background:linear-gradient(145deg,rgba(255,255,255,.48),rgba(223,243,255,.22))!important;
+  color:#1f4265!important;border:1px solid rgba(255,255,255,.80)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 5px 0 rgba(104,164,207,.18),0 11px 22px rgba(70,123,165,.12)!important;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+}
+body.celestial-glass .btn:active,body.celestial-glass button:active{transform:translateY(3px) scale(.985)!important;box-shadow:inset 0 3px 14px rgba(76,145,195,.14),0 2px 0 rgba(104,164,207,.16)!important;}
+body.celestial-glass .input,body.celestial-glass textarea,body.celestial-glass select,body.celestial-glass .timeWheelTrigger,body.celestial-glass .activationInput{
+  background:rgba(255,255,255,.34)!important;color:#1d3557!important;border-color:rgba(255,255,255,.78)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 6px 18px rgba(70,130,175,.09)!important;backdrop-filter:blur(14px);
+}
+body.celestial-glass .editionChoice.selected{
+  border-color:rgba(84,151,214,.78)!important;
+  background:linear-gradient(135deg,rgba(255,255,255,.62),rgba(194,233,255,.35),rgba(220,202,255,.30))!important;
+  transform:translateY(-2px);box-shadow:0 8px 0 rgba(89,151,203,.20),0 16px 28px rgba(74,128,173,.15),inset 0 1px 0 #fff!important;
+}
+body.celestial-glass .brand,body.celestial-glass b,body.celestial-glass strong{color:#1d3557!important;}
+body.celestial-glass .small,body.celestial-glass .sub,body.celestial-glass .soft,body.celestial-glass .sessionTime,body.celestial-glass .subjectMeta{color:#526f8b!important;opacity:1!important;}
+body.celestial-glass .navBtn.active{background:linear-gradient(135deg,rgba(255,255,255,.72),rgba(188,230,255,.36))!important;box-shadow:0 5px 0 rgba(86,149,204,.20),0 10px 22px rgba(70,125,165,.13)!important;}
+body.celestial-glass .tabs .filter.active{background:linear-gradient(135deg,rgba(255,255,255,.72),rgba(185,226,255,.40))!important;border-color:rgba(83,151,211,.65)!important;transform:translateY(-2px);box-shadow:0 6px 0 rgba(83,151,211,.18),0 14px 24px rgba(70,125,165,.12)!important;}
+body.celestial-glass .cosmosEdition{background:linear-gradient(90deg,#4a9bd1,#7769c8,#d07eaf,#4aa4c8);-webkit-background-clip:text;background-clip:text;color:transparent!important;}
+body.celestial-glass .attendance-good{color:var(--green)!important;}body.celestial-glass .attendance-warning{color:var(--red)!important;}
