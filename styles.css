@@ -1496,3 +1496,183 @@ body .attendanceAdvice .attendance-message-green,
 .attendanceAdvice .attendance-message-red,
 body .attendanceAdvice .attendance-message-red,
 [data-theme] .attendanceAdvice .attendance-message-red { color:#dc3545 !important; }
+
+/* V45 — ROSHNI PEARL POPUP READABILITY LOCK
+   Pearl/glass surfaces stay unchanged; popup text is explicitly dark and fully opaque. */
+body.roshni .app-alert-box,
+body.roshni .appDialog,
+body.roshni .wheelTimeDialog,
+body.roshni .modalBox,
+[data-theme="dark"] body.roshni .app-alert-box,
+[data-theme="dark"] body.roshni .appDialog,
+[data-theme="dark"] body.roshni .wheelTimeDialog,
+[data-theme="dark"] body.roshni .modalBox{
+  color:#3f354d!important;
+}
+
+body.roshni .app-alert-title,
+body.roshni .appDialogTitle,
+body.roshni .wheelTimeTitle,
+body.roshni .modalBox h1,
+body.roshni .modalBox h2,
+body.roshni .modalBox h3,
+[data-theme="dark"] body.roshni .app-alert-title,
+[data-theme="dark"] body.roshni .appDialogTitle,
+[data-theme="dark"] body.roshni .wheelTimeTitle,
+[data-theme="dark"] body.roshni .modalBox h1,
+[data-theme="dark"] body.roshni .modalBox h2,
+[data-theme="dark"] body.roshni .modalBox h3{
+  color:#40354d!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+
+body.roshni .app-alert-message,
+body.roshni .appDialogMessage,
+body.roshni .modalBox p,
+[data-theme="dark"] body.roshni .app-alert-message,
+[data-theme="dark"] body.roshni .appDialogMessage,
+[data-theme="dark"] body.roshni .modalBox p{
+  color:#62586d!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+
+/* Keep all popup action labels readable on pearl buttons. */
+body.roshni .app-alert-ok,
+body.roshni .appDialogCancel,
+body.roshni .appDialogOk,
+body.roshni .wheelCancel,
+body.roshni .wheelOk,
+body.roshni .wheelBtn,
+[data-theme="dark"] body.roshni .app-alert-ok,
+[data-theme="dark"] body.roshni .appDialogCancel,
+[data-theme="dark"] body.roshni .appDialogOk,
+[data-theme="dark"] body.roshni .wheelCancel,
+[data-theme="dark"] body.roshni .wheelOk,
+[data-theme="dark"] body.roshni .wheelBtn{
+  opacity:1!important;
+  text-shadow:none!important;
+}
+
+/* V46 — ROSHNI PEARL COMPLETE POPUP TEXT VISIBILITY LOCK
+   Applies to every custom popup surface used anywhere in the app. */
+body.roshni .app-alert-box,
+body.roshni .appDialog,
+body.roshni .wheelTimeDialog,
+body.roshni .modalBox,
+body.roshni .activationCard,
+[data-theme="dark"] body.roshni .app-alert-box,
+[data-theme="dark"] body.roshni .appDialog,
+[data-theme="dark"] body.roshni .wheelTimeDialog,
+[data-theme="dark"] body.roshni .modalBox,
+[data-theme="dark"] body.roshni .activationCard{
+  color:#342b40!important;
+  opacity:1!important;
+}
+
+/* Every normal text node inside a Pearl popup is explicitly readable. */
+body.roshni .app-alert-box :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.app-alert-title,.app-alert-message),
+body.roshni .appDialog :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.appDialogTitle,.appDialogMessage),
+body.roshni .wheelTimeDialog :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.wheelTimeTitle),
+body.roshni .modalBox :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.sessionName,.sectionTitle),
+body.roshni .activationCard :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.activationTitle,.activationText),
+[data-theme="dark"] body.roshni .app-alert-box :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.app-alert-title,.app-alert-message),
+[data-theme="dark"] body.roshni .appDialog :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.appDialogTitle,.appDialogMessage),
+[data-theme="dark"] body.roshni .wheelTimeDialog :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.wheelTimeTitle),
+[data-theme="dark"] body.roshni .modalBox :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.sessionName,.sectionTitle),
+[data-theme="dark"] body.roshni .activationCard :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.activationTitle,.activationText){
+  color:#4a4056!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+
+/* Popup headings are darker than descriptions for clear hierarchy. */
+body.roshni .app-alert-title,
+body.roshni .appDialogTitle,
+body.roshni .wheelTimeTitle,
+body.roshni .modalBox h1,
+body.roshni .modalBox h2,
+body.roshni .modalBox h3,
+body.roshni .modalBox h4,
+body.roshni .activationTitle,
+[data-theme="dark"] body.roshni .app-alert-title,
+[data-theme="dark"] body.roshni .appDialogTitle,
+[data-theme="dark"] body.roshni .wheelTimeTitle,
+[data-theme="dark"] body.roshni .modalBox h1,
+[data-theme="dark"] body.roshni .modalBox h2,
+[data-theme="dark"] body.roshni .modalBox h3,
+[data-theme="dark"] body.roshni .modalBox h4,
+[data-theme="dark"] body.roshni .activationTitle{
+  color:#33293f!important;
+  opacity:1!important;
+  font-weight:900!important;
+}
+
+/* Descriptions and explanatory text stay comfortably dark, never faded. */
+body.roshni .app-alert-message,
+body.roshni .appDialogMessage,
+body.roshni .activationText,
+body.roshni .modalBox p,
+[data-theme="dark"] body.roshni .app-alert-message,
+[data-theme="dark"] body.roshni .appDialogMessage,
+[data-theme="dark"] body.roshni .activationText,
+[data-theme="dark"] body.roshni .modalBox p{
+  color:#62566d!important;
+  opacity:1!important;
+}
+
+/* Inputs, placeholders and picker values remain visible on every Pearl popup. */
+body.roshni .modalBox input,
+body.roshni .modalBox textarea,
+body.roshni .modalBox select,
+body.roshni .activationInput,
+[data-theme="dark"] body.roshni .modalBox input,
+[data-theme="dark"] body.roshni .modalBox textarea,
+[data-theme="dark"] body.roshni .modalBox select,
+[data-theme="dark"] body.roshni .activationInput{
+  color:#41364d!important;
+  opacity:1!important;
+}
+body.roshni .modalBox input::placeholder,
+body.roshni .modalBox textarea::placeholder,
+body.roshni .activationInput::placeholder,
+[data-theme="dark"] body.roshni .modalBox input::placeholder,
+[data-theme="dark"] body.roshni .modalBox textarea::placeholder,
+[data-theme="dark"] body.roshni .activationInput::placeholder{
+  color:#786d80!important;
+  opacity:1!important;
+}
+
+/* Time picker: selected value and surrounding values are both readable. */
+body.roshni .wheelItem,
+[data-theme="dark"] body.roshni .wheelItem{
+  color:#756b80!important;
+  opacity:1!important;
+}
+body.roshni .wheelItem.selected,
+[data-theme="dark"] body.roshni .wheelItem.selected{
+  color:#34293f!important;
+  opacity:1!important;
+  font-weight:800!important;
+}
+
+/* Action buttons always keep strong readable labels. */
+body.roshni .app-alert-ok,
+body.roshni .appDialogCancel,
+body.roshni .appDialogOk,
+body.roshni .wheelCancel,
+body.roshni .wheelOk,
+body.roshni .wheelBtn,
+body.roshni .activationBtn,
+[data-theme="dark"] body.roshni .app-alert-ok,
+[data-theme="dark"] body.roshni .appDialogCancel,
+[data-theme="dark"] body.roshni .appDialogOk,
+[data-theme="dark"] body.roshni .wheelCancel,
+[data-theme="dark"] body.roshni .wheelOk,
+[data-theme="dark"] body.roshni .wheelBtn,
+[data-theme="dark"] body.roshni .activationBtn{
+  color:#42354f!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
