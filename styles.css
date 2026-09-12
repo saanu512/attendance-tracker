@@ -1288,3 +1288,125 @@ body.roshni .progressText,body.roshni .sessionTime,body.roshni .locktag,
 [data-theme="dark"] body.roshni .sub,[data-theme="dark"] body.roshni .soft,
 [data-theme="dark"] body.roshni .progressText,[data-theme="dark"] body.roshni .sessionTime,
 [data-theme="dark"] body.roshni .locktag{color:#4a4059!important;opacity:1!important;}
+
+/* V36 — ROSHNI PEARL EDITION: light beams + mother-of-pearl consistency */
+/* A gentle darker base is retained only behind the illumination so the light beams are visible. */
+body.roshni,
+[data-theme="dark"] body.roshni{
+  background:
+    radial-gradient(ellipse 70% 34% at 50% 16%,rgba(255,255,255,.96) 0%,rgba(255,239,205,.74) 23%,transparent 67%),
+    radial-gradient(ellipse 46% 58% at 12% 44%,rgba(255,220,244,.52) 0%,transparent 70%),
+    radial-gradient(ellipse 50% 48% at 92% 55%,rgba(232,211,255,.54) 0%,transparent 72%),
+    linear-gradient(128deg,rgba(92,78,118,.50) 0%,rgba(154,122,162,.42) 19%,rgba(255,238,210,.78) 43%,rgba(255,255,255,.86) 55%,rgba(247,190,190,.66) 76%,rgba(122,99,145,.50) 100%)!important;
+  background-attachment:fixed!important;
+}
+body.roshni::before{
+  z-index:0!important;
+  opacity:1!important;
+  background:
+    linear-gradient(118deg,transparent 0%,transparent 20%,rgba(255,255,255,.18) 27%,rgba(255,248,220,.70) 39%,rgba(255,255,255,.36) 48%,transparent 62%),
+    linear-gradient(72deg,transparent 6%,rgba(255,235,188,.30) 28%,rgba(255,255,255,.52) 43%,transparent 60%),
+    radial-gradient(ellipse 58% 16% at 50% 18%,rgba(255,255,255,.52),transparent 72%);
+  filter:blur(22px)!important;
+}
+body.roshni .app,body.roshni .header{position:relative;z-index:1;background:transparent!important;}
+
+/* Mother-of-pearl surface used everywhere in this edition. */
+body.roshni .card,
+body.roshni .datebar,
+body.roshni .formCard,
+body.roshni .noteBox,
+body.roshni .calendar,
+body.roshni .modalBox,
+body.roshni .appDialog,
+body.roshni .app-alert-box,
+body.roshni .wheelTimeDialog,
+body.roshni .activationCard,
+[data-theme="dark"] body.roshni .card,
+[data-theme="dark"] body.roshni .datebar,
+[data-theme="dark"] body.roshni .formCard,
+[data-theme="dark"] body.roshni .noteBox,
+[data-theme="dark"] body.roshni .calendar,
+[data-theme="dark"] body.roshni .modalBox,
+[data-theme="dark"] body.roshni .appDialog,
+[data-theme="dark"] body.roshni .app-alert-box,
+[data-theme="dark"] body.roshni .wheelTimeDialog,
+[data-theme="dark"] body.roshni .activationCard{
+  background:linear-gradient(135deg,rgba(255,255,255,.84),rgba(255,248,241,.72) 34%,rgba(248,239,255,.70) 67%,rgba(255,235,239,.72))!important;
+  border:1px solid rgba(255,255,255,.94)!important;
+  box-shadow:0 16px 36px rgba(90,61,108,.14),inset 0 1px 0 rgba(255,255,255,.98),inset 0 -1px 0 rgba(194,163,208,.20)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(140%);
+  backdrop-filter:blur(20px) saturate(140%);
+}
+
+/* Time badges are luminous pearl, never navy/black. */
+body.roshni .sessionTime,
+[data-theme="dark"] body.roshni .sessionTime{
+  background:linear-gradient(135deg,rgba(255,255,255,.82),rgba(243,231,255,.78),rgba(255,239,220,.76))!important;
+  color:#59476c!important;
+  border:1px solid rgba(255,255,255,.92)!important;
+  box-shadow:0 5px 14px rgba(100,72,119,.10),inset 0 1px 0 rgba(255,255,255,.98)!important;
+}
+
+/* Attendance advice is also pearl/light; semantic text colors remain unchanged. */
+body.roshni .attendanceAdvice,
+[data-theme="dark"] body.roshni .attendanceAdvice{
+  background:linear-gradient(135deg,rgba(255,255,255,.74),rgba(249,241,255,.68),rgba(255,245,232,.68))!important;
+  border:1px solid rgba(255,255,255,.88)!important;
+  border-radius:16px!important;
+  padding:12px 14px!important;
+  color:#5a4c66!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.94),0 6px 16px rgba(100,72,119,.08)!important;
+}
+body.roshni .attendanceEnough,[data-theme="dark"] body.roshni .attendanceEnough{color:#27885c!important;}
+body.roshni .cannotMiss,[data-theme="dark"] body.roshni .cannotMiss{color:#c54f4b!important;}
+
+/* Every popup and overlay gets the same luminous treatment. */
+body.roshni .modal,
+body.roshni .wheelTimeOverlay,
+body.roshni .appDialogOverlay,
+body.roshni .app-alert-overlay{
+  background:linear-gradient(135deg,rgba(93,75,108,.28),rgba(255,230,214,.26),rgba(128,104,151,.24))!important;
+  -webkit-backdrop-filter:blur(8px) brightness(1.04);
+  backdrop-filter:blur(8px) brightness(1.04);
+}
+body.roshni .wheelWrap:before{
+  background:linear-gradient(135deg,rgba(255,255,255,.70),rgba(237,220,255,.62),rgba(255,232,214,.62))!important;
+  border-color:rgba(255,255,255,.92)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.96)!important;
+}
+body.roshni .wheelWrap:after{
+  background:linear-gradient(to bottom,rgba(255,255,255,.92) 0%,rgba(255,255,255,.14) 24%,rgba(255,255,255,.14) 76%,rgba(255,255,255,.92) 100%)!important;
+}
+body.roshni .wheelItem,[data-theme="dark"] body.roshni .wheelItem{color:#9b91a7!important;}
+body.roshni .wheelItem.selected,[data-theme="dark"] body.roshni .wheelItem.selected{color:#493b59!important;}
+body.roshni .wheelCancel,
+body.roshni .appDialogCancel,
+body.roshni .appDialogBtn,
+body.roshni .wheelBtn,
+body.roshni .app-alert-ok,
+[data-theme="dark"] body.roshni .wheelCancel,
+[data-theme="dark"] body.roshni .appDialogCancel,
+[data-theme="dark"] body.roshni .appDialogBtn,
+[data-theme="dark"] body.roshni .wheelBtn,
+[data-theme="dark"] body.roshni .app-alert-ok{
+  background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(246,235,250,.82))!important;
+  color:#4d3f5c!important;
+  border-color:rgba(255,255,255,.94)!important;
+  box-shadow:0 4px 0 rgba(185,157,194,.65),0 9px 18px rgba(91,64,109,.12),inset 0 1px 0 #fff!important;
+}
+body.roshni .wheelOk,
+body.roshni .appDialogOk{
+  background:linear-gradient(135deg,#f3d8ff,#cdb8f2 55%,#e7b9d5)!important;
+  color:#493657!important;
+  border-color:rgba(255,255,255,.92)!important;
+  box-shadow:0 4px 0 #aa8fc4,0 9px 18px rgba(103,74,126,.16),inset 0 1px 0 rgba(255,255,255,.9)!important;
+}
+
+/* Keep navigation, chips and controls pearl-bright even when base theme is dark. */
+body.roshni .nav,
+[data-theme="dark"] body.roshni .nav{
+  background:linear-gradient(135deg,rgba(255,255,255,.84),rgba(250,241,255,.78),rgba(255,239,232,.76))!important;
+  -webkit-backdrop-filter:blur(22px) saturate(145%);
+  backdrop-filter:blur(22px) saturate(145%);
+}
