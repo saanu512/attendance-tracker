@@ -1050,3 +1050,241 @@ body.roshni .grid4 .totalMetric > b,body.roshni .grid4 .totalMetric > span{color
 body.roshni .tabs .filter.active{background:linear-gradient(145deg,#ffe7a8,#e6c3ee)!important;color:#563e67!important;border-color:#d39b4c!important;box-shadow:0 4px 0 #bb8b54,0 0 16px rgba(255,200,104,.28)!important;transform:translateY(-1px);}
 body.roshni .cosmosEdition{background:linear-gradient(90deg,#b97918,#e49775,#8c6bc0);-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:0 0 14px rgba(255,224,143,.30);}
 body.roshni .safe{color:#27885c!important;}body.roshni .warning{color:#b67a12!important;}body.roshni .danger{color:#c54f4b!important;}
+
+/* V34 — Roshni Edition light correction: remove all dark/black card surfaces */
+body.roshni .card,
+body.roshni .datebar,
+body.roshni .formCard,
+body.roshni .noteBox,
+body.roshni .calendar,
+body.roshni .modalBox,
+body.roshni .appDialog,
+body.roshni .app-alert-box,
+body.roshni .wheelTimeDialog,
+body.roshni .activationCard{
+  background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(255,248,250,.68) 52%,rgba(243,235,255,.66))!important;
+  border:1px solid rgba(255,255,255,.88)!important;
+  box-shadow:0 14px 30px rgba(105,73,126,.16),inset 0 1px 0 rgba(255,255,255,.92)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(125%);
+  backdrop-filter:blur(16px) saturate(125%);
+}
+
+/* Keep attendance status information light and readable while preserving its meaning. */
+body.roshni .statsHero.statsGood,
+[data-theme="dark"] body.roshni .statsHero.statsGood,
+body.roshni .subject.statsGood,
+[data-theme="dark"] body.roshni .subject.statsGood{
+  background:linear-gradient(135deg,rgba(236,255,245,.82),rgba(220,249,233,.68) 55%,rgba(255,255,255,.62))!important;
+  border-color:rgba(75,173,116,.48)!important;
+}
+body.roshni .statsHero.statsBad,
+[data-theme="dark"] body.roshni .statsHero.statsBad,
+body.roshni .subject.statsBad,
+[data-theme="dark"] body.roshni .subject.statsBad{
+  background:linear-gradient(135deg,rgba(255,242,241,.84),rgba(255,225,222,.68) 55%,rgba(255,255,255,.62))!important;
+  border-color:rgba(213,90,84,.46)!important;
+}
+body.roshni .statsHero:not(.statsGood):not(.statsBad){background:linear-gradient(145deg,rgba(255,255,255,.80),rgba(248,239,255,.68))!important;}
+
+/* Remove the old dark pseudo-layer from the overall and subject attendance cards. */
+body.roshni .statsHero.statsGood::before,
+body.roshni .statsHero.statsBad::before,
+body.roshni .subject.statsGood::before,
+body.roshni .subject.statsBad::before,
+[data-theme="dark"] body.roshni .statsHero.statsGood::before,
+[data-theme="dark"] body.roshni .statsHero.statsBad::before,
+[data-theme="dark"] body.roshni .subject.statsGood::before,
+[data-theme="dark"] body.roshni .subject.statsBad::before{display:none!important;}
+
+/* Light pearl statistic cards, never dark. */
+body.roshni .metric,
+[data-theme="dark"] body.roshni .metric{
+  background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(248,240,255,.70))!important;
+  border-color:rgba(255,255,255,.90)!important;
+}
+
+/* Light translucent information chips inside subject cards. */
+body.roshni .subjectMeta span,
+body.roshni .statsLegend span,
+[data-theme="dark"] body.roshni .subjectMeta span,
+[data-theme="dark"] body.roshni .statsLegend span{
+  background:rgba(255,255,255,.64)!important;
+  border:1px solid rgba(255,255,255,.78)!important;
+  box-shadow:0 4px 10px rgba(99,72,120,.09),inset 0 1px 0 rgba(255,255,255,.9)!important;
+}
+
+/* Inputs, progress tracks and secondary surfaces also stay luminous. */
+body.roshni .input,body.roshni textarea,body.roshni select,
+body.roshni .timeWheelTrigger,body.roshni .activationInput,
+[data-theme="dark"] body.roshni .input,[data-theme="dark"] body.roshni textarea,[data-theme="dark"] body.roshni select{
+  background:rgba(255,255,255,.72)!important;
+  color:#41384f!important;
+}
+body.roshni .progress,body.roshni .bar{background:rgba(255,255,255,.56)!important;}
+
+/* Ensure the semantic colors remain strong on the new luminous surfaces. */
+body.roshni .statsHero.statsGood .ring{background:conic-gradient(#55bd82 var(--p),rgba(255,255,255,.70) 0)!important;}
+body.roshni .statsHero.statsBad .ring{background:conic-gradient(#dc7168 var(--p),rgba(255,255,255,.70) 0)!important;}
+body.roshni .subject.statsGood .pct{color:#27885c!important;}
+body.roshni .subject.statsBad .pct{color:#c54f4b!important;}
+
+/* V35 — Roshni Edition: complete luminous surface pass. No dark UI panels. */
+body.roshni,
+[data-theme="dark"] body.roshni{color:#332d4a!important;}
+
+/* Every app surface stays pearl/light/translucent in Roshni, even if the saved base theme is dark. */
+body.roshni .card,
+body.roshni .progressCard,
+body.roshni .statsHero,
+body.roshni .subject,
+body.roshni .metric,
+body.roshni .formCard,
+body.roshni .calendar,
+body.roshni .noteBox,
+body.roshni .datebar,
+body.roshni .modalBox,
+body.roshni .appDialog,
+body.roshni .app-alert-box,
+body.roshni .wheelTimeDialog,
+body.roshni .activationCard,
+[data-theme="dark"] body.roshni .card,
+[data-theme="dark"] body.roshni .progressCard,
+[data-theme="dark"] body.roshni .statsHero,
+[data-theme="dark"] body.roshni .subject,
+[data-theme="dark"] body.roshni .metric,
+[data-theme="dark"] body.roshni .formCard,
+[data-theme="dark"] body.roshni .calendar,
+[data-theme="dark"] body.roshni .noteBox,
+[data-theme="dark"] body.roshni .datebar,
+[data-theme="dark"] body.roshni .modalBox,
+[data-theme="dark"] body.roshni .appDialog,
+[data-theme="dark"] body.roshni .app-alert-box,
+[data-theme="dark"] body.roshni .wheelTimeDialog,
+[data-theme="dark"] body.roshni .activationCard{
+  background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(255,248,250,.73) 48%,rgba(244,236,255,.70))!important;
+  color:#332d4a!important;
+  border-color:rgba(255,255,255,.92)!important;
+  box-shadow:0 14px 32px rgba(104,70,126,.14),inset 0 1px 0 rgba(255,255,255,.98),inset 0 -1px 0 rgba(189,160,204,.16)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(130%);
+  backdrop-filter:blur(18px) saturate(130%);
+}
+
+/* Good/bad attendance cards remain light but clearly communicate green/red status. */
+body.roshni .statsHero.statsGood,
+body.roshni .subject.statsGood,
+[data-theme="dark"] body.roshni .statsHero.statsGood,
+[data-theme="dark"] body.roshni .subject.statsGood{
+  background:linear-gradient(135deg,rgba(242,255,247,.88),rgba(213,247,227,.76) 56%,rgba(255,255,255,.72))!important;
+  border-color:rgba(67,174,111,.48)!important;
+}
+body.roshni .statsHero.statsBad,
+body.roshni .subject.statsBad,
+[data-theme="dark"] body.roshni .statsHero.statsBad,
+[data-theme="dark"] body.roshni .subject.statsBad{
+  background:linear-gradient(135deg,rgba(255,247,246,.89),rgba(255,224,221,.77) 56%,rgba(255,255,255,.72))!important;
+  border-color:rgba(212,83,78,.46)!important;
+}
+
+/* Remove any inherited dark overlays/pseudo surfaces. */
+body.roshni .statsHero::before,
+body.roshni .statsHero::after,
+body.roshni .subject::before,
+body.roshni .subject::after{background:none!important;opacity:0!important;display:none!important;}
+
+/* Subject information pills and status messages become soft luminous chips. */
+body.roshni .subjectMeta span,
+body.roshni .statsLegend span,
+body.roshni .subjectMeta .metaPresent,
+body.roshni .subjectMeta .metaAbsent,
+body.roshni .subjectMeta .metaHeld,
+body.roshni .subjectMeta .metaCancelled,
+[data-theme="dark"] body.roshni .subjectMeta span,
+[data-theme="dark"] body.roshni .statsLegend span{
+  background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(247,239,252,.62))!important;
+  border:1px solid rgba(255,255,255,.88)!important;
+  box-shadow:0 4px 11px rgba(97,70,119,.09),inset 0 1px 0 rgba(255,255,255,.96)!important;
+}
+body.roshni .subjectMeta .metaPresent{color:#27885c!important;}
+body.roshni .subjectMeta .metaAbsent{color:#c54f4b!important;}
+body.roshni .subjectMeta .metaHeld{color:#7055ad!important;}
+body.roshni .subjectMeta .metaCancelled{color:#a76f12!important;}
+
+/* All controls use light pearl surfaces; no black/dark button backgrounds. */
+body.roshni .btn,
+body.roshni .saveAttendance,
+body.roshni .holiday,
+body.roshni .scheduleManage,
+body.roshni .navBtn,
+body.roshni .iconbtn,
+body.roshni .filter,
+body.roshni .editionChoice,
+body.roshni .status:not(.active),
+body.roshni .calDay,
+[data-theme="dark"] body.roshni .btn,
+[data-theme="dark"] body.roshni .saveAttendance,
+[data-theme="dark"] body.roshni .holiday,
+[data-theme="dark"] body.roshni .scheduleManage,
+[data-theme="dark"] body.roshni .navBtn,
+[data-theme="dark"] body.roshni .iconbtn,
+[data-theme="dark"] body.roshni .filter,
+[data-theme="dark"] body.roshni .editionChoice,
+[data-theme="dark"] body.roshni .status:not(.active),
+[data-theme="dark"] body.roshni .calDay{
+  background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(247,237,247,.76))!important;
+  color:#4c3e61!important;
+  border-color:rgba(255,255,255,.92)!important;
+  box-shadow:0 5px 13px rgba(92,63,112,.13),inset 0 1px 0 rgba(255,255,255,.98)!important;
+}
+
+/* Inputs and small functional surfaces stay bright and readable. */
+body.roshni .input,
+body.roshni textarea,
+body.roshni select,
+body.roshni .timeWheelTrigger,
+body.roshni .activationInput,
+body.roshni .progress,
+body.roshni .bar,
+[data-theme="dark"] body.roshni .input,
+[data-theme="dark"] body.roshni textarea,
+[data-theme="dark"] body.roshni select,
+[data-theme="dark"] body.roshni .timeWheelTrigger,
+[data-theme="dark"] body.roshni .activationInput,
+[data-theme="dark"] body.roshni .progress,
+[data-theme="dark"] body.roshni .bar{
+  background:rgba(255,255,255,.68)!important;
+  color:#41384f!important;
+  border-color:rgba(255,255,255,.86)!important;
+}
+
+/* Navigation, toast and banners also remain luminous. */
+body.roshni .nav,
+[data-theme="dark"] body.roshni .nav{
+  background:linear-gradient(145deg,rgba(255,252,249,.88),rgba(244,235,250,.80))!important;
+  border-color:rgba(255,255,255,.92)!important;
+  box-shadow:0 -8px 26px rgba(91,63,112,.12),inset 0 1px 0 rgba(255,255,255,.96)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(135%);
+  backdrop-filter:blur(20px) saturate(135%);
+}
+body.roshni .toast,
+[data-theme="dark"] body.roshni .toast{
+  background:linear-gradient(145deg,#fffdfb,#f3e8f4)!important;
+  color:#493c5a!important;
+  border:1px solid rgba(255,255,255,.92)!important;
+  box-shadow:0 10px 25px rgba(93,62,112,.18)!important;
+}
+body.roshni .banner.info{background:rgba(245,232,255,.82)!important;}
+body.roshni .banner.warn{background:rgba(255,242,202,.86)!important;}
+body.roshni .banner.lock{background:rgba(240,231,255,.86)!important;}
+
+/* Keep all normal text dark enough to remain fully readable on the luminous theme. */
+body.roshni .brand,body.roshni b,body.roshni strong,body.roshni .label,
+body.roshni .sessionName,body.roshni .subjectName,body.roshni .sectionTitle,
+body.roshni .statsHero,body.roshni .small,body.roshni .sub,body.roshni .soft,
+body.roshni .progressText,body.roshni .sessionTime,body.roshni .locktag,
+[data-theme="dark"] body.roshni .brand,[data-theme="dark"] body.roshni b,[data-theme="dark"] body.roshni strong,
+[data-theme="dark"] body.roshni .label,[data-theme="dark"] body.roshni .sessionName,
+[data-theme="dark"] body.roshni .subjectName,[data-theme="dark"] body.roshni .sectionTitle,
+[data-theme="dark"] body.roshni .statsHero,[data-theme="dark"] body.roshni .small,
+[data-theme="dark"] body.roshni .sub,[data-theme="dark"] body.roshni .soft,
+[data-theme="dark"] body.roshni .progressText,[data-theme="dark"] body.roshni .sessionTime,
+[data-theme="dark"] body.roshni .locktag{color:#4a4059!important;opacity:1!important;}
