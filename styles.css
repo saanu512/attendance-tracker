@@ -1838,3 +1838,57 @@ body.celestial-glass .navBtn.active{background:linear-gradient(135deg,rgba(255,2
 body.celestial-glass .tabs .filter.active{background:linear-gradient(135deg,rgba(255,255,255,.72),rgba(185,226,255,.40))!important;border-color:rgba(83,151,211,.65)!important;transform:translateY(-2px);box-shadow:0 6px 0 rgba(83,151,211,.18),0 14px 24px rgba(70,125,165,.12)!important;}
 body.celestial-glass .cosmosEdition{background:linear-gradient(90deg,#4a9bd1,#7769c8,#d07eaf,#4aa4c8);-webkit-background-clip:text;background-clip:text;color:transparent!important;}
 body.celestial-glass .attendance-good{color:var(--green)!important;}body.celestial-glass .attendance-warning{color:var(--red)!important;}
+
+/* v51 — CELESTIAL GLASS: brighter light cosmos + fully transparent crystal surfaces */
+body.celestial-glass{
+  --bg:#eaf8ff;
+  background:
+    radial-gradient(ellipse at 6% 8%,rgba(83,211,255,.52),transparent 28%),
+    radial-gradient(ellipse at 94% 10%,rgba(196,139,255,.46),transparent 31%),
+    radial-gradient(ellipse at 10% 58%,rgba(255,156,212,.34),transparent 30%),
+    radial-gradient(ellipse at 90% 72%,rgba(79,204,255,.44),transparent 34%),
+    radial-gradient(ellipse at 48% 38%,rgba(255,238,168,.28),transparent 26%),
+    radial-gradient(ellipse at 50% 100%,rgba(180,235,255,.52),transparent 40%),
+    linear-gradient(135deg,#dff7ff 0%,#eaf0ff 25%,#f7eaff 52%,#e4fbff 76%,#fff0f8 100%)!important;
+}
+body.celestial-glass::before{
+  opacity:1!important;
+  background:
+    radial-gradient(circle at 6% 15%,rgba(255,255,255,.98) 0 1px,transparent 2px),
+    radial-gradient(circle at 19% 36%,rgba(120,221,255,.78) 0 1.2px,transparent 2.4px),
+    radial-gradient(circle at 35% 7%,rgba(255,255,255,.94) 0 1px,transparent 2px),
+    radial-gradient(circle at 58% 22%,rgba(208,174,255,.88) 0 1.1px,transparent 2.2px),
+    radial-gradient(circle at 76% 13%,rgba(255,255,255,.98) 0 1px,transparent 2px),
+    radial-gradient(circle at 91% 38%,rgba(255,186,224,.82) 0 1px,transparent 2px),
+    radial-gradient(circle at 70% 82%,rgba(255,255,255,.96) 0 1.1px,transparent 2.2px),
+    radial-gradient(circle at 24% 86%,rgba(122,214,255,.78) 0 1px,transparent 2px),
+    linear-gradient(118deg,transparent 16%,rgba(255,255,255,.46) 33%,rgba(139,224,255,.22) 44%,rgba(255,194,233,.14) 52%,transparent 68%),
+    linear-gradient(30deg,transparent 38%,rgba(188,158,255,.18) 49%,rgba(255,255,255,.28) 54%,transparent 65%)!important;
+  background-size:210px 190px,270px 230px,230px 200px,300px 260px,250px 220px,290px 240px,220px 210px,280px 250px,100% 100%,100% 100%!important;
+}
+/* Nearly clear crystal surfaces: the bright cosmos stays visible through every layer. */
+body.celestial-glass .card,body.celestial-glass .datebar,body.celestial-glass .editionCard,
+body.celestial-glass .editionChoice,body.celestial-glass .nav,body.celestial-glass .navBtn,
+body.celestial-glass .modalBox,body.celestial-glass .appDialog,body.celestial-glass .app-alert-box,
+body.celestial-glass .wheelTimeDialog,body.celestial-glass .activationCard{
+  background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.035))!important;
+  border-color:rgba(255,255,255,.72)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),inset 0 0 26px rgba(120,216,255,.08),0 10px 28px rgba(72,133,185,.10)!important;
+  backdrop-filter:blur(15px) saturate(165%)!important;-webkit-backdrop-filter:blur(15px) saturate(165%)!important;
+}
+body.celestial-glass .btn,body.celestial-glass .saveAttendance,body.celestial-glass .holiday,
+body.celestial-glass .scheduleManage,body.celestial-glass .iconbtn,body.celestial-glass .filter{
+  background:linear-gradient(145deg,rgba(255,255,255,.20),rgba(255,255,255,.045))!important;
+  border-color:rgba(255,255,255,.76)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.94),0 5px 0 rgba(93,165,214,.13),0 10px 20px rgba(70,123,165,.08)!important;
+}
+body.celestial-glass .input,body.celestial-glass textarea,body.celestial-glass select,body.celestial-glass .timeWheelTrigger,body.celestial-glass .activationInput{
+  background:rgba(255,255,255,.12)!important;
+  border-color:rgba(255,255,255,.74)!important;
+}
+body.celestial-glass .navBtn.active,body.celestial-glass .tabs .filter.active{
+  background:linear-gradient(135deg,rgba(255,255,255,.34),rgba(160,222,255,.16),rgba(220,190,255,.14))!important;
+}
+body.celestial-glass .editionChoice.selected{
+  background:linear-gradient(135deg,rgba(255,255,255,.38),rgba(150,220,255,.18),rgba(220,180,255,.16))!important;
+}
