@@ -1676,3 +1676,74 @@ body.roshni .activationBtn,
   opacity:1!important;
   text-shadow:none!important;
 }
+
+
+/* v48 — OPAL DREAM EDITION: bright opalescent crystal/glass theme */
+body.opal-dream{
+  --bg:#f8f8ff;
+  --card:rgba(255,255,255,.54);
+  --ink:#263047;
+  --soft:#69728a;
+  --line:rgba(139,151,190,.28);
+  --primary:#8c6de8;
+  background:
+    radial-gradient(circle at 8% 12%,rgba(255,171,210,.32),transparent 27%),
+    radial-gradient(circle at 88% 10%,rgba(146,202,255,.34),transparent 30%),
+    radial-gradient(circle at 78% 78%,rgba(210,174,255,.26),transparent 32%),
+    radial-gradient(circle at 15% 86%,rgba(255,219,168,.30),transparent 30%),
+    linear-gradient(135deg,#fffdfd 0%,#f7f5ff 32%,#f2fbff 62%,#fff8fb 100%)!important;
+  color:#263047!important;
+}
+body.opal-dream::before{
+  content:"";position:fixed;inset:-12%;pointer-events:none;z-index:-1;
+  background:
+    linear-gradient(112deg,transparent 20%,rgba(255,255,255,.62) 38%,transparent 56%),
+    linear-gradient(72deg,transparent 34%,rgba(190,230,255,.28) 46%,transparent 60%),
+    linear-gradient(145deg,transparent 42%,rgba(255,190,220,.22) 55%,transparent 69%);
+  filter:blur(18px);
+}
+body.opal-dream .card,
+body.opal-dream .datebar,
+body.opal-dream .editionCard,
+body.opal-dream .editionChoice,
+body.opal-dream .nav,
+body.opal-dream .navBtn,
+body.opal-dream .modalBox,
+body.opal-dream .appDialog,
+body.opal-dream .app-alert-box,
+body.opal-dream .wheelTimeDialog,
+body.opal-dream .activationCard{
+  background:linear-gradient(135deg,rgba(255,255,255,.70),rgba(255,255,255,.34))!important;
+  border:1px solid rgba(255,255,255,.82)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 24px rgba(182,201,255,.10),0 10px 28px rgba(104,115,156,.14)!important;
+  backdrop-filter:blur(18px) saturate(135%);-webkit-backdrop-filter:blur(18px) saturate(135%);
+}
+body.opal-dream .btn,
+body.opal-dream .saveAttendance,
+body.opal-dream .holiday,
+body.opal-dream .scheduleManage,
+body.opal-dream .iconbtn,
+body.opal-dream .filter{
+  background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(241,238,255,.64))!important;
+  color:#303752!important;
+  border:1px solid rgba(255,255,255,.92)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.98),0 5px 0 rgba(180,174,211,.30),0 11px 20px rgba(110,104,150,.13)!important;
+}
+body.opal-dream .btn:active,body.opal-dream button:active{transform:translateY(3px) scale(.985);box-shadow:inset 0 3px 12px rgba(117,105,159,.12),0 2px 0 rgba(180,174,211,.24)!important;}
+body.opal-dream .input,body.opal-dream textarea,body.opal-dream select,body.opal-dream .timeWheelTrigger,body.opal-dream .activationInput{
+  background:rgba(255,255,255,.62)!important;color:#273047!important;border-color:rgba(255,255,255,.92)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.98),0 6px 16px rgba(112,120,160,.09)!important;
+}
+body.opal-dream .editionChoice.selected{
+  border-color:rgba(167,110,211,.75)!important;
+  background:linear-gradient(135deg,rgba(255,255,255,.88),rgba(244,226,255,.68),rgba(222,241,255,.68))!important;
+  transform:translateY(-2px);
+  box-shadow:0 8px 0 rgba(156,113,199,.22),0 16px 26px rgba(133,102,170,.16),inset 0 1px 0 #fff!important;
+}
+body.opal-dream .brand,body.opal-dream b,body.opal-dream strong{color:#273047!important;}
+body.opal-dream .small,body.opal-dream .sub,body.opal-dream .soft,body.opal-dream .sessionTime,body.opal-dream .subjectMeta{color:#687189!important;opacity:1!important;}
+body.opal-dream .cosmosEdition{background:linear-gradient(90deg,#d77cad,#8b74dd,#65a9df,#d08a66);-webkit-background-clip:text;background-clip:text;color:transparent!important;}
+body.opal-dream .navBtn.active{background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(234,222,255,.72))!important;box-shadow:0 5px 0 rgba(146,118,190,.24),0 10px 22px rgba(130,108,170,.14)!important;}
+/* Preserve global semantic attendance message colors in Opal Dream. */
+body.opal-dream .attendance-good{color:var(--green)!important;}
+body.opal-dream .attendance-warning{color:var(--red)!important;}
