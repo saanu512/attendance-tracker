@@ -1471,8 +1471,8 @@ body.roshni .editionChoices .editionChoice.selected::after{content:"✓ Selected
 
 /* V39 — Roshni Pearl: mixed-colour attendance information and refined selected edition state. */
 /* Permanent semantic attendance-message colors: global across every edition/theme. */
-.attendanceAdvice .adviceGreen{color:#198754!important;font-weight:850!important;}
-.attendanceAdvice .adviceRed{color:#dc3545!important;font-weight:850!important;}
+.attendanceAdvice .adviceGreen{color:var(--green)!important;font-weight:850!important;}
+.attendanceAdvice .adviceRed{color:var(--red)!important;font-weight:850!important;}
 body.roshni .attendanceAdvice .adviceNeutralText,[data-theme="dark"] body.roshni .attendanceAdvice .adviceNeutralText{color:#6a6175!important;font-weight:800!important;}
 
 /* Selected edition: pearly red border + gentle raised button, with no tick or Selected label. */
@@ -1492,10 +1492,10 @@ body.roshni .editionChoices .editionChoice.selected::after{content:none!importan
    These colors are core app behavior and must not change with any edition/theme. */
 .attendanceAdvice .attendance-message-green,
 body .attendanceAdvice .attendance-message-green,
-[data-theme] .attendanceAdvice .attendance-message-green { color:#198754 !important; }
+[data-theme] .attendanceAdvice .attendance-message-green { color:var(--green) !important; }
 .attendanceAdvice .attendance-message-red,
 body .attendanceAdvice .attendance-message-red,
-[data-theme] .attendanceAdvice .attendance-message-red { color:#dc3545 !important; }
+[data-theme] .attendanceAdvice .attendance-message-red { color:var(--red) !important; }
 
 /* V45 — ROSHNI PEARL POPUP READABILITY LOCK
    Pearl/glass surfaces stay unchanged; popup text is explicitly dark and fully opaque. */
