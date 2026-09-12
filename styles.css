@@ -1470,8 +1470,9 @@ body.roshni .editionChoices .editionChoice.selected::after{content:"✓ Selected
 
 
 /* V39 — Roshni Pearl: mixed-colour attendance information and refined selected edition state. */
-body.roshni .attendanceAdvice .adviceGreen,[data-theme="dark"] body.roshni .attendanceAdvice .adviceGreen{color:#25885b!important;font-weight:850!important;}
-body.roshni .attendanceAdvice .adviceRed,[data-theme="dark"] body.roshni .attendanceAdvice .adviceRed{color:#c95357!important;font-weight:850!important;}
+/* Permanent semantic attendance-message colors: global across every edition/theme. */
+.attendanceAdvice .adviceGreen{color:#198754!important;font-weight:850!important;}
+.attendanceAdvice .adviceRed{color:#dc3545!important;font-weight:850!important;}
 body.roshni .attendanceAdvice .adviceNeutralText,[data-theme="dark"] body.roshni .attendanceAdvice .adviceNeutralText{color:#6a6175!important;font-weight:800!important;}
 
 /* Selected edition: pearly red border + gentle raised button, with no tick or Selected label. */

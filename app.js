@@ -144,7 +144,7 @@ function attendanceAdvice(r){
   if(r.pct>=req){
     let canMiss=Math.floor(r.attended/q-r.held+1e-9);if(canMiss<0)canMiss=0;
     if(canMiss===0)return '<span class="adviceGreen">✓ Attendance is enough,</span><span class="adviceRed"> ⚠ but you cannot miss the next class</span>';
-    return '<span class="adviceGreen">✓ Attendance is enough — you can miss '+canMiss+' more class'+(canMiss===1?'':'es')+' and still stay at or above '+req+'%</span>';
+    return '<span class="adviceGreen">✓ Attendance is enough, you can miss '+canMiss+' more class'+(canMiss===1?'':'es')+' and still stay at or above '+req+'%</span>';
   }
   let needed=Math.ceil((q*r.held-r.attended)/(1-q));if(needed<0)needed=0;
   return '<span class="adviceRed">⚠ Need to attend the next '+needed+' class'+(needed===1?'':'es')+' consecutively to reach '+req+'%</span>';
@@ -223,7 +223,7 @@ function hasMeaningfulStoredData(){
   return false;
 }
 const HAD_MEANINGFUL_APP_DATA_BEFORE_ACTIVATION = hasMeaningfulStoredData();
-load();applyTheme();watchSystemTheme();render();if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=41-roshni-pearl-update").then(r=>r.update?.()).catch(()=>{}));
+load();applyTheme();watchSystemTheme();render();if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=43-roshni-pearl-update").then(r=>r.update?.()).catch(()=>{}));
 
 // Robust Manage Schedule controls (direct handlers; independent of delegated clicks)
 function openManageSchedule(){
