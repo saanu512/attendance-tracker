@@ -1410,3 +1410,60 @@ body.roshni .nav,
   -webkit-backdrop-filter:blur(22px) saturate(145%);
   backdrop-filter:blur(22px) saturate(145%);
 }
+
+/* V38 — restore exact percentage-progress fill and dynamic semantic advice in ROSHNI PEARL */
+/* The advice color follows whether current attendance meets the configured required percentage. */
+body.roshni .attendanceAdvice.goodAdvice,
+[data-theme="dark"] body.roshni .attendanceAdvice.goodAdvice{color:#17834f!important;border-color:rgba(54,170,105,.34)!important;}
+body.roshni .attendanceAdvice.badAdvice,
+[data-theme="dark"] body.roshni .attendanceAdvice.badAdvice{color:#bd3f3f!important;border-color:rgba(207,79,74,.34)!important;}
+body.roshni .attendanceAdvice.goodAdvice *,body.roshni .attendanceAdvice.goodAdvice,
+[data-theme="dark"] body.roshni .attendanceAdvice.goodAdvice *,[data-theme="dark"] body.roshni .attendanceAdvice.goodAdvice{color:#17834f!important;}
+body.roshni .attendanceAdvice.badAdvice *,body.roshni .attendanceAdvice.badAdvice,
+[data-theme="dark"] body.roshni .attendanceAdvice.badAdvice *,[data-theme="dark"] body.roshni .attendanceAdvice.badAdvice{color:#bd3f3f!important;}
+
+/* Restore the original continuously proportional fill: every exact attendance percentage changes the fill amount. */
+body.roshni .statsHero.statsGood,
+body.roshni .statsHero.statsBad,
+body.roshni .subject.statsGood,
+body.roshni .subject.statsBad,
+[data-theme="dark"] body.roshni .statsHero.statsGood,
+[data-theme="dark"] body.roshni .statsHero.statsBad,
+[data-theme="dark"] body.roshni .subject.statsGood,
+[data-theme="dark"] body.roshni .subject.statsBad{
+  position:relative!important;isolation:isolate!important;overflow:hidden!important;
+  background:linear-gradient(135deg,rgba(255,255,255,.84),rgba(255,248,241,.72) 34%,rgba(248,239,255,.70) 67%,rgba(255,235,239,.72))!important;
+}
+body.roshni .statsHero.statsGood::before,
+body.roshni .statsHero.statsBad::before,
+body.roshni .subject.statsGood::before,
+body.roshni .subject.statsBad::before,
+[data-theme="dark"] body.roshni .statsHero.statsGood::before,
+[data-theme="dark"] body.roshni .statsHero.statsBad::before,
+[data-theme="dark"] body.roshni .subject.statsGood::before,
+[data-theme="dark"] body.roshni .subject.statsBad::before{
+  content:""!important;display:block!important;position:absolute!important;inset:0!important;
+  z-index:-1!important;pointer-events:none!important;opacity:1!important;
+  background:linear-gradient(90deg,
+    color-mix(in srgb,var(--tone) 38%,rgba(255,255,255,.90)) 0%,
+    color-mix(in srgb,var(--tone) 30%,rgba(255,255,255,.84)) var(--fill),
+    color-mix(in srgb,var(--tone) 12%,rgba(255,255,255,.78)) calc(var(--fill) + 12%),
+    rgba(255,255,255,.72) calc(var(--fill) + 26%),
+    rgba(255,255,255,.72) 100%)!important;
+}
+body.roshni .statsHero.statsGood::after,
+body.roshni .statsHero.statsBad::after,
+body.roshni .subject.statsGood::after,
+body.roshni .subject.statsBad::after{display:block!important;opacity:.28!important;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent)!important;}
+body.roshni .statsHero.statsGood,body.roshni .subject.statsGood{--tone:#27925f!important;border-color:rgba(54,170,105,.42)!important;}
+body.roshni .statsHero.statsBad,body.roshni .subject.statsBad{--tone:#cf5650!important;border-color:rgba(213,90,84,.42)!important;}
+
+/* Make the active edition unmistakable in the edition selector. */
+body.roshni .editionChoices .editionChoice.selected,
+[data-theme="dark"] body.roshni .editionChoices .editionChoice.selected{
+  background:linear-gradient(135deg,#fffdf8 0%,#ffe7f2 30%,#eee0ff 66%,#fff1d8 100%)!important;
+  color:#49345a!important;border:2px solid rgba(184,126,196,.70)!important;
+  box-shadow:0 0 0 3px rgba(255,255,255,.55),0 7px 16px rgba(135,87,151,.20),inset 0 1px 0 rgba(255,255,255,1)!important;
+  transform:translateY(-2px)!important;font-weight:850!important;
+}
+body.roshni .editionChoices .editionChoice.selected::after{content:"✓ Selected";display:block;font-size:10px;margin-top:3px;color:#8b5a96!important;font-weight:800!important;}
