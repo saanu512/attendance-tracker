@@ -2211,3 +2211,12 @@ body.celestial-glass .nav{
 }
 /* Keep the previously fixed high-contrast attendance toast. */
 body.celestial-glass .toast{background:#1d3557!important;color:#fff!important;}
+
+
+/* v58 — Nebula Glass only: selected Not held uses the Earth Night selected colour */
+body.nebula-glass .status.gray.active,
+body[data-edition="nebula-glass"] .status.gray.active{
+  color:#fff!important;
+  background:linear-gradient(135deg,#65706b,#3d4742)!important;
+  border-color:transparent!important;
+}
