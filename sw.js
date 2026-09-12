@@ -1,4 +1,4 @@
-const CACHE = "attendance-tracker-celestial-glass-v52";
+const CACHE = "attendance-tracker-celestial-glass-v53";
 const ASSETS = ["./","./index.html","./manifest.json","./styles.css","./app.js","./icon-192.png","./icon-512.png"];
 
 self.addEventListener("install", event => {
