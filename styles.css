@@ -1747,3 +1747,30 @@ body.opal-dream .navBtn.active{background:linear-gradient(135deg,rgba(255,255,25
 /* Preserve global semantic attendance message colors in Opal Dream. */
 body.opal-dream .attendance-good{color:var(--green)!important;}
 body.opal-dream .attendance-warning{color:var(--red)!important;}
+
+/* v49 — CORE SEMANTIC STAT COLORS + OPAL STATS TAB SELECTION
+   Semantic identity is permanent across every edition; each edition may use its own readable shade. */
+body{
+  --metric-present:var(--green);
+  --metric-absent:var(--red);
+  --metric-pending:var(--yellow);
+  --metric-total:#3b82f6;
+}
+/* Existing edition-specific shades are preserved where they were already part of the design. */
+body.black-hole{--metric-present:#55e39b;--metric-absent:#ff7885;--metric-pending:#ffd166;--metric-total:#72a7ff;}
+body.heart-nebula{--metric-present:#63d99a;--metric-absent:#ff7770;--metric-pending:#ffc44d;--metric-total:#65b9ff;}
+body.roshni{--metric-present:#27885c;--metric-absent:#c54f4b;--metric-pending:#b67a12;--metric-total:#377fc7;}
+body.opal-dream{--metric-present:#27885c;--metric-absent:#c54f4b;--metric-pending:#b67a12;--metric-total:#377fc7;}
+/* Final core safeguard: themes cannot change the semantic colour family of these four statistics. */
+.grid4 .metric.presentMetric > b,.grid4 .metric.presentMetric > span{color:var(--metric-present)!important;}
+.grid4 .metric.absentMetric > b,.grid4 .metric.absentMetric > span{color:var(--metric-absent)!important;}
+.grid4 .metric.pendingMetric > b,.grid4 .metric.pendingMetric > span{color:var(--metric-pending)!important;}
+.grid4 .metric.totalMetric > b,.grid4 .metric.totalMetric > span{color:var(--metric-total)!important;}
+/* In Opal Dream, the selected Overall/month filter must always look clearly selected and raised. */
+body.opal-dream .tabs .filter.active{
+  background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(228,216,255,.88),rgba(212,239,255,.84))!important;
+  color:#4d4271!important;
+  border-color:rgba(154,122,210,.70)!important;
+  transform:translateY(-2px);
+  box-shadow:0 6px 0 rgba(148,113,194,.28),0 14px 24px rgba(126,103,169,.18),inset 0 1px 0 rgba(255,255,255,.98)!important;
+}

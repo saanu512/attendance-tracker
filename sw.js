@@ -1,4 +1,4 @@
-const CACHE = "attendance-tracker-opal-dream-v48";
+const CACHE = "attendance-tracker-opal-dream-v49";
 const ASSETS = ["./","./index.html","./manifest.json","./styles.css","./app.js","./icon-192.png","./icon-512.png"];
 
 self.addEventListener("install", event => {
