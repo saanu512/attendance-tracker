@@ -2027,3 +2027,51 @@ body.celestial-glass .wheelWrap:after{
 }
 body.celestial-glass .wheelCancel{background:rgba(255,255,255,.90)!important;color:#18324d!important;}
 body.celestial-glass .wheelOk,body.celestial-glass .appDialogOk,body.celestial-glass .app-alert-ok{background:#4f9ed8!important;color:#fff!important;}
+
+/* v54 — CELESTIAL GLASS PERFORMANCE + TOAST READABILITY FIX
+   Keep the fixed cosmic background and transparent crystal appearance, but avoid
+   per-card backdrop compositing while scrolling. */
+body.celestial-glass .card,
+body.celestial-glass .datebar,
+body.celestial-glass .editionCard,
+body.celestial-glass .editionChoice,
+body.celestial-glass .nav,
+body.celestial-glass .navBtn,
+body.celestial-glass .btn,
+body.celestial-glass .saveAttendance,
+body.celestial-glass .holiday,
+body.celestial-glass .scheduleManage,
+body.celestial-glass .iconbtn,
+body.celestial-glass .filter,
+body.celestial-glass .input,
+body.celestial-glass textarea,
+body.celestial-glass select,
+body.celestial-glass .timeWheelTrigger,
+body.celestial-glass .activationInput{
+  /* Transparent crystal layers remain visible without expensive backdrop filtering. */
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+
+/* Avoid extra blur work on the sticky header/nav during scroll in this edition. */
+body.celestial-glass .header,
+body.celestial-glass .nav{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+
+/* The fixed universe is painted once as the viewport background, not by scrolling cards. */
+body.celestial-glass::before{
+  will-change:auto!important;
+  transform:translateZ(0);
+}
+
+/* Attendance toast: permanent high contrast in Celestial Glass. */
+body.celestial-glass .toast{
+  background:rgba(21,43,68,.94)!important;
+  color:#ffffff!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+  box-shadow:0 10px 28px rgba(28,57,84,.26)!important;
+  font-weight:700!important;
+  opacity:1!important;
+}
