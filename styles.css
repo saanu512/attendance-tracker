@@ -987,3 +987,66 @@ body.heart-nebula .tabs .filter.active{
   transform:translateY(-1px);
 }
 body.heart-nebula .tabs .filter.active:active{transform:translateY(2px)!important;box-shadow:0 2px 0 #0a1823,inset 0 2px 8px rgba(0,0,0,.28)!important;}
+
+
+/* V33 — Roshni Edition: Golden Aurora + Luminous Pearl UI (not glass/crystal) */
+body.roshni{
+  color:#322d46!important;
+  background:
+    radial-gradient(ellipse 62% 36% at 52% 18%, rgba(255,222,154,.92) 0%, rgba(255,193,127,.48) 28%, transparent 68%),
+    radial-gradient(ellipse 52% 34% at 82% 48%, rgba(245,154,184,.48) 0%, rgba(219,130,184,.18) 43%, transparent 74%),
+    radial-gradient(ellipse 58% 42% at 20% 72%, rgba(143,122,216,.34) 0%, rgba(99,83,166,.16) 48%, transparent 76%),
+    linear-gradient(155deg,#5a4b86 0%,#8b6ca8 24%,#f3a0a2 51%,#ffd49b 73%,#e7b5cf 100%)!important;
+  background-attachment:fixed!important;
+  overflow-x:hidden;
+}
+body.roshni::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:
+    radial-gradient(ellipse 70% 16% at 50% 28%, rgba(255,255,255,.42), transparent 70%),
+    linear-gradient(112deg,transparent 8%,rgba(255,239,187,.28) 34%,transparent 56%),
+    linear-gradient(72deg,transparent 22%,rgba(255,255,255,.18) 48%,transparent 71%);
+  filter:blur(18px);
+}
+body.roshni .app,body.roshni .header{background:transparent!important;}
+/* Luminous pearl surfaces: opaque enough for readability, softly dimensional, not transparent glass. */
+body.roshni .card,body.roshni .datebar,body.roshni .modalBox,body.roshni .appDialog,body.roshni .app-alert-box,body.roshni .wheelTimeDialog,body.roshni .activationCard{
+  background:linear-gradient(145deg,#fffdf9 0%,#f8edf4 52%,#f1e5f5 100%)!important;
+  border:1px solid rgba(255,255,255,.94)!important;
+  box-shadow:0 13px 30px rgba(70,49,105,.22),inset 0 1px 0 rgba(255,255,255,1),inset 0 -1px 0 rgba(190,159,208,.25)!important;
+}
+body.roshni .card{border-left:4px solid #d8a64d!important;}
+body.roshni .brand,body.roshni b,body.roshni strong,body.roshni .label,body.roshni .sessionName,body.roshni .subjectName,body.roshni .metric b,body.roshni .statsHero{color:#332d4a!important;}
+body.roshni .small,body.roshni .sub,body.roshni .soft,body.roshni .progressText,body.roshni .sessionTime,body.roshni .subjectMeta,body.roshni .metric span,body.roshni .locktag{color:#625b74!important;opacity:1!important;}
+body.roshni .btn,body.roshni .saveAttendance,body.roshni .holiday,body.roshni .scheduleManage,body.roshni .navBtn,body.roshni .iconbtn,body.roshni .filter,body.roshni .editionChoice{
+  background:linear-gradient(145deg,#fff8ed,#ecddef)!important;
+  color:#4c3e61!important;border:1px solid rgba(181,147,197,.58)!important;
+  box-shadow:0 4px 0 #c8afbd,0 9px 18px rgba(92,64,116,.16),inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+body.roshni .btn:hover,body.roshni .saveAttendance:hover,body.roshni .filter:hover,body.roshni .editionChoice:hover{filter:brightness(1.025);}
+body.roshni .btn:active,body.roshni button:active{transform:translateY(3px) scale(.987)!important;box-shadow:0 1px 0 #bda6b6,inset 0 2px 8px rgba(113,76,123,.14)!important;}
+body.roshni .editionChoice.selected{background:linear-gradient(145deg,#fff0bd,#f0bfc8 55%,#c7b5ef)!important;color:#5b3d5e!important;border-color:#d19b46!important;box-shadow:0 4px 0 #b98243,0 0 0 2px rgba(255,221,140,.50),0 0 22px rgba(255,194,97,.32),inset 0 1px 0 #fff!important;}
+body.roshni .input,body.roshni textarea,body.roshni select,body.roshni .timeWheelTrigger,body.roshni .activationInput{
+  background:#fffaf6!important;color:#41384f!important;border-color:#d9c5d9!important;box-shadow:inset 0 2px 7px rgba(106,73,120,.10),0 1px 0 rgba(255,255,255,.9)!important;
+}
+body.roshni .nav{background:linear-gradient(145deg,#fffaf7,#eee3f1)!important;border-top:1px solid rgba(255,255,255,.95)!important;box-shadow:0 -10px 28px rgba(78,53,101,.12)!important;}
+body.roshni .nav button{color:#70677c!important;}
+body.roshni .nav button.active{color:#76569b!important;background:linear-gradient(145deg,#f8e6e6,#eee0ff)!important;border-radius:18px;box-shadow:inset 0 1px 0 #fff,0 4px 12px rgba(107,75,137,.12)!important;}
+body.roshni .banner.info{background:#f5e8ff!important;color:#74549b!important;border:1px solid #dec6f1!important;}
+body.roshni .banner.warn{background:#fff0c8!important;color:#9b6b12!important;border:1px solid #f0d28a!important;}
+body.roshni .banner.lock{background:#eee4fb!important;color:#73569a!important;border:1px solid #d5c3ec!important;}
+body.roshni .progress{background:#eadfe6!important;}
+body.roshni .progress>i,body.roshni .bar i{background:linear-gradient(90deg,#8c6cc5,#e8a06d,#f1c85b)!important;}
+body.roshni .ring{background:conic-gradient(#e8b455 var(--p),#eadfea 0)!important;box-shadow:0 0 0 8px rgba(255,255,255,.45),0 10px 24px rgba(116,83,140,.15)!important;}
+body.roshni .ringIn{background:linear-gradient(145deg,#fffdfb,#f3e9f3)!important;color:#4a3a60!important;}
+body.roshni .statusRow .status.green:not(.active),body.roshni .statusRow .status.red:not(.active),body.roshni .statusRow .status.gray:not(.active){background:#fffaf7!important;border-color:#ddcbd9!important;box-shadow:none!important;transform:none!important;color:#6b6374!important;}
+body.roshni .statusRow .status.green.active{background:linear-gradient(145deg,#bff0d2,#4eb67d)!important;color:#125d39!important;border-color:#3d9f6b!important;box-shadow:0 8px 0 #238555,0 14px 22px rgba(54,120,82,.22)!important;}
+body.roshni .statusRow .status.red.active{background:linear-gradient(145deg,#ffd0c9,#e46f67)!important;color:#7d2828!important;border-color:#cc554e!important;box-shadow:0 8px 0 #a13e3b,0 14px 22px rgba(142,62,65,.18)!important;}
+body.roshni .statusRow .status.gray.active{background:linear-gradient(145deg,#e8e6ed,#a8a5b0)!important;color:#484653!important;border-color:#888592!important;box-shadow:0 8px 0 #6f6d79,0 14px 22px rgba(74,70,85,.16)!important;}
+body.roshni .grid4 .presentMetric > b,body.roshni .grid4 .presentMetric > span{color:#27885c!important;}
+body.roshni .grid4 .absentMetric > b,body.roshni .grid4 .absentMetric > span{color:#c54f4b!important;}
+body.roshni .grid4 .pendingMetric > b,body.roshni .grid4 .pendingMetric > span{color:#b67a12!important;}
+body.roshni .grid4 .totalMetric > b,body.roshni .grid4 .totalMetric > span{color:#377fc7!important;}
+body.roshni .tabs .filter.active{background:linear-gradient(145deg,#ffe7a8,#e6c3ee)!important;color:#563e67!important;border-color:#d39b4c!important;box-shadow:0 4px 0 #bb8b54,0 0 16px rgba(255,200,104,.28)!important;transform:translateY(-1px);}
+body.roshni .cosmosEdition{background:linear-gradient(90deg,#b97918,#e49775,#8c6bc0);-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:0 0 14px rgba(255,224,143,.30);}
+body.roshni .safe{color:#27885c!important;}body.roshni .warning{color:#b67a12!important;}body.roshni .danger{color:#c54f4b!important;}
