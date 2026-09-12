@@ -965,3 +965,25 @@ body.heart-nebula .statusRow .status.green:not(.active),body.heart-nebula .statu
 body.heart-nebula .statusRow .status.green.active{background:linear-gradient(145deg,#138552,#063d28)!important;box-shadow:0 8px 0 #06442c,0 14px 24px rgba(0,0,0,.34),0 0 20px rgba(55,222,145,.28)!important;}
 body.heart-nebula .statusRow .status.red.active{background:linear-gradient(145deg,#b23d31,#5a1414)!important;box-shadow:0 8px 0 #681b1b,0 14px 24px rgba(0,0,0,.34),0 0 20px rgba(255,112,86,.26)!important;}
 body.heart-nebula .statusRow .status.gray.active{background:linear-gradient(145deg,#6c7684,#303946)!important;box-shadow:0 8px 0 #39414d,0 14px 24px rgba(0,0,0,.34)!important;}
+
+/* V32 — Heart Nebula stats semantics + clearly selected period filter */
+/* Keep the four statistic values and labels in their own meaningful colors. */
+body.heart-nebula .grid4 .metric.presentMetric > b,
+body.heart-nebula .grid4 .metric.presentMetric > span{color:#63d99a!important;text-shadow:0 0 10px rgba(99,217,154,.20)!important;}
+body.heart-nebula .grid4 .metric.absentMetric > b,
+body.heart-nebula .grid4 .metric.absentMetric > span{color:#ff7770!important;text-shadow:0 0 10px rgba(255,119,112,.18)!important;}
+body.heart-nebula .grid4 .metric.pendingMetric > b,
+body.heart-nebula .grid4 .metric.pendingMetric > span{color:#ffc44d!important;text-shadow:0 0 10px rgba(255,196,77,.18)!important;}
+body.heart-nebula .grid4 .metric.totalMetric > b,
+body.heart-nebula .grid4 .metric.totalMetric > span{color:#65b9ff!important;text-shadow:0 0 10px rgba(101,185,255,.18)!important;}
+
+/* Make the currently selected Overall/month filter unmistakable. */
+body.heart-nebula .tabs .filter{background:linear-gradient(145deg,#263c56,#172535)!important;color:#d7e0eb!important;border-color:rgba(119,188,232,.48)!important;}
+body.heart-nebula .tabs .filter.active{
+  background:linear-gradient(145deg,#2b5b80,#15283a)!important;
+  color:#ffffff!important;
+  border-color:#77c7ff!important;
+  box-shadow:0 5px 0 #0a1823,0 0 0 1px rgba(255,143,48,.42),0 0 18px rgba(82,184,255,.20),inset 0 1px 0 rgba(255,255,255,.16)!important;
+  transform:translateY(-1px);
+}
+body.heart-nebula .tabs .filter.active:active{transform:translateY(2px)!important;box-shadow:0 2px 0 #0a1823,inset 0 2px 8px rgba(0,0,0,.28)!important;}
