@@ -1892,3 +1892,37 @@ body.celestial-glass .navBtn.active,body.celestial-glass .tabs .filter.active{
 body.celestial-glass .editionChoice.selected{
   background:linear-gradient(135deg,rgba(255,255,255,.38),rgba(150,220,255,.18),rgba(220,180,255,.16))!important;
 }
+
+/* v52 — CELESTIAL GLASS: luminous sun, planets and scattered stars visible through the crystal UI */
+body.celestial-glass{
+  background:
+    /* warm luminous sun */
+    radial-gradient(circle at 88% 16%,rgba(255,255,255,.98) 0 2.5%,rgba(255,246,183,.92) 3.5%,rgba(255,220,103,.58) 6%,rgba(255,197,84,.22) 10%,transparent 17%),
+    /* distant blue planet */
+    radial-gradient(circle at 13% 72%,rgba(255,255,255,.70) 0 1%,rgba(123,211,255,.92) 2%,rgba(75,164,234,.76) 5%,rgba(68,129,210,.34) 7%,transparent 10%),
+    /* lavender planet */
+    radial-gradient(circle at 79% 76%,rgba(255,255,255,.72) 0 1%,rgba(219,191,255,.90) 2%,rgba(167,128,229,.68) 5%,rgba(133,101,202,.24) 7%,transparent 10%),
+    radial-gradient(ellipse at 6% 8%,rgba(83,211,255,.52),transparent 28%),
+    radial-gradient(ellipse at 94% 10%,rgba(196,139,255,.46),transparent 31%),
+    radial-gradient(ellipse at 10% 58%,rgba(255,156,212,.34),transparent 30%),
+    radial-gradient(ellipse at 90% 72%,rgba(79,204,255,.44),transparent 34%),
+    radial-gradient(ellipse at 48% 38%,rgba(255,238,168,.28),transparent 26%),
+    radial-gradient(ellipse at 50% 100%,rgba(180,235,255,.52),transparent 40%),
+    linear-gradient(135deg,#dff7ff 0%,#eaf0ff 25%,#f7eaff 52%,#e4fbff 76%,#fff0f8 100%)!important;
+}
+body.celestial-glass::before{
+  background:
+    /* a few deliberately scattered stars */
+    radial-gradient(circle at 8% 13%,rgba(255,255,255,.98) 0 1.5px,transparent 2.7px),
+    radial-gradient(circle at 28% 9%,rgba(255,250,209,.96) 0 1.2px,transparent 2.5px),
+    radial-gradient(circle at 52% 16%,rgba(255,255,255,.98) 0 1.7px,transparent 3px),
+    radial-gradient(circle at 69% 31%,rgba(182,234,255,.98) 0 1.3px,transparent 2.7px),
+    radial-gradient(circle at 94% 46%,rgba(255,255,255,.98) 0 1.5px,transparent 2.8px),
+    radial-gradient(circle at 38% 63%,rgba(255,223,246,.98) 0 1.2px,transparent 2.5px),
+    radial-gradient(circle at 61% 87%,rgba(255,255,255,.98) 0 1.6px,transparent 2.9px),
+    radial-gradient(circle at 25% 91%,rgba(180,232,255,.98) 0 1.3px,transparent 2.6px),
+    radial-gradient(circle at 90% 92%,rgba(255,247,197,.98) 0 1.4px,transparent 2.7px),
+    linear-gradient(118deg,transparent 16%,rgba(255,255,255,.46) 33%,rgba(139,224,255,.22) 44%,rgba(255,194,233,.14) 52%,transparent 68%),
+    linear-gradient(30deg,transparent 38%,rgba(188,158,255,.18) 49%,rgba(255,255,255,.28) 54%,transparent 65%)!important;
+  background-size:100% 100%!important;
+}
