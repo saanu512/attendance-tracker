@@ -1467,3 +1467,21 @@ body.roshni .editionChoices .editionChoice.selected,
   transform:translateY(-2px)!important;font-weight:850!important;
 }
 body.roshni .editionChoices .editionChoice.selected::after{content:"✓ Selected";display:block;font-size:10px;margin-top:3px;color:#8b5a96!important;font-weight:800!important;}
+
+
+/* V39 — Roshni Pearl: mixed-colour attendance information and refined selected edition state. */
+body.roshni .attendanceAdvice .adviceGreen,[data-theme="dark"] body.roshni .attendanceAdvice .adviceGreen{color:#25885b!important;font-weight:850!important;}
+body.roshni .attendanceAdvice .adviceRed,[data-theme="dark"] body.roshni .attendanceAdvice .adviceRed{color:#c95357!important;font-weight:850!important;}
+body.roshni .attendanceAdvice .adviceNeutralText,[data-theme="dark"] body.roshni .attendanceAdvice .adviceNeutralText{color:#6a6175!important;font-weight:800!important;}
+
+/* Selected edition: pearly red border + gentle raised button, with no tick or Selected label. */
+body.roshni .editionChoices .editionChoice.selected,
+[data-theme="dark"] body.roshni .editionChoices .editionChoice.selected{
+  background:linear-gradient(135deg,#fffdf8 0%,#fff1ef 34%,#f7dfe4 66%,#fff7ef 100%)!important;
+  color:#5a3a46!important;
+  border:2px solid #d66a73!important;
+  box-shadow:0 8px 0 #b94f5b,0 13px 24px rgba(170,62,79,.24),inset 0 1px 0 rgba(255,255,255,1)!important;
+  transform:translateY(-3px)!important;
+  font-weight:850!important;
+}
+body.roshni .editionChoices .editionChoice.selected::after{content:none!important;display:none!important;}
