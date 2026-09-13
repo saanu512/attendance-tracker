@@ -1,4 +1,4 @@
-const CACHE = "attendance-tracker-full-app-v63";
+const CACHE = "attendance-tracker-full-app-v64";
 const ASSETS = ["./","./index.html","./manifest.json","./styles.css","./app.js","./icon-192.png","./icon-512.png"];
 
 self.addEventListener("install", event => {

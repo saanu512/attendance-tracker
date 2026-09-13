@@ -2631,33 +2631,33 @@ body.photon-3d .calendar .dot.mix{background:#e7ad20!important}
 body.photon-3d .calendar .dot.holiday{background:#8758b8!important}
 
 
-/* v63 — Photon 3D bottom navigation: clear 3D selected/unselected states. */
+/* v64 — Photon 3D bottom navigation: blue selected, white unselected. */
 body.photon-3d .nav button,
 body[data-edition="photon-3d"] .nav button{
-  color:#fff!important;
-  background:linear-gradient(145deg,#6a9fd0 0%,#3e75a7 58%,#2e5d87 100%)!important;
-  border:1px solid #234f78!important;
-  box-shadow:0 7px 0 #1d466b,0 14px 24px rgba(46,75,103,.24),inset 0 2px 0 rgba(255,255,255,.36),inset 0 -3px 0 rgba(0,0,0,.16)!important;
-  text-shadow:0 1px 2px rgba(0,0,0,.28)!important;
-}
-body.photon-3d .nav button b,
-body[data-edition="photon-3d"] .nav button b{
-  color:#fff!important;
-  text-shadow:0 1px 2px rgba(0,0,0,.28)!important;
-}
-body.photon-3d .nav button.active,
-body[data-edition="photon-3d"] .nav button.active{
   color:#356fa8!important;
   background:linear-gradient(145deg,#ffffff 0%,#f4f7fa 58%,#e5ebf0 100%)!important;
   border:1px solid #a9b9c8!important;
+  box-shadow:0 7px 0 #aebac6,0 14px 24px rgba(65,84,103,.20),inset 0 2px 0 #fff,inset 0 -3px 0 rgba(100,117,134,.12)!important;
+  text-shadow:0 1px 0 #fff!important;
+}
+body.photon-3d .nav button b,
+body[data-edition="photon-3d"] .nav button b{
+  color:#356fa8!important;
+  text-shadow:0 1px 0 #fff!important;
+}
+body.photon-3d .nav button.active,
+body[data-edition="photon-3d"] .nav button.active{
+  color:#fff!important;
+  background:linear-gradient(145deg,#6a9fd0 0%,#3e75a7 58%,#2e5d87 100%)!important;
+  border:1px solid #234f78!important;
   transform:translateY(-3px)!important;
-  box-shadow:0 7px 0 #aebac6,0 15px 26px rgba(65,84,103,.22),inset 0 2px 0 #fff,inset 0 -3px 0 rgba(100,117,134,.12)!important;
-  text-shadow:none!important;
+  box-shadow:0 7px 0 #1d466b,0 15px 26px rgba(46,75,103,.24),inset 0 2px 0 rgba(255,255,255,.36),inset 0 -3px 0 rgba(0,0,0,.16)!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.28)!important;
 }
 body.photon-3d .nav button.active b,
 body[data-edition="photon-3d"] .nav button.active b{
-  color:#356fa8!important;
-  text-shadow:0 1px 0 #fff!important;
+  color:#fff!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.28)!important;
 }
 body.photon-3d .nav button:active,
 body[data-edition="photon-3d"] .nav button:active{
@@ -2667,5 +2667,5 @@ body[data-edition="photon-3d"] .nav button:active{
 body.photon-3d .nav button.active:active,
 body[data-edition="photon-3d"] .nav button.active:active{
   transform:translateY(2px)!important;
-  box-shadow:0 3px 0 #9eabb8,0 7px 12px rgba(65,84,103,.18),inset 0 3px 7px rgba(80,96,112,.08)!important;
+  box-shadow:0 3px 0 #1d466b,0 7px 12px rgba(46,75,103,.20),inset 0 3px 7px rgba(0,0,0,.13)!important;
 }
