@@ -2560,3 +2560,72 @@ body.photon-3d .editionChoice:not(.selected){opacity:.9!important;color:#263746!
 body.photon-3d .nav{background:linear-gradient(145deg,#fdfefe,#e2e7ec)!important;border:1px solid #bcc6d0!important;box-shadow:0 -5px 0 #b5bec8,0 -15px 30px rgba(70,86,103,.18)!important;backdrop-filter:none!important}
 body.photon-3d .toast{background:#1d2d3d!important;color:#fff!important;border:1px solid #6e8eaa!important;box-shadow:0 7px 0 #0e1821,0 15px 28px rgba(55,72,90,.28)!important}
 body.photon-3d .cosmosEdition{color:#28577f!important;background:linear-gradient(145deg,#fff,#e1e7ed)!important;border:1px solid #b8c4cf!important;box-shadow:0 6px 0 #b1bcc6,0 12px 22px rgba(70,86,103,.18),inset 0 2px 0 #fff!important}
+
+/* v62 — Photon 3D readability/state fixes. Scoped to Photon 3D only. */
+body.photon-3d .tabs .filter,
+body[data-edition="photon-3d"] .tabs .filter{
+  color:#314252!important;
+  background:linear-gradient(145deg,#ffffff 0%,#e8edf2 68%,#d7dee5 100%)!important;
+  border:1px solid #aebbc7!important;
+  box-shadow:0 5px 0 #b0bac4,0 10px 18px rgba(70,86,103,.15),inset 0 2px 0 #fff,inset 0 -2px 0 rgba(91,108,124,.10)!important;
+  text-shadow:none!important;
+}
+body.photon-3d .tabs .filter.active,
+body[data-edition="photon-3d"] .tabs .filter.active{
+  color:#fff!important;
+  background:linear-gradient(145deg,#6da2d2 0%,#4277a9 58%,#315d86 100%)!important;
+  border-color:#234e75!important;
+  transform:translateY(-3px)!important;
+  box-shadow:0 8px 0 #1f4567,0 15px 25px rgba(46,75,103,.27),0 0 18px rgba(56,111,168,.18),inset 0 2px 0 rgba(255,255,255,.40),inset 0 -3px 0 rgba(0,0,0,.16)!important;
+}
+body.photon-3d .tabs .filter:not(.active):active,
+body[data-edition="photon-3d"] .tabs .filter:not(.active):active{
+  transform:translateY(3px)!important;
+  box-shadow:0 2px 0 #9aa7b3,0 5px 9px rgba(55,72,90,.16),inset 0 4px 8px rgba(0,0,0,.10)!important;
+}
+
+/* Bottom navigation icons must follow the readable Photon palette, not the global bold-text color. */
+body.photon-3d .nav button b,
+body[data-edition="photon-3d"] .nav button b{
+  color:#315d86!important;
+  text-shadow:0 1px 0 #fff!important;
+}
+body.photon-3d .nav button,
+body[data-edition="photon-3d"] .nav button{color:#526474!important}
+body.photon-3d .nav button.active,
+body[data-edition="photon-3d"] .nav button.active{color:#fff!important}
+body.photon-3d .nav button.active b,
+body[data-edition="photon-3d"] .nav button.active b{
+  color:#fff!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.28)!important;
+}
+
+/* Photon calendar dates use a light neutral 3D surface so all attendance dots remain unmistakable. */
+body.photon-3d .calendar .calDay,
+body[data-edition="photon-3d"] .calendar .calDay{
+  color:#263746!important;
+  background:linear-gradient(145deg,#ffffff 0%,#edf1f5 62%,#dce3e9 100%)!important;
+  border-color:#b5c0ca!important;
+  box-shadow:0 5px 0 #aeb9c3,0 9px 15px rgba(70,86,103,.15),inset 0 2px 0 #fff,inset 0 -2px 0 rgba(80,96,112,.10)!important;
+  text-shadow:none!important;
+}
+body.photon-3d .calendar .calDay.today,
+body[data-edition="photon-3d"] .calendar .calDay.today{
+  color:#fff!important;
+  background:linear-gradient(145deg,#6da2d2,#3c70a0)!important;
+  border-color:#234e75!important;
+  box-shadow:0 7px 0 #1f4567,0 13px 22px rgba(46,75,103,.23),inset 0 2px 0 rgba(255,255,255,.38)!important;
+}
+body.photon-3d .calendar .dot,
+body[data-edition="photon-3d"] .calendar .dot{
+  width:7px!important;
+  height:7px!important;
+  bottom:5px!important;
+  border:1px solid rgba(255,255,255,.92)!important;
+  box-shadow:0 1px 3px rgba(0,0,0,.28)!important;
+  z-index:2!important;
+}
+body.photon-3d .calendar .dot.good{background:#16a35f!important}
+body.photon-3d .calendar .dot.bad{background:#e34242!important}
+body.photon-3d .calendar .dot.mix{background:#e7ad20!important}
+body.photon-3d .calendar .dot.holiday{background:#8758b8!important}
