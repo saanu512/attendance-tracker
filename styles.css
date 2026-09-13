@@ -2258,3 +2258,305 @@ body.celestial-glass .editionChoices .editionChoice.selected{
   transform:none!important;
   opacity:.78!important;
 }
+
+/* v61 — NEW APP EDITIONS: Outer Space 3D + Photon 3D
+   These rules are intentionally scoped to the two new editions only. */
+
+/* ---------- OUTER SPACE 3D ---------- */
+body.outer-space-3d,
+body[data-edition="outer-space-3d"]{
+  --bg:#000000;
+  --card:#0b0d10;
+  --ink:#f5f7fb;
+  --soft:#c0c7d1;
+  --line:#303640;
+  --primary:#8fb4ff;
+  --primarySoft:#171e2b;
+  --green:#69e6a4;
+  --greenSoft:#10291e;
+  --red:#ff8f8f;
+  --redSoft:#321515;
+  --yellow:#ffd66b;
+  --yellowSoft:#30280e;
+  --purple:#c1a5ff;
+  --purpleSoft:#211934;
+  --shadow:0 14px 0 #050608,0 24px 38px rgba(0,0,0,.72),inset 0 1px 0 rgba(255,255,255,.10);
+  background:#000!important;
+  color:var(--ink)!important;
+  caret-color:#a9c4ff;
+}
+body.outer-space-3d #app,
+body.outer-space-3d .app{
+  background:#000!important;
+}
+body.outer-space-3d .header{
+  background:#050607!important;
+  border-bottom:1px solid #303640!important;
+  box-shadow:0 6px 0 #020304,0 16px 28px rgba(0,0,0,.65)!important;
+  backdrop-filter:none!important;
+}
+body.outer-space-3d .card,
+body.outer-space-3d .datebar,
+body.outer-space-3d .session,
+body.outer-space-3d .progressCard,
+body.outer-space-3d .statsHero,
+body.outer-space-3d .subject,
+body.outer-space-3d .formCard,
+body.outer-space-3d .calendar,
+body.outer-space-3d .noteBox,
+body.outer-space-3d .metric,
+body.outer-space-3d .editionCard,
+body.outer-space-3d .editionChoice,
+body.outer-space-3d .banner,
+body.outer-space-3d .modalBox,
+body.outer-space-3d .appDialog,
+body.outer-space-3d .app-alert-box,
+body.outer-space-3d .wheelTimeDialog,
+body.outer-space-3d .activationCard{
+  background:linear-gradient(145deg,#171a1f 0%,#0b0d10 54%,#050608 100%)!important;
+  color:var(--ink)!important;
+  border:1px solid #3a414c!important;
+  box-shadow:0 7px 0 #020304,0 17px 30px rgba(0,0,0,.72),inset 0 2px 0 rgba(255,255,255,.12),inset 0 -3px 0 rgba(0,0,0,.70)!important;
+}
+body.outer-space-3d .session{transform:translateZ(0);}
+body.outer-space-3d .session::before{background:linear-gradient(180deg,#b7cbff,#5877bd)!important;box-shadow:2px 0 0 #26334f,4px 0 10px rgba(99,138,255,.18)}
+body.outer-space-3d .brand,
+body.outer-space-3d b,
+body.outer-space-3d strong,
+body.outer-space-3d .label,
+body.outer-space-3d .sessionName,
+body.outer-space-3d .subjectName,
+body.outer-space-3d .metric b,
+body.outer-space-3d .statsHero{color:#f7f9ff!important}
+body.outer-space-3d .small,
+body.outer-space-3d .sub,
+body.outer-space-3d .soft,
+body.outer-space-3d .progressText,
+body.outer-space-3d .sessionTime,
+body.outer-space-3d .subjectMeta,
+body.outer-space-3d .metric span{color:#c4cbd5!important;opacity:1!important}
+body.outer-space-3d .sessionTime,
+body.outer-space-3d .subjectMeta span,
+body.outer-space-3d .attendanceAdvice,
+body.outer-space-3d .statsLegend span{
+  background:#10141a!important;
+  border:1px solid #353d48!important;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.65),0 2px 0 #020304!important;
+}
+body.outer-space-3d .btn,
+body.outer-space-3d .saveAttendance,
+body.outer-space-3d .holiday,
+body.outer-space-3d .appDialogOk,
+body.outer-space-3d .app-alert-ok,
+body.outer-space-3d .wheelOk,
+body.outer-space-3d .activationBtn,
+body.outer-space-3d .scheduleManage,
+body.outer-space-3d .iconbtn,
+body.outer-space-3d .filter,
+body.outer-space-3d .nav button,
+body.outer-space-3d .editionChoice,
+body.outer-space-3d .calDay{
+  color:#f5f7fb!important;
+  border:1px solid #4a5564!important;
+  background:linear-gradient(145deg,#343b46,#171b21 62%,#0b0d10)!important;
+  box-shadow:0 7px 0 #06080b,0 14px 24px rgba(0,0,0,.72),inset 0 2px 0 rgba(255,255,255,.18),inset 0 -3px 0 rgba(0,0,0,.65)!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.75);
+}
+body.outer-space-3d .btn:active,
+body.outer-space-3d .saveAttendance:active,
+body.outer-space-3d .holiday:active,
+body.outer-space-3d .appDialogOk:active,
+body.outer-space-3d .app-alert-ok:active,
+body.outer-space-3d .wheelOk:active,
+body.outer-space-3d .activationBtn:active,
+body.outer-space-3d .scheduleManage:active,
+body.outer-space-3d .iconbtn:active,
+body.outer-space-3d .filter:active,
+body.outer-space-3d .nav button:active,
+body.outer-space-3d .editionChoice:active,
+body.outer-space-3d .calDay:active{
+  transform:translateY(5px)!important;
+  box-shadow:0 2px 0 #050607,0 6px 10px rgba(0,0,0,.70),inset 0 4px 8px rgba(0,0,0,.58)!important;
+}
+body.outer-space-3d .btn.soft,
+body.outer-space-3d .btn.outline{color:#f5f7fb!important}
+body.outer-space-3d .input,
+body.outer-space-3d textarea,
+body.outer-space-3d select,
+body.outer-space-3d .timeWheelTrigger,
+body.outer-space-3d .activationInput{
+  color:#f7f9ff!important;
+  background:linear-gradient(160deg,#050608,#11151a)!important;
+  border:1px solid #454d59!important;
+  box-shadow:inset 0 5px 10px rgba(0,0,0,.78),inset 0 1px 0 rgba(255,255,255,.09),0 4px 0 #020304,0 8px 15px rgba(0,0,0,.55)!important;
+}
+body.outer-space-3d .input::placeholder,
+body.outer-space-3d textarea::placeholder{color:#8993a1!important;opacity:1!important}
+body.outer-space-3d .input:focus,
+body.outer-space-3d textarea:focus,
+body.outer-space-3d select:focus,
+body.outer-space-3d .timeWheelTrigger:focus{border-color:#8fb4ff!important;box-shadow:inset 0 5px 10px rgba(0,0,0,.78),0 0 0 3px rgba(143,180,255,.14),0 5px 0 #020304!important;outline:none!important}
+body.outer-space-3d .statusRow .status{
+  color:#dce2ea!important;
+  background:linear-gradient(145deg,#252a31,#0e1115)!important;
+  border:1px solid #444c57!important;
+  box-shadow:0 7px 0 #050608,0 13px 22px rgba(0,0,0,.68),inset 0 2px 0 rgba(255,255,255,.13),inset 0 -3px 0 rgba(0,0,0,.65)!important;
+}
+body.outer-space-3d .statusRow .status.green.active{color:#fff!important;background:linear-gradient(145deg,#1c9c61,#075532)!important;border-color:#71efae!important;box-shadow:0 8px 0 #043a22,0 16px 24px rgba(0,0,0,.70),0 0 20px rgba(78,227,146,.22),inset 0 2px 0 rgba(255,255,255,.23)!important}
+body.outer-space-3d .statusRow .status.red.active{color:#fff!important;background:linear-gradient(145deg,#c84b55,#641b24)!important;border-color:#ff9a9e!important;box-shadow:0 8px 0 #441018,0 16px 24px rgba(0,0,0,.70),0 0 20px rgba(255,100,115,.20),inset 0 2px 0 rgba(255,255,255,.20)!important}
+body.outer-space-3d .statusRow .status.gray.active{color:#fff!important;background:linear-gradient(145deg,#65706b,#3d4742)!important;border-color:#aab6b0!important;box-shadow:0 8px 0 #242b28,0 16px 24px rgba(0,0,0,.70),0 0 18px rgba(190,205,198,.14),inset 0 2px 0 rgba(255,255,255,.18)!important}
+body.outer-space-3d .statusRow .status:active:not(:disabled){transform:translateY(5px)!important;box-shadow:0 2px 0 #050607,0 6px 10px rgba(0,0,0,.70),inset 0 4px 8px rgba(0,0,0,.55)!important}
+body.outer-space-3d .metric.presentMetric{background:linear-gradient(145deg,#123b29,#07170f)!important;border-color:#3d9e70!important}.outer-space-3d .metric.presentMetric b,.outer-space-3d .metric.presentMetric span{color:#69e6a4!important}
+body.outer-space-3d .metric.absentMetric{background:linear-gradient(145deg,#421c20,#18090b)!important;border-color:#b34e58!important}.outer-space-3d .metric.absentMetric b,.outer-space-3d .metric.absentMetric span{color:#ff8f8f!important}
+body.outer-space-3d .metric.pendingMetric{background:linear-gradient(145deg,#443715,#171102)!important;border-color:#a78d35!important}.outer-space-3d .metric.pendingMetric b,.outer-space-3d .metric.pendingMetric span{color:#ffd66b!important}
+body.outer-space-3d .metric.totalMetric{background:linear-gradient(145deg,#172b4b,#080f1c)!important;border-color:#5477b5!important}.outer-space-3d .metric.totalMetric b,.outer-space-3d .metric.totalMetric span{color:#8fb4ff!important}
+body.outer-space-3d .attendanceAdvice.goodAdvice,.outer-space-3d .attendanceAdvice .adviceGreen{color:#69e6a4!important}
+body.outer-space-3d .attendanceAdvice.badAdvice,.outer-space-3d .attendanceAdvice .adviceRed{color:#ff8f8f!important}
+body.outer-space-3d .filter.active,
+body.outer-space-3d .nav button.active,
+body.outer-space-3d .editionChoice.selected,
+body.outer-space-3d .calDay.today{
+  color:#fff!important;background:linear-gradient(145deg,#607fc2,#263858)!important;border-color:#b8ceff!important;
+  box-shadow:0 8px 0 #101a2c,0 16px 28px rgba(0,0,0,.75),0 0 18px rgba(117,155,255,.22),inset 0 2px 0 rgba(255,255,255,.25)!important;
+}
+body.outer-space-3d .editionChoice.selected{transform:translateY(-4px)!important}
+body.outer-space-3d .editionChoice:not(.selected){opacity:.9!important}
+body.outer-space-3d .nav{
+  background:#080a0d!important;border:1px solid #39414b!important;box-shadow:0 -5px 0 #020304,0 -15px 30px rgba(0,0,0,.75)!important;backdrop-filter:none!important;
+}
+body.outer-space-3d .toast{background:#e9eef7!important;color:#07090d!important;border:1px solid #fff!important;box-shadow:0 7px 0 #5e6878,0 15px 28px rgba(0,0,0,.65)!important}
+body.outer-space-3d .cosmosEdition{color:#c7d7ff!important;background:linear-gradient(145deg,#1c2432,#090c11)!important;border:1px solid #53627a!important;box-shadow:0 6px 0 #030406,0 12px 22px rgba(0,0,0,.65),inset 0 2px 0 rgba(255,255,255,.14)!important}
+
+/* ---------- PHOTON 3D ---------- */
+body.photon-3d,
+body[data-edition="photon-3d"]{
+  --bg:#eef2f6;
+  --card:#f9fbfd;
+  --ink:#18212b;
+  --soft:#596878;
+  --line:#c9d2dc;
+  --primary:#386fa8;
+  --primarySoft:#dfeaf5;
+  --green:#17804f;
+  --greenSoft:#dff3e9;
+  --red:#c53e3e;
+  --redSoft:#f8e1e1;
+  --yellow:#9a7510;
+  --yellowSoft:#f8edc9;
+  --purple:#6d55a3;
+  --purpleSoft:#e9e2f7;
+  --shadow:0 12px 0 #c0c9d3,0 23px 34px rgba(63,79,96,.20),inset 0 1px 0 #fff;
+  background:#eef2f6!important;
+  color:var(--ink)!important;
+  caret-color:#386fa8;
+}
+body.photon-3d #app,
+body.photon-3d .app{background:#eef2f6!important}
+body.photon-3d .header{background:#e9eef4!important;border-bottom:1px solid #c3cdd7!important;box-shadow:0 6px 0 #c5ced8,0 15px 28px rgba(64,82,100,.16)!important;backdrop-filter:none!important}
+body.photon-3d .card,
+body.photon-3d .datebar,
+body.photon-3d .session,
+body.photon-3d .progressCard,
+body.photon-3d .statsHero,
+body.photon-3d .subject,
+body.photon-3d .formCard,
+body.photon-3d .calendar,
+body.photon-3d .noteBox,
+body.photon-3d .metric,
+body.photon-3d .editionCard,
+body.photon-3d .editionChoice,
+body.photon-3d .banner,
+body.photon-3d .modalBox,
+body.photon-3d .appDialog,
+body.photon-3d .app-alert-box,
+body.photon-3d .wheelTimeDialog,
+body.photon-3d .activationCard{
+  background:linear-gradient(145deg,#ffffff 0%,#f3f6f9 58%,#e2e7ed 100%)!important;
+  color:var(--ink)!important;border:1px solid #c1cbd5!important;
+  box-shadow:0 7px 0 #b8c2cc,0 17px 30px rgba(70,86,103,.20),inset 0 2px 0 #fff,inset 0 -3px 0 rgba(117,132,148,.14)!important;
+}
+body.photon-3d .session::before{background:linear-gradient(180deg,#5b91c8,#2e5e91)!important;box-shadow:2px 0 0 #c0ccd8,4px 0 10px rgba(55,105,155,.16)}
+body.photon-3d .brand,
+body.photon-3d b,
+body.photon-3d strong,
+body.photon-3d .label,
+body.photon-3d .sessionName,
+body.photon-3d .subjectName,
+body.photon-3d .metric b,
+body.photon-3d .statsHero{color:#18212b!important}
+body.photon-3d .small,
+body.photon-3d .sub,
+body.photon-3d .soft,
+body.photon-3d .progressText,
+body.photon-3d .sessionTime,
+body.photon-3d .subjectMeta,
+body.photon-3d .metric span{color:#536273!important;opacity:1!important}
+body.photon-3d .sessionTime,
+body.photon-3d .subjectMeta span,
+body.photon-3d .attendanceAdvice,
+body.photon-3d .statsLegend span{background:#e7ecf1!important;border:1px solid #c4ced8!important;box-shadow:inset 0 2px 5px rgba(83,99,115,.15),0 2px 0 #c0c9d2!important}
+body.photon-3d .btn,
+body.photon-3d .saveAttendance,
+body.photon-3d .holiday,
+body.photon-3d .appDialogOk,
+body.photon-3d .app-alert-ok,
+body.photon-3d .wheelOk,
+body.photon-3d .activationBtn,
+body.photon-3d .scheduleManage,
+body.photon-3d .iconbtn,
+body.photon-3d .filter,
+body.photon-3d .nav button,
+body.photon-3d .editionChoice,
+body.photon-3d .calDay{
+  color:#fff!important;border:1px solid #285780!important;background:linear-gradient(145deg,#5e91c2,#35658f 62%,#264d70)!important;
+  box-shadow:0 7px 0 #1f4567,0 14px 24px rgba(46,75,103,.25),inset 0 2px 0 rgba(255,255,255,.35),inset 0 -3px 0 rgba(0,0,0,.18)!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.30);
+}
+body.photon-3d .btn.soft{color:#244d73!important;background:linear-gradient(145deg,#edf4fb,#d3e1ee)!important;border-color:#9db3c8!important}
+body.photon-3d .btn.outline{color:#263746!important;background:linear-gradient(145deg,#fff,#e6ebf0)!important;border-color:#b8c3ce!important}
+body.photon-3d .btn:active,
+body.photon-3d .saveAttendance:active,
+body.photon-3d .holiday:active,
+body.photon-3d .appDialogOk:active,
+body.photon-3d .app-alert-ok:active,
+body.photon-3d .wheelOk:active,
+body.photon-3d .activationBtn:active,
+body.photon-3d .scheduleManage:active,
+body.photon-3d .iconbtn:active,
+body.photon-3d .filter:active,
+body.photon-3d .nav button:active,
+body.photon-3d .editionChoice:active,
+body.photon-3d .calDay:active{transform:translateY(5px)!important;box-shadow:0 2px 0 #8795a3,0 6px 10px rgba(55,72,90,.20),inset 0 4px 8px rgba(0,0,0,.14)!important}
+body.photon-3d .input,
+body.photon-3d textarea,
+body.photon-3d select,
+body.photon-3d .timeWheelTrigger,
+body.photon-3d .activationInput{
+  color:#18212b!important;background:linear-gradient(160deg,#e0e6eb,#fbfcfd)!important;border:1px solid #b8c4cf!important;
+  box-shadow:inset 0 5px 10px rgba(72,87,102,.16),inset 0 1px 0 #fff,0 4px 0 #b8c2cc,0 8px 15px rgba(70,86,103,.14)!important;
+}
+body.photon-3d .input::placeholder,body.photon-3d textarea::placeholder{color:#778594!important;opacity:1!important}
+body.photon-3d .input:focus,body.photon-3d textarea:focus,body.photon-3d select:focus,body.photon-3d .timeWheelTrigger:focus{border-color:#386fa8!important;box-shadow:inset 0 5px 10px rgba(72,87,102,.16),0 0 0 3px rgba(56,111,168,.13),0 5px 0 #aeb9c4!important;outline:none!important}
+body.photon-3d .statusRow .status{color:#4d5d6c!important;background:linear-gradient(145deg,#fff,#e2e7ec)!important;border:1px solid #b7c2cd!important;box-shadow:0 7px 0 #adb8c2,0 13px 22px rgba(68,83,99,.18),inset 0 2px 0 #fff,inset 0 -3px 0 rgba(80,96,112,.10)!important}
+body.photon-3d .statusRow .status.green.active{color:#fff!important;background:linear-gradient(145deg,#32a96f,#167448)!important;border-color:#11633e!important;box-shadow:0 8px 0 #0d5a37,0 16px 24px rgba(48,93,70,.22),0 0 16px rgba(23,128,79,.16),inset 0 2px 0 rgba(255,255,255,.28)!important}
+body.photon-3d .statusRow .status.red.active{color:#fff!important;background:linear-gradient(145deg,#dc6464,#b63737)!important;border-color:#962d2d!important;box-shadow:0 8px 0 #8e2929,0 16px 24px rgba(113,50,50,.22),0 0 16px rgba(197,62,62,.14),inset 0 2px 0 rgba(255,255,255,.26)!important}
+body.photon-3d .statusRow .status.gray.active{color:#fff!important;background:linear-gradient(145deg,#74817c,#515e59)!important;border-color:#47514d!important;box-shadow:0 8px 0 #424b47,0 16px 24px rgba(71,82,78,.22),0 0 16px rgba(90,104,98,.14),inset 0 2px 0 rgba(255,255,255,.24)!important}
+body.photon-3d .statusRow .status:active:not(:disabled){transform:translateY(5px)!important;box-shadow:0 2px 0 #87919a,0 6px 10px rgba(55,72,90,.20),inset 0 4px 8px rgba(0,0,0,.14)!important}
+body.photon-3d .metric.presentMetric{background:linear-gradient(145deg,#e7f7ef,#cfeadd)!important;border-color:#8fc6aa!important}.photon-3d .metric.presentMetric b,.photon-3d .metric.presentMetric span{color:#17804f!important}
+body.photon-3d .metric.absentMetric{background:linear-gradient(145deg,#fbe9e9,#f1cccc)!important;border-color:#d99a9a!important}.photon-3d .metric.absentMetric b,.photon-3d .metric.absentMetric span{color:#c53e3e!important}
+body.photon-3d .metric.pendingMetric{background:linear-gradient(145deg,#fff8df,#f3e6b8)!important;border-color:#d9c277!important}.photon-3d .metric.pendingMetric b,.photon-3d .metric.pendingMetric span{color:#9a7510!important}
+body.photon-3d .metric.totalMetric{background:linear-gradient(145deg,#e7f0fb,#ceddec)!important;border-color:#93adcb!important}.photon-3d .metric.totalMetric b,.photon-3d .metric.totalMetric span{color:#386fa8!important}
+body.photon-3d .attendanceAdvice.goodAdvice,.photon-3d .attendanceAdvice .adviceGreen{color:#17804f!important}
+body.photon-3d .attendanceAdvice.badAdvice,.photon-3d .attendanceAdvice .adviceRed{color:#c53e3e!important}
+body.photon-3d .filter.active,
+body.photon-3d .nav button.active,
+body.photon-3d .editionChoice.selected,
+body.photon-3d .calDay.today{
+  color:#fff!important;background:linear-gradient(145deg,#5e91c2,#35658f)!important;border-color:#234e75!important;
+  box-shadow:0 8px 0 #1f4567,0 16px 28px rgba(46,75,103,.25),0 0 18px rgba(56,111,168,.15),inset 0 2px 0 rgba(255,255,255,.35)!important;
+}
+body.photon-3d .editionChoice.selected{transform:translateY(-4px)!important}
+body.photon-3d .editionChoice:not(.selected){opacity:.9!important;color:#263746!important;background:linear-gradient(145deg,#fff,#e6ebf0)!important}
+body.photon-3d .nav{background:linear-gradient(145deg,#fdfefe,#e2e7ec)!important;border:1px solid #bcc6d0!important;box-shadow:0 -5px 0 #b5bec8,0 -15px 30px rgba(70,86,103,.18)!important;backdrop-filter:none!important}
+body.photon-3d .toast{background:#1d2d3d!important;color:#fff!important;border:1px solid #6e8eaa!important;box-shadow:0 7px 0 #0e1821,0 15px 28px rgba(55,72,90,.28)!important}
+body.photon-3d .cosmosEdition{color:#28577f!important;background:linear-gradient(145deg,#fff,#e1e7ed)!important;border:1px solid #b8c4cf!important;box-shadow:0 6px 0 #b1bcc6,0 12px 22px rgba(70,86,103,.18),inset 0 2px 0 #fff!important}
