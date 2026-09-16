@@ -228,7 +228,7 @@ load();
 state.tab="log";
 state.viewDate=key(today());
 save();
-applyTheme();watchSystemTheme();render();if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=66").then(r=>r.update?.()).catch(()=>{}));
+applyTheme();watchSystemTheme();render();document.getElementById("app").style.visibility="visible";if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=67").then(r=>r.update?.()).catch(()=>{}));
 
 // Robust Manage Schedule controls (direct handlers; independent of delegated clicks)
 function openManageSchedule(){
