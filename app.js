@@ -229,7 +229,7 @@ state.tab="log";
 state.viewDate=key(today());
 state.calendarMonth=key(new Date(today().getFullYear(),today().getMonth(),1));
 save();
-applyTheme();watchSystemTheme();document.body.classList.add("startup-stable");render();requestAnimationFrame(()=>requestAnimationFrame(()=>document.getElementById("app").style.visibility="visible"));if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=71").then(r=>r.update?.()).catch(()=>{}));
+applyTheme();watchSystemTheme();document.body.classList.add("startup-stable");render();requestAnimationFrame(()=>requestAnimationFrame(()=>document.getElementById("app").style.visibility="visible"));if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=72").then(r=>r.update?.()).catch(()=>{}));
 
 // Robust Manage Schedule controls (direct handlers; independent of delegated clicks)
 function openManageSchedule(){
