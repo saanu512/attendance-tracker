@@ -2466,3 +2466,21 @@ body[data-edition="photon-3d"] .nav button.active:active{
   .modal{padding-top:10px!important;padding-bottom:10px!important}
   .modalBox{max-height:88vh!important;max-height:88dvh!important}
 }
+/* v102: schedule-change semantic badges — light editions use a light badge, dark editions retain their dark styling */
+body.earth-day .infoItem span,
+body.roshni .infoItem span,
+body.opal-dream .infoItem span,
+body.celestial-glass .infoItem span,
+body.photon-3d .infoItem span{
+  background:#e8f0ff!important;
+  color:#2563eb!important;
+  border:1px solid #c8d9ff!important;
+  box-shadow:0 2px 6px rgba(37,99,235,.10)!important;
+}
+body.earth-day .extraInfoItem,
+body.roshni .extraInfoItem,
+body.opal-dream .extraInfoItem,
+body.celestial-glass .extraInfoItem,
+body.photon-3d .extraInfoItem{
+  border-left-color:#4f86d9!important;
+}
