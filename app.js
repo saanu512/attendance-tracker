@@ -99,10 +99,10 @@ function dailyInfoPage(){
   if(info.hasSchedule){
     h+=`<div class="card formCard dailyInfoCard"><h3>🔄 Class Changes / Schedule Changes</h3>`;
     info.changes.forEach(c=>{
-      if(c.type==='rescheduled') h+=`<div class="infoItem"><b>${esc(c.originalSubject)}</b><div>${time(c.originalStart)} – ${time(c.originalEnd)} → ${time(c.actualStart)} – ${time(c.actualEnd)}</div><span>Rescheduled</span></div>`;
-      else h+=`<div class="infoItem"><b>Originally: ${esc(c.originalSubject)}</b><div>${time(c.originalStart)} – ${time(c.originalEnd)}</div><div><b>Actually held: ${esc(c.actualSubject)}</b> · ${time(c.actualStart)} – ${time(c.actualEnd)}</div><span>Replacement</span></div>`;
+      if(c.type==='rescheduled') h+=`<div class="card infoItem"><b>${esc(c.originalSubject)}</b><div>${time(c.originalStart)} – ${time(c.originalEnd)} → ${time(c.actualStart)} – ${time(c.actualEnd)}</div><span>Rescheduled</span></div>`;
+      else h+=`<div class="card infoItem"><b>Originally: ${esc(c.originalSubject)}</b><div>${time(c.originalStart)} – ${time(c.originalEnd)}</div><div><b>Actually held: ${esc(c.actualSubject)}</b> · ${time(c.actualStart)} – ${time(c.actualEnd)}</div><span>Replacement</span></div>`;
     });
-    info.extras.forEach(x=>h+=`<div class="infoItem extraInfoItem"><b>➕ Extra class: ${esc(x.subject)}</b><div>${time(x.start)} – ${time(x.end)}</div></div>`);
+    info.extras.forEach(x=>h+=`<div class="card infoItem extraInfoItem"><b>➕ Extra class: ${esc(x.subject)}</b><div>${time(x.start)} – ${time(x.end)}</div></div>`);
     h+=`</div>`;
   }
   if(info.hasNote) h+=`<div class="card formCard dailyInfoCard savedNotesCard"><h3>📝 Saved Note</h3><div class="savedNoteText">${esc(note).replace(/\n/g,'<br>')}</div></div>`;
