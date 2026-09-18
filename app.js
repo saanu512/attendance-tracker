@@ -39,10 +39,7 @@ function editable(k){let d=parseKey(k),t=today();if(d<START_DATE||d>t)return fal
 function attendanceEditable(k,i){
   if(!editable(k))return false;
   const d=parseKey(k),t=today(),sk=sessionKey(k,i);
-  // Today stays fully editable. For past dates, only the FINAL saved state matters:
-  // a class is locked only when it currently has a saved attendance status.
-  // If it was cleared and that cleared state was saved before midnight, it remains
-  // available for one-time entry as a missed past class.
+
   if(d<t)return !Object.prototype.hasOwnProperty.call(state.status,sk);
   return true
 }
@@ -53,8 +50,7 @@ function clinicalGroupFor(d){let r=Number(state.settings.rollNumber);if(!Number.
 function clinicalDepartmentFor(d){let start=d<CLINICAL_SWITCH?START_DATE:CLINICAL_SWITCH;let arr=d<CLINICAL_SWITCH?CLINICAL_OLD:CLINICAL_NEW;let monday=new Date(d);monday.setHours(0,0,0,0);monday.setDate(monday.getDate()-((monday.getDay()+6)%7));let wk=Math.floor((monday-start)/(7*86400000));let g=clinicalGroupFor(d);return wk>=0&&wk<arr.length&&g>=0&&g<arr[wk].length?arr[wk][g]:"Clinical department not scheduled"}
 function nthWeekdayOfMonth(d){return Math.floor((d.getDate()-1)/7)+1}
 function applyDateBasedEvening(d,x){let day=d.getDay(),n=nthWeekdayOfMonth(d),st=x[0],en=x[1],sub=x[2];
-// Apply automatic week-of-month rules only to the original timetable slots.
-// If Manage Schedule changes a slot to another subject, that saved subject is respected.
+
 if(day===4&&st==="15:00"&&en==="16:00"&&["Respiratory Medicine (Evening)","Radiodiagnosis (Evening)"].includes(sub))x[2]=(n<=2?"Respiratory Medicine":"Radiodiagnosis")+" (Evening)";
 else if(day===4&&st==="16:00"&&en==="17:00"&&["Pediatrics (Evening)","Anesthesia (Evening)"].includes(sub))x[2]=(n<=2?"Pediatrics":"Anesthesia")+" (Evening)";
 else if(day===5&&st==="15:00"&&en==="16:00"&&["Orthopedics (Evening)","OBG (Evening)"].includes(sub))x[2]=(n<=2?"Orthopedics":"OBG")+" (Evening)";
@@ -65,7 +61,7 @@ function sessionKey(dateKey,i){return dateKey+"-"+i}
 function statusOf(dateKey,i){return state.status[sessionKey(dateKey,i)]}
 function draftValue(k){return Object.prototype.hasOwnProperty.call(draftStatus,k)?draftStatus[k]:state.status[k]}
 function ensureDraft(dk){if(draftDate!==dk){draftDate=dk;draftStatus={}}}
-function setStatus(k,v){if(!requireSavedRoll())return;let dk=k.slice(0,10),i=Number(k.slice(dk.length+1));if(!attendanceEditable(dk,i))return;ensureDraft(dk);let current=draftValue(k);if(current===v){draftStatus[k]=null}else{draftStatus[k]=v}/* Update only this attendance control in place: no full page render, so no blink/fade. */document.querySelectorAll(`[data-act="status"][data-k="${k}"]`).forEach(btn=>{btn.classList.toggle("active",draftValue(k)===btn.dataset.v)});let d=parseKey(state.viewDate);if(key(d)===dk){let ss=sessionsFor(d),marked=0;ss.forEach((_,n)=>{if(draftValue(sessionKey(dk,n)))marked++});let txt=document.querySelector(".progressText");let bar=document.querySelector(".progress > i");if(txt)txt.textContent=marked+" / "+ss.length+" marked";if(bar)bar.style.width=(ss.length?marked/ss.length*100:0)+"%"}}
+function setStatus(k,v){if(!requireSavedRoll())return;let dk=k.slice(0,10),i=Number(k.slice(dk.length+1));if(!attendanceEditable(dk,i))return;ensureDraft(dk);let current=draftValue(k);if(current===v){draftStatus[k]=null}else{draftStatus[k]=v}document.querySelectorAll(`[data-act="status"][data-k="${k}"]`).forEach(btn=>{btn.classList.toggle("active",draftValue(k)===btn.dataset.v)});let d=parseKey(state.viewDate);if(key(d)===dk){let ss=sessionsFor(d),marked=0;ss.forEach((_,n)=>{if(draftValue(sessionKey(dk,n)))marked++});let txt=document.querySelector(".progressText");let bar=document.querySelector(".progress > i");if(txt)txt.textContent=marked+" / "+ss.length+" marked";if(bar)bar.style.width=(ss.length?marked/ss.length*100:0)+"%"}}
 async function saveAttendance(dk){if(!requireSavedRoll())return;if(!editable(dk))return;ensureDraft(dk);let changes=Object.keys(draftStatus);if(!changes.length){toast("No attendance changes to save");return}if(!await appConfirm("Today remains editable until midnight. For past dates, only classes with a currently saved status are locked; a class cleared and saved as unmarked remains available for one-time past entry.","Save attendance?"))return;state.records=state.records||{};let ss=sessionsFor(parseKey(dk));changes.forEach(k=>{let v=draftStatus[k],i=Number(k.slice(dk.length+1));if(v){state.status[k]=v;let x=ss[i];if(x)state.records[k]={subject:x[2],scheduled:x._scheduled||x[2],start:x[0],end:x[1]}}else{delete state.status[k];delete state.records[k]}});save();draftStatus={};draftDate=dk;render();toast("Attendance saved") }
 function toggleHoliday(dk){if(!editable(dk))return;state.holidays[dk]?delete state.holidays[dk]:state.holidays[dk]=true;save();render()}
 function setNote(dk,text){if(!editable(dk))return;if(text.trim())state.notes[dk]=text.trim();else delete state.notes[dk];save();toast("Note saved")}
@@ -82,18 +78,14 @@ function openTimeWheel(box){let t=timeParts(box.dataset.timeValue||"09:00"),hour
 function classModal(i){let d=parseKey(state.viewDate),ss=sessionsFor(d),s=ss[i];if(!s)return;let modal=`<div class="modal"><div class="modalBox"><div class="row" style="justify-content:space-between"><b>✏️ Actual class</b><button class="btn outline" data-act="closeModal">Close</button></div><p class="small">The original scheduled class is kept in the record. Select what actually happened.</p><label class="label">Actual subject</label>${subjectOptions(s[2])}<label class="label">Start time</label>${timePicker("actualStart",s[0])}<label class="label">End time</label>${timePicker("actualEnd",s[1])}<div class="row" style="margin-top:14px"><button class="btn grow" data-act="saveClassEdit" data-i="${i}">Save actual class</button>${i<(state.settings.schedule[d.getDay()]||[]).length?`<button class="btn outline" data-act="restoreClass" data-i="${i}">Restore schedule</button>`:`<button class="btn outline" data-act="removeExtra" data-i="${i}">Remove</button>`}</div></div></div>`;document.body.insertAdjacentHTML("beforeend",modal)}
 function extraModal(){document.body.insertAdjacentHTML("beforeend",`<div class="modal"><div class="modalBox"><div class="row" style="justify-content:space-between"><b>＋ Add extra class</b><button class="btn outline" data-act="closeModal">Close</button></div><label class="label">Subject</label>${subjectOptions("")}<label class="label">Start time</label>${timePicker("extraStart","15:00")}<label class="label">End time</label>${timePicker("extraEnd","16:00")}<button class="btn" style="width:100%;margin-top:14px" data-act="saveExtra">Add class</button></div></div>`)}
 function combinedEveningRows(st,filter="all"){
-  // Flexible combined attendance:
-  // Build combinations ONLY from classes that were actually saved, not from the weekly timetable.
-  // Any subject can qualify: if the same subject has a held class before lunch and another
-  // held class after lunch, it gets a combined card. The subject name itself does not matter.
+
   const groups=new Map();
   const records=state.records||{};
   Object.entries(records).forEach(([recordKey,rec])=>{
     const dk=String(recordKey).slice(0,10);
     if(filter!=="all" && dk.slice(0,7)!==filter)return;
     const status=state.status[recordKey];
-    // Ignore pending classes. Cancelled (Not Held) classes are counted separately
-    // for information, but do not affect the held-class attendance calculation.
+
     if(status!==STATUS.ATTENDED && status!==STATUS.ABSENT && status!==STATUS.LEAVE && status!==STATUS.NOT_HELD)return;
     const subject=String(rec&&rec.subject||"").trim();
     const start=String(rec&&rec.start||"");
@@ -151,11 +143,10 @@ function attendanceAdvice(r){
 }
 function statsCard(r,label=""){let good=r.pct!==null&&r.pct>=state.settings.required;let bad=r.pct!==null&&r.pct<state.settings.required;let tone=good?"statsGood":bad?"statsBad":"statsNeutral";let cancelled=Number(r.notHeld||0);let advice=attendanceAdvice(r);let adviceTone=good?"goodAdvice":bad?"badAdvice":"neutralAdvice";return `<div class="card subject ${tone}" style="--fill:${Math.max(0,Math.min(100,r.pct||0))}%"><div class="subjectHead"><div class="subjectName">${esc(r.subject)}${label}</div><div class="pct">${r.pct===null?"—":r.pct.toFixed(1)+"%"}</div></div><div class="bar"><i style="width:${r.pct||0}%"></i></div><div class="subjectMeta"><span class="metaPresent">Present ${r.attended}</span><span class="metaAbsent">Absent ${r.absent}</span><span class="metaHeld">Held ${r.held}</span><span class="metaCancelled">Cancelled ${cancelled}</span></div><div class="attendanceAdvice ${adviceTone}" style="font-size:11px;margin-top:10px">${advice}</div></div>`}
 function statsTab(){let filter=state.statsFilter,st=compute(filter),pct=st.percent===null?0:Math.min(100,st.percent),months=[];let c=new Date(START_DATE.getFullYear(),START_DATE.getMonth(),1),e=new Date(today().getFullYear(),today().getMonth(),1);while(c<=e){months.push(key(c).slice(0,7));c=new Date(c.getFullYear(),c.getMonth()+1,1)}let h=`<div class="tabs"><button class="filter ${filter==="all"?"active":""}" data-act="filter" data-v="all">Overall</button>${months.slice().reverse().map(m=>`<button class="filter ${filter===m?"active":""}" data-act="filter" data-v="${m}">${parseKey(m+"-01").toLocaleDateString("en-GB",{month:"short",year:"2-digit"})}</button>`).join("")}</div><div class="card statsHero ${st.percent!==null&&st.percent>=state.settings.required?"statsGood":"statsBad"}" style="--fill:${pct}%"><div class="ring" style="--p:${pct}%"><div class="ringIn">${st.percent===null?"—":st.percent.toFixed(1)+"%"}</div></div><b>Overall attendance</b><div class="small">${st.attended} present of ${st.held} held classes</div></div><div class="grid4"><div class="card metric presentMetric"><b>${st.attended}</b><span>Present</span></div><div class="card metric absentMetric"><b>${st.absent}</b><span>Absent</span></div><div class="card metric pendingMetric"><b>${st.pending}</b><span>Pending</span></div><div class="card metric totalMetric"><b>${st.held}</b><span>Total Classes</span></div></div><div class="sectionTitle">📚 Subject attendance</div><div class="statsLegend"><span class="legendGood">● At or above required attendance</span><span class="legendBad">● Below required attendance</span></div>`;
-// Individual subjects only — combined rows are deliberately kept out of this section.
-// Highest attendance percentage appears first. Rows without held classes are kept at the bottom.
+
 const byAttendanceDesc=(a,b)=>{const ap=a.pct===null?-1:a.pct,bp=b.pct===null?-1:b.pct;return bp-ap||a.subject.localeCompare(b.subject)};
 st.rows.slice().sort(byAttendanceDesc).forEach(r=>h+=statsCard(r));
-// Flexible combinations from actually saved classes get their own separate section and are sorted independently.
+
 let combined=combinedEveningRows(st,filter).slice().sort(byAttendanceDesc);
 if(combined.length){h+=`<div class="sectionTitle">🔗 Combined Morning & Evening Attendance</div><div class="small" style="margin:-4px 0 10px">Shown automatically when the same subject has actually been held both in the morning and evening.</div>`;combined.forEach(r=>h+=statsCard(r," 🔗"))}
 return h}
@@ -166,8 +157,7 @@ function bottom(){let items=[["log","▣","Log"],["calendar","▦","Calendar"],[
 function render(){applyTheme();let content=state.tab==="log"?logTab():state.tab==="stats"?statsTab():state.tab==="calendar"?calendarTab():settingsTab();let animate=window.__animateNavigation===true;window.__animateNavigation=false;document.getElementById("app").innerHTML=`<div class="app">${header()}<main class="container${animate?" tabTransition":""}">${content}${footer()}</main>${bottom()}</div>`}
 function toast(msg){let old=document.querySelector(".toast");if(old)old.remove();let x=document.createElement("div");x.className="toast";x.textContent=msg;document.body.appendChild(x);setTimeout(()=>x.remove(),2200)}
 function datePicker(){
-  // Use a visible date control inside a modal. Some Android WebViews (including
-  // certain AppGeyser builds) do not open a programmatically-clicked hidden date input.
+
   const modal=document.createElement("div");
   modal.className="modal";
   modal.innerHTML=`<div class="modalBox" role="dialog" aria-modal="true">
@@ -191,7 +181,7 @@ function activateGate(){
   const input=document.getElementById("activationCode");
   const btn=document.getElementById("activationBtn");
   const error=document.getElementById("activationError");
-  // Only genuinely existing users with meaningful saved attendance/settings are grandfathered in.
+
   if(HAD_MEANINGFUL_APP_DATA_BEFORE_ACTIVATION)localStorage.setItem(ACTIVATION_KEY,"1");
   if(localStorage.getItem(ACTIVATION_KEY)==="1")return;
   overlay.classList.add("show");
@@ -209,7 +199,7 @@ function activateGate(){
   input.addEventListener("keydown",e=>{if(e.key==="Enter")tryActivate()});
   setTimeout(()=>input.focus(),50);
 }
-// Capture existing storage before load() can initialize a fresh installation.
+
 function hasMeaningfulStoredData(){
   try{
     const candidates=[KEY,...LEGACY_KEYS];
@@ -224,14 +214,13 @@ function hasMeaningfulStoredData(){
 }
 const HAD_MEANINGFUL_APP_DATA_BEFORE_ACTIVATION = hasMeaningfulStoredData();
 load();
-// Always start a fresh app launch on today's Log tab. Preserve all other saved data.
+
 state.tab="log";
 state.viewDate=key(today());
 state.calendarMonth=key(new Date(today().getFullYear(),today().getMonth(),1));
 save();
-applyTheme();watchSystemTheme();document.body.classList.add("startup-stable");render();requestAnimationFrame(()=>requestAnimationFrame(()=>document.getElementById("app").style.visibility="visible"));if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=72").then(r=>r.update?.()).catch(()=>{}));
+applyTheme();watchSystemTheme();document.body.classList.add("startup-stable");render();requestAnimationFrame(()=>requestAnimationFrame(()=>document.getElementById("app").style.visibility="visible"));if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=73").then(r=>r.update?.()).catch(()=>{}));
 
-// Robust Manage Schedule controls (direct handlers; independent of delegated clicks)
 function openManageSchedule(){
   document.querySelectorAll('.modal').forEach(m=>m.remove());
   const s=state.settings.schedule||{};
@@ -276,7 +265,6 @@ function saveManageSchedule(){
 }
 window.openManageSchedule=openManageSchedule;window.closeManageSchedule=closeManageSchedule;window.saveManageSchedule=saveManageSchedule;window.addFreshScheduleRow=addFreshScheduleRow;window.freshOtherToggle=freshOtherToggle;
 
-
 function showAppAlert(message, title){
   const overlay=document.getElementById('appAlertOverlay');
   const titleEl=document.getElementById('appAlertTitle');
@@ -293,7 +281,6 @@ function closeAppAlert(){
 document.addEventListener('click', function(e){
   if(e.target && (e.target.id==='appAlertOk' || e.target.id==='appAlertOverlay')) closeAppAlert();
 });
-
 
 function appConfirm(message,title="Confirmation"){
   return new Promise(resolve=>{
@@ -331,7 +318,6 @@ function appConfirm(message,title="Confirmation"){
   });
 }
 
-// v24 tactile feedback for Present / Absent / Not Held buttons (visual only)
 document.addEventListener('pointerdown', function(e){
   const b=e.target.closest && e.target.closest('.statusRow .status');
   if(b && !b.disabled) b.classList.add('is-pressing');

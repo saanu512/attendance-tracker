@@ -84,7 +84,7 @@
   box-shadow: 0 1px 0 color-mix(in srgb,var(--line) 75%,transparent), 0 4px 8px rgba(0,0,0,.10);
 }
 .status{
-  
+
   background:var(--card);
   box-shadow:none;
 }
@@ -347,10 +347,9 @@ html,body,#app,.app{min-height:100dvh}
 .tabTransition.forward,.tabTransition.backward{transform:none}
 @keyframes tabFade{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.tabTransition{animation:none}}
-/* v11 Earth editions + compact actions */
+
 .todayRow{justify-content:flex-end}.compactBtn,.actionCompact,.scheduleManage{width:auto!important;display:inline-flex!important;align-items:center;justify-content:center}.compactBtn{padding:8px 12px!important;font-size:12px}.actionCompact{padding:11px 15px!important;margin:12px 0 4px!important}.noteBox .actionCompact{margin:0!important}.status{transition:transform .09s ease,box-shadow .09s ease,background-color .12s ease,border-color .12s ease;will-change:transform}.status:active{transform:translateY(2px) scale(.985);box-shadow:none}.totalMetric{border-color:color-mix(in srgb,#3b82f6 40%,var(--line));background:color-mix(in srgb,#3b82f6 12%,var(--card));}.totalMetric b,.totalMetric span{color:#3b82f6}.cannotMiss{color:var(--red)!important;font-weight:850}.editionChoices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:7px}.editionChoice{padding:13px 10px;border-radius:15px;background:var(--bg);border:1px solid var(--line);color:var(--ink);text-align:left;transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease}.editionChoice span{display:block;font-size:11px;color:var(--soft);margin-top:4px}.editionChoice.selected{border-color:var(--primary);box-shadow:0 5px 0 color-mix(in srgb,var(--primary) 55%,#000 20%)}.editionChoice:active{transform:translateY(3px);box-shadow:0 2px 0 color-mix(in srgb,var(--primary) 55%,#000 20%)}.scheduleManage{padding:11px 15px!important}.saveAttendance.actionCompact{box-shadow:0 6px 0 color-mix(in srgb,var(--primary) 60%,#000),0 12px 22px color-mix(in srgb,var(--primary) 16%,transparent)}
 
-/* v12 corrections */
 .todayRow{display:flex;justify-content:center;align-items:center}
 .compactBtn{min-width:0!important;width:auto!important;padding:9px 16px!important;border-radius:14px!important;box-shadow:0 5px 0 color-mix(in srgb,var(--primary) 60%,#000 25%),0 10px 20px color-mix(in srgb,var(--primary) 18%,transparent)!important}
 .compactBtn:active{transform:translateY(4px)!important;box-shadow:0 1px 0 color-mix(in srgb,var(--primary) 60%,#000 25%),0 5px 10px color-mix(in srgb,var(--primary) 12%,transparent)!important}
@@ -363,7 +362,7 @@ html,body,#app,.app{min-height:100dvh}
 .editionCard{margin-top:16px;padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:0 7px 0 color-mix(in srgb,var(--line) 80%,#000 8%),0 14px 28px color-mix(in srgb,var(--ink) 8%,transparent)}
 .editionChoices{display:flex!important;gap:10px;align-items:center;margin-top:12px!important}.editionChoice{width:auto!important;display:inline-flex!important;align-items:center;justify-content:center;white-space:nowrap;text-align:center!important;padding:10px 14px!important;font-weight:800;border-radius:13px!important}.editionChoice span{display:none!important}
 .btn,.saveAttendance,.holiday,.scheduleManage{width:auto!important;display:inline-flex!important;align-items:center;justify-content:center;max-width:100%}
-/* v13 symmetry corrections */
+
 .todayRow{display:flex!important;justify-content:center!important;align-items:center!important;margin:12px 0 14px!important}
 .todayRow .compactBtn{font-size:13px!important;padding:10px 18px!important;border-radius:14px!important;box-shadow:0 5px 0 color-mix(in srgb,var(--primary) 55%,#000 25%),0 10px 20px color-mix(in srgb,var(--primary) 18%,transparent)!important}
 .todayRow .compactBtn:active{transform:translateY(3px) scale(.985)!important;box-shadow:0 2px 0 color-mix(in srgb,var(--primary) 55%,#000 25%)!important}
@@ -374,7 +373,7 @@ html,body,#app,.app{min-height:100dvh}
 .editionChoices{justify-content:center!important;width:100%!important}
 .editionChoice{font-size:11px!important;padding:8px 11px!important}
 .attendanceEnough{color:var(--green)!important;font-weight:850}.cannotMiss{color:var(--red)!important;font-weight:850}
-/* Nebula Glass Edition */
+
 :root[data-edition="nebula-glass"] body, body.nebula-glass{background:radial-gradient(circle at 15% 15%,rgba(64,224,208,.18),transparent 28%),radial-gradient(circle at 85% 20%,rgba(124,92,255,.20),transparent 30%),radial-gradient(circle at 50% 90%,rgba(0,120,255,.14),transparent 35%),linear-gradient(145deg,#03050c,#08051a 48%,#020811);}
 body.nebula-glass .card,body.nebula-glass .btn,body.nebula-glass .input,body.nebula-glass .statCard,body.nebula-glass .editionChoice,body.nebula-glass .dateCard,body.nebula-glass .navBtn{background:linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.012))!important;border:1px solid rgba(170,220,255,.42)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 24px rgba(0,0,0,.22),0 0 18px rgba(90,140,255,.08)!important;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);}
 body.nebula-glass .card{outline:1px solid rgba(130,80,255,.10);}
@@ -383,7 +382,6 @@ body.nebula-glass .btn:active,body.nebula-glass button:active{transform:translat
 body.nebula-glass .input:focus{border-color:rgba(70,220,255,.8)!important;box-shadow:0 0 0 2px rgba(70,220,255,.12),inset 0 1px 0 rgba(255,255,255,.2)!important;}
 body.nebula-glass .cosmosEdition{background:linear-gradient(90deg,#74e8ff,#b596ff,#74e8ff);-webkit-background-clip:text;background-clip:text;color:transparent;}
 
-/* V18 — Nebula Glass cosmic background override */
 body.nebula-glass, body[data-edition="nebula"], .nebula-glass {
   background:
     radial-gradient(ellipse at 18% 18%, rgba(117, 48, 171, .55) 0%, rgba(117,48,171,.20) 22%, transparent 48%),
@@ -410,8 +408,6 @@ body[data-edition="nebula"] .card, body[data-edition="nebula"] button, body[data
   box-shadow: 0 0 0 1px rgba(78,129,181,.12), 0 10px 30px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.10) !important;
 }
 
-
-/* V19 — Galactic Night: deep star field + Milky Way, with transparent glass UI */
 .editionChoices{flex-wrap:wrap!important;justify-content:center!important;}
 .editionChoice{flex:0 0 auto!important;}
 body.galactic-night{
@@ -617,8 +613,6 @@ body.galactic-night .btn:active,body.galactic-night button:active{transform:tran
 body.galactic-night .editionChoice.selected{border-color:rgba(210,220,255,.82)!important;box-shadow:0 0 0 1px rgba(145,125,255,.26),0 0 18px rgba(130,110,255,.18)!important;}
 body.galactic-night .cosmosEdition{background:linear-gradient(90deg,#dce8ff,#a9b8ff,#d9c5ff);-webkit-background-clip:text;background-clip:text;color:transparent;}
 
-
-/* v21 Black Hole Edition — Event Horizon + Obsidian UI */
 body.black-hole{
   --bg:#020205;--card:#08080d;--ink:#f5f7ff;--soft:#c5cad8;--line:rgba(143,115,205,.42);
   --primary:#a47cff;--primarySoft:rgba(110,75,190,.20);--green:#76e6ad;--greenSoft:rgba(36,135,87,.22);
@@ -664,7 +658,6 @@ body.black-hole .brand,body.black-hole b,body.black-hole strong,body.black-hole 
 body.black-hole .small,body.black-hole .sub,body.black-hole .soft,body.black-hole .progressText,body.black-hole .sessionTime,body.black-hole .subjectMeta,body.black-hole .metric span{color:#d3d8e5!important;opacity:1!important;}
 body.black-hole .cosmosEdition{background:linear-gradient(90deg,#f3edff,#c9a8ff,#7bb2ff,#f3edff);-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:0 0 18px rgba(145,100,255,.18);}
 
-/* v22 Black Hole Edition — restore attendance and statistics semantic colours */
 body.black-hole .status.green{color:#b9ffd7!important;background:linear-gradient(145deg,rgba(18,80,52,.88),rgba(5,24,17,.94))!important;border-color:rgba(118,230,173,.78)!important;box-shadow:inset 0 1px 0 rgba(220,255,235,.18),0 5px 0 rgba(10,52,33,.82),0 0 16px rgba(76,225,145,.18)!important;}
 body.black-hole .status.red{color:#ffd0d0!important;background:linear-gradient(145deg,rgba(92,29,38,.90),rgba(30,7,12,.95))!important;border-color:rgba(255,154,152,.78)!important;box-shadow:inset 0 1px 0 rgba(255,225,225,.14),0 5px 0 rgba(65,16,25,.82),0 0 16px rgba(255,104,120,.15)!important;}
 body.black-hole .status.gray{color:#f0f3f8!important;background:linear-gradient(145deg,rgba(75,81,94,.90),rgba(22,25,33,.95))!important;border-color:rgba(185,192,205,.70)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 5px 0 rgba(35,39,48,.86),0 0 14px rgba(180,190,205,.10)!important;}
@@ -680,7 +673,6 @@ body.black-hole .metric.absentMetric{border-color:rgba(255,154,152,.62)!importan
 body.black-hole .metric.pendingMetric{border-color:rgba(255,212,122,.62)!important;background:linear-gradient(145deg,rgba(72,49,15,.68),rgba(20,13,3,.62))!important;}
 body.black-hole .metric.totalMetric{border-color:rgba(123,178,255,.62)!important;background:linear-gradient(145deg,rgba(18,47,83,.70),rgba(4,11,23,.62))!important;}
 
-/* v23 — stronger tactile 3D attendance controls */
 .statusRow .status{
   transform:translateY(-3px);
   box-shadow:0 7px 0 rgba(0,0,0,.42),0 13px 24px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.22);
@@ -694,7 +686,6 @@ body.black-hole .metric.totalMetric{border-color:rgba(123,178,255,.62)!important
 .statusRow .status:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.45),0 5px 10px rgba(0,0,0,.2),inset 0 2px 7px rgba(0,0,0,.2)}
 .statusRow .status.active{transform:translateY(1px);filter:brightness(1.12)}
 
-/* v24 — explicit tactile press system for attendance choices */
 .statusRow{padding:4px 0 10px;}
 .statusRow .status{
   position:relative!important;
@@ -715,7 +706,6 @@ body.black-hole .metric.totalMetric{border-color:rgba(123,178,255,.62)!important
 .statusRow .status.red.is-pressing,.statusRow .status.red:active:not(:disabled){box-shadow:0 1px 0 #74202a,0 4px 9px rgba(0,0,0,.28),inset 0 3px 8px rgba(0,0,0,.18)!important;}
 .statusRow .status.gray.is-pressing,.statusRow .status.gray:active:not(:disabled){box-shadow:0 1px 0 #454b58,0 4px 9px rgba(0,0,0,.28),inset 0 3px 8px rgba(0,0,0,.18)!important;}
 
-/* v25 Black Hole Edition — high-visibility attendance state and statistics colours */
 body.black-hole .statusRow .status.green,
 body.black-hole .statusRow .status.green.active{
   color:#e9fff2!important;
@@ -738,12 +728,10 @@ body.black-hole .statusRow .status.gray.active{
   text-shadow:0 1px 2px rgba(0,0,0,.7)!important;
 }
 
-/* Keep selected attendance unmistakably colour-coded */
 body.black-hole .statusRow .status.green.active{box-shadow:0 8px 0 #075a35,0 0 24px rgba(85,227,155,.48),inset 0 1px 0 rgba(255,255,255,.26)!important;}
 body.black-hole .statusRow .status.red.active{box-shadow:0 8px 0 #74202a,0 0 24px rgba(255,120,133,.45),inset 0 1px 0 rgba(255,255,255,.24)!important;}
 body.black-hole .statusRow .status.gray.active{box-shadow:0 8px 0 #454b58,0 0 22px rgba(195,202,213,.32),inset 0 1px 0 rgba(255,255,255,.22)!important;}
 
-/* Statistics numbers and labels retain their semantic colours in Black Hole Edition */
 body.black-hole .grid4 .presentMetric > b,
 body.black-hole .grid4 .presentMetric > span{color:#55e39b!important;text-shadow:0 0 10px rgba(85,227,155,.28)!important;}
 body.black-hole .grid4 .absentMetric > b,
@@ -753,7 +741,6 @@ body.black-hole .grid4 .pendingMetric > span{color:#ffd166!important;text-shadow
 body.black-hole .grid4 .totalMetric > b,
 body.black-hole .grid4 .totalMetric > span{color:#72a7ff!important;text-shadow:0 0 10px rgba(114,167,255,.25)!important;}
 
-/* v26 Black Hole Edition — neutral before marking, semantic colour only after selection */
 body.black-hole .statusRow .status.green:not(.active),
 body.black-hole .statusRow .status.red:not(.active),
 body.black-hole .statusRow .status.gray:not(.active){
@@ -782,7 +769,6 @@ body.black-hole .statusRow .status.gray.active{
   box-shadow:0 8px 0 #454b58,0 0 22px rgba(195,202,213,.32),inset 0 1px 0 rgba(255,255,255,.22)!important;
 }
 
-/* v27 — Black Hole attendance buttons: only selected buttons stay raised */
 body.black-hole .statusRow .status.green:not(.active),
 body.black-hole .statusRow .status.red:not(.active),
 body.black-hole .statusRow .status.gray:not(.active){
@@ -803,8 +789,6 @@ body.black-hole .statusRow .status.green.active{box-shadow:0 8px 0 #075a35,0 14p
 body.black-hole .statusRow .status.red.active{box-shadow:0 8px 0 #74202a,0 14px 24px rgba(0,0,0,.34),0 0 24px rgba(255,120,133,.45),inset 0 1px 0 rgba(255,255,255,.24)!important;}
 body.black-hole .statusRow .status.gray.active{box-shadow:0 8px 0 #454b58,0 14px 24px rgba(0,0,0,.34),0 0 22px rgba(195,202,213,.32),inset 0 1px 0 rgba(255,255,255,.22)!important;}
 
-/* v28: Attendance status buttons — all editions.
-   Unmarked buttons stay flat; only the selected status is raised. */
 body:not(.black-hole) .statusRow .status:not(.active){
   transform:none !important;
   box-shadow:none !important;
@@ -826,14 +810,12 @@ body:not(.black-hole) .statusRow .status.red.active{
 body:not(.black-hole) .statusRow .status.gray.active{
   box-shadow:0 8px 0 #454b58,0 14px 24px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.18) !important;
 }
-/* During touch, every button still gives immediate press feedback. */
+
 body:not(.black-hole) .statusRow .status:active:not(:disabled),
 body:not(.black-hole) .statusRow .status.is-pressing{
   transform:translateY(3px) !important;
 }
 
-/* v29 — FINAL attendance button elevation rule for EVERY edition.
-   Only the selected attendance status may remain raised. */
 body:not(.black-hole) .session .statusRow > button.status:not(.active),
 body:not(.black-hole) .statusRow > button.status:not(.active){
   transform:translateY(0) !important;
@@ -846,19 +828,17 @@ body:not(.black-hole) .statusRow > button.status:not(.active):focus:not(:disable
   box-shadow:none !important;
   filter:none !important;
 }
-/* The selected button alone gets the persistent raised depth. */
+
 body:not(.black-hole) .session .statusRow > button.status.active{
   transform:translateY(-4px) !important;
 }
-/* Touch feedback is temporary only; after release an unmarked button is flat again. */
+
 body:not(.black-hole) .session .statusRow > button.status:not(.active):active,
 body:not(.black-hole) .session .statusRow > button.status:not(.active).is-pressing{
   transform:translateY(2px) !important;
   box-shadow:none !important;
 }
 
-/* v30 — definitive attendance button state across ALL editions.
-   Neutral buttons must never keep the coloured 3D base. */
 .statusRow > button.status.green:not(.active),
 .statusRow > button.status.red:not(.active),
 .statusRow > button.status.gray:not(.active){
@@ -876,7 +856,7 @@ body:not(.black-hole) .session .statusRow > button.status:not(.active).is-pressi
   box-shadow:none !important;
   filter:none !important;
 }
-/* Only the selected state owns the permanent coloured raised base. */
+
 .statusRow > button.status.green.active{
   transform:translateY(-4px) !important;
   box-shadow:0 8px 0 color-mix(in srgb,var(--green) 58%,#000),0 14px 24px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.24) !important;
@@ -889,7 +869,7 @@ body:not(.black-hole) .session .statusRow > button.status:not(.active).is-pressi
   transform:translateY(-4px) !important;
   box-shadow:0 8px 0 #454b58,0 14px 24px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.18) !important;
 }
-/* Black Hole keeps its own stronger Event Horizon colours, but follows the same flat/raised rule. */
+
 body.black-hole .statusRow > button.status.green:not(.active),
 body.black-hole .statusRow > button.status.red:not(.active),
 body.black-hole .statusRow > button.status.gray:not(.active){
@@ -899,12 +879,10 @@ body.black-hole .statusRow > button.status.gray:not(.active){
 body.black-hole .statusRow > button.status.green.active,
 body.black-hole .statusRow > button.status.red.active,
 body.black-hole .statusRow > button.status.gray.active{transform:translateY(-4px) !important;}
-/* Touch feedback is temporary; it never becomes a persistent raised state unless selected. */
+
 .statusRow > button.status:not(.active):active,
 .statusRow > button.status:not(.active).is-pressing{transform:translateY(2px) !important;}
 
-
-/* V31 — Heart Nebula Edition (IC 1805 inspired, procedural CSS; no background image) */
 body.heart-nebula{
   color:#f5f6fb!important;
   background:
@@ -940,7 +918,7 @@ body.heart-nebula::after{
     63vw 91vh 0 1px #ffe6bd,70vw 58vh 0 .5px #fff,76vw 76vh 0 .8px #d7efff,83vw 61vh 0 .6px #fff,
     91vw 84vh 0 1px #fff,97vw 48vh 0 .5px #fff,22vw 44vh 0 .5px #fff,68vw 39vh 0 1px #fff;
 }
-/* Solid cosmic panels — intentionally NOT glass/crystal/transparent */
+
 body.heart-nebula .app,body.heart-nebula .header,body.heart-nebula .nav{background:transparent!important;}
 body.heart-nebula .card,body.heart-nebula .datebar,body.heart-nebula .modalBox,body.heart-nebula .appDialog,body.heart-nebula .app-alert-box,body.heart-nebula .wheelTimeDialog,body.heart-nebula .activationCard{
   background:linear-gradient(145deg,rgba(12,20,32,.96),rgba(18,29,45,.94))!important;
@@ -966,8 +944,6 @@ body.heart-nebula .statusRow .status.green.active{background:linear-gradient(145
 body.heart-nebula .statusRow .status.red.active{background:linear-gradient(145deg,#b23d31,#5a1414)!important;box-shadow:0 8px 0 #681b1b,0 14px 24px rgba(0,0,0,.34),0 0 20px rgba(255,112,86,.26)!important;}
 body.heart-nebula .statusRow .status.gray.active{background:linear-gradient(145deg,#6c7684,#303946)!important;box-shadow:0 8px 0 #39414d,0 14px 24px rgba(0,0,0,.34)!important;}
 
-/* V32 — Heart Nebula stats semantics + clearly selected period filter */
-/* Keep the four statistic values and labels in their own meaningful colors. */
 body.heart-nebula .grid4 .metric.presentMetric > b,
 body.heart-nebula .grid4 .metric.presentMetric > span{color:#63d99a!important;text-shadow:0 0 10px rgba(99,217,154,.20)!important;}
 body.heart-nebula .grid4 .metric.absentMetric > b,
@@ -977,7 +953,6 @@ body.heart-nebula .grid4 .metric.pendingMetric > span{color:#ffc44d!important;te
 body.heart-nebula .grid4 .metric.totalMetric > b,
 body.heart-nebula .grid4 .metric.totalMetric > span{color:#65b9ff!important;text-shadow:0 0 10px rgba(101,185,255,.18)!important;}
 
-/* Make the currently selected Overall/month filter unmistakable. */
 body.heart-nebula .tabs .filter{background:linear-gradient(145deg,#263c56,#172535)!important;color:#d7e0eb!important;border-color:rgba(119,188,232,.48)!important;}
 body.heart-nebula .tabs .filter.active{
   background:linear-gradient(145deg,#2b5b80,#15283a)!important;
@@ -988,8 +963,6 @@ body.heart-nebula .tabs .filter.active{
 }
 body.heart-nebula .tabs .filter.active:active{transform:translateY(2px)!important;box-shadow:0 2px 0 #0a1823,inset 0 2px 8px rgba(0,0,0,.28)!important;}
 
-
-/* V33 — Roshni Edition: Golden Aurora + Luminous Pearl UI (not glass/crystal) */
 body.roshni{
   color:#322d46!important;
   background:
@@ -1009,7 +982,7 @@ body.roshni::before{
   filter:blur(18px);
 }
 body.roshni .app,body.roshni .header{background:transparent!important;}
-/* Luminous pearl surfaces: opaque enough for readability, softly dimensional, not transparent glass. */
+
 body.roshni .card,body.roshni .datebar,body.roshni .modalBox,body.roshni .appDialog,body.roshni .app-alert-box,body.roshni .wheelTimeDialog,body.roshni .activationCard{
   background:linear-gradient(145deg,#fffdf9 0%,#f8edf4 52%,#f1e5f5 100%)!important;
   border:1px solid rgba(255,255,255,.94)!important;
@@ -1051,7 +1024,6 @@ body.roshni .tabs .filter.active{background:linear-gradient(145deg,#ffe7a8,#e6c3
 body.roshni .cosmosEdition{background:linear-gradient(90deg,#b97918,#e49775,#8c6bc0);-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:0 0 14px rgba(255,224,143,.30);}
 body.roshni .safe{color:#27885c!important;}body.roshni .warning{color:#b67a12!important;}body.roshni .danger{color:#c54f4b!important;}
 
-/* V34 — Roshni Edition light correction: remove all dark/black card surfaces */
 body.roshni .card,
 body.roshni .datebar,
 body.roshni .formCard,
@@ -1069,7 +1041,6 @@ body.roshni .activationCard{
   backdrop-filter:blur(16px) saturate(125%);
 }
 
-/* Keep attendance status information light and readable while preserving its meaning. */
 body.roshni .statsHero.statsGood,
 [data-theme="dark"] body.roshni .statsHero.statsGood,
 body.roshni .subject.statsGood,
@@ -1086,7 +1057,6 @@ body.roshni .subject.statsBad,
 }
 body.roshni .statsHero:not(.statsGood):not(.statsBad){background:linear-gradient(145deg,rgba(255,255,255,.80),rgba(248,239,255,.68))!important;}
 
-/* Remove the old dark pseudo-layer from the overall and subject attendance cards. */
 body.roshni .statsHero.statsGood::before,
 body.roshni .statsHero.statsBad::before,
 body.roshni .subject.statsGood::before,
@@ -1096,14 +1066,12 @@ body.roshni .subject.statsBad::before,
 [data-theme="dark"] body.roshni .subject.statsGood::before,
 [data-theme="dark"] body.roshni .subject.statsBad::before{display:none!important;}
 
-/* Light pearl statistic cards, never dark. */
 body.roshni .metric,
 [data-theme="dark"] body.roshni .metric{
   background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(248,240,255,.70))!important;
   border-color:rgba(255,255,255,.90)!important;
 }
 
-/* Light translucent information chips inside subject cards. */
 body.roshni .subjectMeta span,
 body.roshni .statsLegend span,
 [data-theme="dark"] body.roshni .subjectMeta span,
@@ -1113,7 +1081,6 @@ body.roshni .statsLegend span,
   box-shadow:0 4px 10px rgba(99,72,120,.09),inset 0 1px 0 rgba(255,255,255,.9)!important;
 }
 
-/* Inputs, progress tracks and secondary surfaces also stay luminous. */
 body.roshni .input,body.roshni textarea,body.roshni select,
 body.roshni .timeWheelTrigger,body.roshni .activationInput,
 [data-theme="dark"] body.roshni .input,[data-theme="dark"] body.roshni textarea,[data-theme="dark"] body.roshni select{
@@ -1122,17 +1089,14 @@ body.roshni .timeWheelTrigger,body.roshni .activationInput,
 }
 body.roshni .progress,body.roshni .bar{background:rgba(255,255,255,.56)!important;}
 
-/* Ensure the semantic colors remain strong on the new luminous surfaces. */
 body.roshni .statsHero.statsGood .ring{background:conic-gradient(#55bd82 var(--p),rgba(255,255,255,.70) 0)!important;}
 body.roshni .statsHero.statsBad .ring{background:conic-gradient(#dc7168 var(--p),rgba(255,255,255,.70) 0)!important;}
 body.roshni .subject.statsGood .pct{color:#27885c!important;}
 body.roshni .subject.statsBad .pct{color:#c54f4b!important;}
 
-/* V35 — Roshni Edition: complete luminous surface pass. No dark UI panels. */
 body.roshni,
 [data-theme="dark"] body.roshni{color:#332d4a!important;}
 
-/* Every app surface stays pearl/light/translucent in Roshni, even if the saved base theme is dark. */
 body.roshni .card,
 body.roshni .progressCard,
 body.roshni .statsHero,
@@ -1169,7 +1133,6 @@ body.roshni .activationCard,
   backdrop-filter:blur(18px) saturate(130%);
 }
 
-/* Good/bad attendance cards remain light but clearly communicate green/red status. */
 body.roshni .statsHero.statsGood,
 body.roshni .subject.statsGood,
 [data-theme="dark"] body.roshni .statsHero.statsGood,
@@ -1185,13 +1148,11 @@ body.roshni .subject.statsBad,
   border-color:rgba(212,83,78,.46)!important;
 }
 
-/* Remove any inherited dark overlays/pseudo surfaces. */
 body.roshni .statsHero::before,
 body.roshni .statsHero::after,
 body.roshni .subject::before,
 body.roshni .subject::after{background:none!important;opacity:0!important;display:none!important;}
 
-/* Subject information pills and status messages become soft luminous chips. */
 body.roshni .subjectMeta span,
 body.roshni .statsLegend span,
 body.roshni .subjectMeta .metaPresent,
@@ -1209,7 +1170,6 @@ body.roshni .subjectMeta .metaAbsent{color:#c54f4b!important;}
 body.roshni .subjectMeta .metaHeld{color:#7055ad!important;}
 body.roshni .subjectMeta .metaCancelled{color:#a76f12!important;}
 
-/* All controls use light pearl surfaces; no black/dark button backgrounds. */
 body.roshni .btn,
 body.roshni .saveAttendance,
 body.roshni .holiday,
@@ -1236,7 +1196,6 @@ body.roshni .calDay,
   box-shadow:0 5px 13px rgba(92,63,112,.13),inset 0 1px 0 rgba(255,255,255,.98)!important;
 }
 
-/* Inputs and small functional surfaces stay bright and readable. */
 body.roshni .input,
 body.roshni textarea,
 body.roshni select,
@@ -1256,7 +1215,6 @@ body.roshni .bar,
   border-color:rgba(255,255,255,.86)!important;
 }
 
-/* Navigation, toast and banners also remain luminous. */
 body.roshni .nav,
 [data-theme="dark"] body.roshni .nav{
   background:linear-gradient(145deg,rgba(255,252,249,.88),rgba(244,235,250,.80))!important;
@@ -1276,7 +1234,6 @@ body.roshni .banner.info{background:rgba(245,232,255,.82)!important;}
 body.roshni .banner.warn{background:rgba(255,242,202,.86)!important;}
 body.roshni .banner.lock{background:rgba(240,231,255,.86)!important;}
 
-/* Keep all normal text dark enough to remain fully readable on the luminous theme. */
 body.roshni .brand,body.roshni b,body.roshni strong,body.roshni .label,
 body.roshni .sessionName,body.roshni .subjectName,body.roshni .sectionTitle,
 body.roshni .statsHero,body.roshni .small,body.roshni .sub,body.roshni .soft,
@@ -1289,8 +1246,6 @@ body.roshni .progressText,body.roshni .sessionTime,body.roshni .locktag,
 [data-theme="dark"] body.roshni .progressText,[data-theme="dark"] body.roshni .sessionTime,
 [data-theme="dark"] body.roshni .locktag{color:#4a4059!important;opacity:1!important;}
 
-/* V36 — ROSHNI PEARL EDITION: light beams + mother-of-pearl consistency */
-/* A gentle darker base is retained only behind the illumination so the light beams are visible. */
 body.roshni,
 [data-theme="dark"] body.roshni{
   background:
@@ -1311,7 +1266,6 @@ body.roshni::before{
 }
 body.roshni .app,body.roshni .header{position:relative;z-index:1;background:transparent!important;}
 
-/* Mother-of-pearl surface used everywhere in this edition. */
 body.roshni .card,
 body.roshni .datebar,
 body.roshni .formCard,
@@ -1339,7 +1293,6 @@ body.roshni .activationCard,
   backdrop-filter:blur(20px) saturate(140%);
 }
 
-/* Time badges are luminous pearl, never navy/black. */
 body.roshni .sessionTime,
 [data-theme="dark"] body.roshni .sessionTime{
   background:linear-gradient(135deg,rgba(255,255,255,.82),rgba(243,231,255,.78),rgba(255,239,220,.76))!important;
@@ -1348,7 +1301,6 @@ body.roshni .sessionTime,
   box-shadow:0 5px 14px rgba(100,72,119,.10),inset 0 1px 0 rgba(255,255,255,.98)!important;
 }
 
-/* Attendance advice is also pearl/light; semantic text colors remain unchanged. */
 body.roshni .attendanceAdvice,
 [data-theme="dark"] body.roshni .attendanceAdvice{
   background:linear-gradient(135deg,rgba(255,255,255,.74),rgba(249,241,255,.68),rgba(255,245,232,.68))!important;
@@ -1361,7 +1313,6 @@ body.roshni .attendanceAdvice,
 body.roshni .attendanceEnough,[data-theme="dark"] body.roshni .attendanceEnough{color:#27885c!important;}
 body.roshni .cannotMiss,[data-theme="dark"] body.roshni .cannotMiss{color:#c54f4b!important;}
 
-/* Every popup and overlay gets the same luminous treatment. */
 body.roshni .modal,
 body.roshni .wheelTimeOverlay,
 body.roshni .appDialogOverlay,
@@ -1403,7 +1354,6 @@ body.roshni .appDialogOk{
   box-shadow:0 4px 0 #aa8fc4,0 9px 18px rgba(103,74,126,.16),inset 0 1px 0 rgba(255,255,255,.9)!important;
 }
 
-/* Keep navigation, chips and controls pearl-bright even when base theme is dark. */
 body.roshni .nav,
 [data-theme="dark"] body.roshni .nav{
   background:linear-gradient(135deg,rgba(255,255,255,.84),rgba(250,241,255,.78),rgba(255,239,232,.76))!important;
@@ -1411,8 +1361,6 @@ body.roshni .nav,
   backdrop-filter:blur(22px) saturate(145%);
 }
 
-/* V38 — restore exact percentage-progress fill and dynamic semantic advice in ROSHNI PEARL */
-/* The advice color follows whether current attendance meets the configured required percentage. */
 body.roshni .attendanceAdvice.goodAdvice,
 [data-theme="dark"] body.roshni .attendanceAdvice.goodAdvice{color:#17834f!important;border-color:rgba(54,170,105,.34)!important;}
 body.roshni .attendanceAdvice.badAdvice,
@@ -1422,7 +1370,6 @@ body.roshni .attendanceAdvice.goodAdvice *,body.roshni .attendanceAdvice.goodAdv
 body.roshni .attendanceAdvice.badAdvice *,body.roshni .attendanceAdvice.badAdvice,
 [data-theme="dark"] body.roshni .attendanceAdvice.badAdvice *,[data-theme="dark"] body.roshni .attendanceAdvice.badAdvice{color:#bd3f3f!important;}
 
-/* Restore the original continuously proportional fill: every exact attendance percentage changes the fill amount. */
 body.roshni .statsHero.statsGood,
 body.roshni .statsHero.statsBad,
 body.roshni .subject.statsGood,
@@ -1458,7 +1405,6 @@ body.roshni .subject.statsBad::after{display:block!important;opacity:.28!importa
 body.roshni .statsHero.statsGood,body.roshni .subject.statsGood{--tone:#27925f!important;border-color:rgba(54,170,105,.42)!important;}
 body.roshni .statsHero.statsBad,body.roshni .subject.statsBad{--tone:#cf5650!important;border-color:rgba(213,90,84,.42)!important;}
 
-/* Make the active edition unmistakable in the edition selector. */
 body.roshni .editionChoices .editionChoice.selected,
 [data-theme="dark"] body.roshni .editionChoices .editionChoice.selected{
   background:linear-gradient(135deg,#fffdf8 0%,#ffe7f2 30%,#eee0ff 66%,#fff1d8 100%)!important;
@@ -1468,14 +1414,10 @@ body.roshni .editionChoices .editionChoice.selected,
 }
 body.roshni .editionChoices .editionChoice.selected::after{content:"✓ Selected";display:block;font-size:10px;margin-top:3px;color:#8b5a96!important;font-weight:800!important;}
 
-
-/* V39 — Roshni Pearl: mixed-colour attendance information and refined selected edition state. */
-/* Permanent semantic attendance-message colors: global across every edition/theme. */
 .attendanceAdvice .adviceGreen{color:var(--green)!important;font-weight:850!important;}
 .attendanceAdvice .adviceRed{color:var(--red)!important;font-weight:850!important;}
 body.roshni .attendanceAdvice .adviceNeutralText,[data-theme="dark"] body.roshni .attendanceAdvice .adviceNeutralText{color:#6a6175!important;font-weight:800!important;}
 
-/* Selected edition: pearly red border + gentle raised button, with no tick or Selected label. */
 body.roshni .editionChoices .editionChoice.selected,
 [data-theme="dark"] body.roshni .editionChoices .editionChoice.selected{
   background:linear-gradient(135deg,#fffdf8 0%,#fff1ef 34%,#f7dfe4 66%,#fff7ef 100%)!important;
@@ -1487,9 +1429,6 @@ body.roshni .editionChoices .editionChoice.selected,
 }
 body.roshni .editionChoices .editionChoice.selected::after{content:none!important;display:none!important;}
 
-
-/* V44 PERMANENT GLOBAL ATTENDANCE MESSAGE SEMANTIC COLORS
-   These colors are core app behavior and must not change with any edition/theme. */
 .attendanceAdvice .attendance-message-green,
 body .attendanceAdvice .attendance-message-green,
 [data-theme] .attendanceAdvice .attendance-message-green { color:var(--green) !important; }
@@ -1497,8 +1436,6 @@ body .attendanceAdvice .attendance-message-green,
 body .attendanceAdvice .attendance-message-red,
 [data-theme] .attendanceAdvice .attendance-message-red { color:var(--red) !important; }
 
-/* V45 — ROSHNI PEARL POPUP READABILITY LOCK
-   Pearl/glass surfaces stay unchanged; popup text is explicitly dark and fully opaque. */
 body.roshni .app-alert-box,
 body.roshni .appDialog,
 body.roshni .wheelTimeDialog,
@@ -1538,7 +1475,6 @@ body.roshni .modalBox p,
   text-shadow:none!important;
 }
 
-/* Keep all popup action labels readable on pearl buttons. */
 body.roshni .app-alert-ok,
 body.roshni .appDialogCancel,
 body.roshni .appDialogOk,
@@ -1555,8 +1491,6 @@ body.roshni .wheelBtn,
   text-shadow:none!important;
 }
 
-/* V46 — ROSHNI PEARL COMPLETE POPUP TEXT VISIBILITY LOCK
-   Applies to every custom popup surface used anywhere in the app. */
 body.roshni .app-alert-box,
 body.roshni .appDialog,
 body.roshni .wheelTimeDialog,
@@ -1571,7 +1505,6 @@ body.roshni .activationCard,
   opacity:1!important;
 }
 
-/* Every normal text node inside a Pearl popup is explicitly readable. */
 body.roshni .app-alert-box :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.app-alert-title,.app-alert-message),
 body.roshni .appDialog :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.appDialogTitle,.appDialogMessage),
 body.roshni .wheelTimeDialog :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.soft,.wheelTimeTitle),
@@ -1587,7 +1520,6 @@ body.roshni .activationCard :is(h1,h2,h3,h4,p,label,span,small,.label,.small,.so
   text-shadow:none!important;
 }
 
-/* Popup headings are darker than descriptions for clear hierarchy. */
 body.roshni .app-alert-title,
 body.roshni .appDialogTitle,
 body.roshni .wheelTimeTitle,
@@ -1609,7 +1541,6 @@ body.roshni .activationTitle,
   font-weight:900!important;
 }
 
-/* Descriptions and explanatory text stay comfortably dark, never faded. */
 body.roshni .app-alert-message,
 body.roshni .appDialogMessage,
 body.roshni .activationText,
@@ -1622,7 +1553,6 @@ body.roshni .modalBox p,
   opacity:1!important;
 }
 
-/* Inputs, placeholders and picker values remain visible on every Pearl popup. */
 body.roshni .modalBox input,
 body.roshni .modalBox textarea,
 body.roshni .modalBox select,
@@ -1644,7 +1574,6 @@ body.roshni .activationInput::placeholder,
   opacity:1!important;
 }
 
-/* Time picker: selected value and surrounding values are both readable. */
 body.roshni .wheelItem,
 [data-theme="dark"] body.roshni .wheelItem{
   color:#756b80!important;
@@ -1657,7 +1586,6 @@ body.roshni .wheelItem.selected,
   font-weight:800!important;
 }
 
-/* Action buttons always keep strong readable labels. */
 body.roshni .app-alert-ok,
 body.roshni .appDialogCancel,
 body.roshni .appDialogOk,
@@ -1677,8 +1605,6 @@ body.roshni .activationBtn,
   text-shadow:none!important;
 }
 
-
-/* v48 — OPAL DREAM EDITION: bright opalescent crystal/glass theme */
 body.opal-dream{
   --bg:#f8f8ff;
   --card:rgba(255,255,255,.54);
@@ -1744,29 +1670,27 @@ body.opal-dream .brand,body.opal-dream b,body.opal-dream strong{color:#273047!im
 body.opal-dream .small,body.opal-dream .sub,body.opal-dream .soft,body.opal-dream .sessionTime,body.opal-dream .subjectMeta{color:#687189!important;opacity:1!important;}
 body.opal-dream .cosmosEdition{background:linear-gradient(90deg,#d77cad,#8b74dd,#65a9df,#d08a66);-webkit-background-clip:text;background-clip:text;color:transparent!important;}
 body.opal-dream .navBtn.active{background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(234,222,255,.72))!important;box-shadow:0 5px 0 rgba(146,118,190,.24),0 10px 22px rgba(130,108,170,.14)!important;}
-/* Preserve global semantic attendance message colors in Opal Dream. */
+
 body.opal-dream .attendance-good{color:var(--green)!important;}
 body.opal-dream .attendance-warning{color:var(--red)!important;}
 
-/* v49 — CORE SEMANTIC STAT COLORS + OPAL STATS TAB SELECTION
-   Semantic identity is permanent across every edition; each edition may use its own readable shade. */
 body{
   --metric-present:var(--green);
   --metric-absent:var(--red);
   --metric-pending:var(--yellow);
   --metric-total:#3b82f6;
 }
-/* Existing edition-specific shades are preserved where they were already part of the design. */
+
 body.black-hole{--metric-present:#55e39b;--metric-absent:#ff7885;--metric-pending:#ffd166;--metric-total:#72a7ff;}
 body.heart-nebula{--metric-present:#63d99a;--metric-absent:#ff7770;--metric-pending:#ffc44d;--metric-total:#65b9ff;}
 body.roshni{--metric-present:#27885c;--metric-absent:#c54f4b;--metric-pending:#b67a12;--metric-total:#377fc7;}
 body.opal-dream{--metric-present:#27885c;--metric-absent:#c54f4b;--metric-pending:#b67a12;--metric-total:#377fc7;}
-/* Final core safeguard: themes cannot change the semantic colour family of these four statistics. */
+
 .grid4 .metric.presentMetric > b,.grid4 .metric.presentMetric > span{color:var(--metric-present)!important;}
 .grid4 .metric.absentMetric > b,.grid4 .metric.absentMetric > span{color:var(--metric-absent)!important;}
 .grid4 .metric.pendingMetric > b,.grid4 .metric.pendingMetric > span{color:var(--metric-pending)!important;}
 .grid4 .metric.totalMetric > b,.grid4 .metric.totalMetric > span{color:var(--metric-total)!important;}
-/* In Opal Dream, the selected Overall/month filter must always look clearly selected and raised. */
+
 body.opal-dream .tabs .filter.active{
   background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(228,216,255,.88),rgba(212,239,255,.84))!important;
   color:#4d4271!important;
@@ -1775,8 +1699,6 @@ body.opal-dream .tabs .filter.active{
   box-shadow:0 6px 0 rgba(148,113,194,.28),0 14px 24px rgba(126,103,169,.18),inset 0 1px 0 rgba(255,255,255,.98)!important;
 }
 
-
-/* v50 — CELESTIAL GLASS EDITION: luminous light-universe crystal theme */
 body.celestial-glass{
   --bg:#edf7ff;
   --card:rgba(255,255,255,.18);
@@ -1839,7 +1761,6 @@ body.celestial-glass .tabs .filter.active{background:linear-gradient(135deg,rgba
 body.celestial-glass .cosmosEdition{background:linear-gradient(90deg,#4a9bd1,#7769c8,#d07eaf,#4aa4c8);-webkit-background-clip:text;background-clip:text;color:transparent!important;}
 body.celestial-glass .attendance-good{color:var(--green)!important;}body.celestial-glass .attendance-warning{color:var(--red)!important;}
 
-/* v51 — CELESTIAL GLASS: brighter light cosmos + fully transparent crystal surfaces */
 body.celestial-glass{
   --bg:#eaf8ff;
   background:
@@ -1866,7 +1787,7 @@ body.celestial-glass::before{
     linear-gradient(30deg,transparent 38%,rgba(188,158,255,.18) 49%,rgba(255,255,255,.28) 54%,transparent 65%)!important;
   background-size:210px 190px,270px 230px,230px 200px,300px 260px,250px 220px,290px 240px,220px 210px,280px 250px,100% 100%,100% 100%!important;
 }
-/* Nearly clear crystal surfaces: the bright cosmos stays visible through every layer. */
+
 body.celestial-glass .card,body.celestial-glass .datebar,body.celestial-glass .editionCard,
 body.celestial-glass .editionChoice,body.celestial-glass .nav,body.celestial-glass .navBtn,
 body.celestial-glass .modalBox,body.celestial-glass .appDialog,body.celestial-glass .app-alert-box,
@@ -1893,14 +1814,13 @@ body.celestial-glass .editionChoice.selected{
   background:linear-gradient(135deg,rgba(255,255,255,.38),rgba(150,220,255,.18),rgba(220,180,255,.16))!important;
 }
 
-/* v52 — CELESTIAL GLASS: luminous sun, planets and scattered stars visible through the crystal UI */
 body.celestial-glass{
   background:
-    /* warm luminous sun */
+
     radial-gradient(circle at 88% 16%,rgba(255,255,255,.98) 0 2.5%,rgba(255,246,183,.92) 3.5%,rgba(255,220,103,.58) 6%,rgba(255,197,84,.22) 10%,transparent 17%),
-    /* distant blue planet */
+
     radial-gradient(circle at 13% 72%,rgba(255,255,255,.70) 0 1%,rgba(123,211,255,.92) 2%,rgba(75,164,234,.76) 5%,rgba(68,129,210,.34) 7%,transparent 10%),
-    /* lavender planet */
+
     radial-gradient(circle at 79% 76%,rgba(255,255,255,.72) 0 1%,rgba(219,191,255,.90) 2%,rgba(167,128,229,.68) 5%,rgba(133,101,202,.24) 7%,transparent 10%),
     radial-gradient(ellipse at 6% 8%,rgba(83,211,255,.52),transparent 28%),
     radial-gradient(ellipse at 94% 10%,rgba(196,139,255,.46),transparent 31%),
@@ -1912,7 +1832,7 @@ body.celestial-glass{
 }
 body.celestial-glass::before{
   background:
-    /* a few deliberately scattered stars */
+
     radial-gradient(circle at 8% 13%,rgba(255,255,255,.98) 0 1.5px,transparent 2.7px),
     radial-gradient(circle at 28% 9%,rgba(255,250,209,.96) 0 1.2px,transparent 2.5px),
     radial-gradient(circle at 52% 16%,rgba(255,255,255,.98) 0 1.7px,transparent 3px),
@@ -1927,8 +1847,6 @@ body.celestial-glass::before{
   background-size:100% 100%!important;
 }
 
-/* v53 — CELESTIAL GLASS: fixed cosmic background + clear popups/time picker */
-/* The universe belongs to the viewport, never to the scrolling content. */
 body.celestial-glass{
   background:
     linear-gradient(135deg,#dff7ff 0%,#eaf0ff 25%,#f7eaff 52%,#e4fbff 76%,#fff0f8 100%)!important;
@@ -1946,20 +1864,20 @@ body.celestial-glass::before{
   z-index:-1!important;
   opacity:1!important;
   background:
-    /* fixed luminous sun */
+
     radial-gradient(circle at 88% 16%,rgba(255,255,255,.99) 0 2.5%,rgba(255,248,191,.95) 3.6%,rgba(255,222,107,.66) 6.5%,rgba(255,196,77,.26) 10.5%,transparent 18%),
-    /* fixed blue planet */
+
     radial-gradient(circle at 13% 72%,rgba(255,255,255,.76) 0 1%,rgba(130,218,255,.96) 2%,rgba(76,168,239,.80) 5%,rgba(66,126,208,.36) 7.5%,transparent 11%),
-    /* fixed lavender planet */
+
     radial-gradient(circle at 79% 76%,rgba(255,255,255,.78) 0 1%,rgba(225,198,255,.94) 2%,rgba(174,135,235,.74) 5%,rgba(135,98,205,.28) 7.5%,transparent 11%),
-    /* fixed coloured cosmic glow */
+
     radial-gradient(ellipse at 6% 8%,rgba(83,211,255,.52),transparent 28%),
     radial-gradient(ellipse at 94% 10%,rgba(196,139,255,.46),transparent 31%),
     radial-gradient(ellipse at 10% 58%,rgba(255,156,212,.34),transparent 30%),
     radial-gradient(ellipse at 90% 72%,rgba(79,204,255,.44),transparent 34%),
     radial-gradient(ellipse at 48% 38%,rgba(255,238,168,.28),transparent 26%),
     radial-gradient(ellipse at 50% 100%,rgba(180,235,255,.52),transparent 40%),
-    /* fixed stars */
+
     radial-gradient(circle at 8% 13%,rgba(255,255,255,.98) 0 1.5px,transparent 2.7px),
     radial-gradient(circle at 28% 9%,rgba(255,250,209,.96) 0 1.2px,transparent 2.5px),
     radial-gradient(circle at 52% 16%,rgba(255,255,255,.98) 0 1.7px,transparent 3px),
@@ -1974,7 +1892,7 @@ body.celestial-glass::before{
   background-size:100vw 100vh!important;
   background-attachment:fixed!important;
 }
-/* Main UI stays genuinely transparent so the fixed cosmos can be seen through it. */
+
 body.celestial-glass .card,body.celestial-glass .datebar,body.celestial-glass .editionCard,
 body.celestial-glass .editionChoice,body.celestial-glass .nav,body.celestial-glass .navBtn{
   background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.018))!important;
@@ -1988,7 +1906,7 @@ body.celestial-glass .input,body.celestial-glass textarea,body.celestial-glass s
   backdrop-filter:blur(3px) saturate(145%)!important;
   -webkit-backdrop-filter:blur(3px) saturate(145%)!important;
 }
-/* Popups and the wheel picker remain deliberately more opaque for full readability. */
+
 body.celestial-glass .modalBox,
 body.celestial-glass .appDialog,
 body.celestial-glass .app-alert-box,
@@ -2028,9 +1946,6 @@ body.celestial-glass .wheelWrap:after{
 body.celestial-glass .wheelCancel{background:rgba(255,255,255,.90)!important;color:#18324d!important;}
 body.celestial-glass .wheelOk,body.celestial-glass .appDialogOk,body.celestial-glass .app-alert-ok{background:#4f9ed8!important;color:#fff!important;}
 
-/* v54 — CELESTIAL GLASS PERFORMANCE + TOAST READABILITY FIX
-   Keep the fixed cosmic background and transparent crystal appearance, but avoid
-   per-card backdrop compositing while scrolling. */
 body.celestial-glass .card,
 body.celestial-glass .datebar,
 body.celestial-glass .editionCard,
@@ -2048,25 +1963,22 @@ body.celestial-glass textarea,
 body.celestial-glass select,
 body.celestial-glass .timeWheelTrigger,
 body.celestial-glass .activationInput{
-  /* Transparent crystal layers remain visible without expensive backdrop filtering. */
+
   backdrop-filter:none!important;
   -webkit-backdrop-filter:none!important;
 }
 
-/* Avoid extra blur work on the sticky header/nav during scroll in this edition. */
 body.celestial-glass .header,
 body.celestial-glass .nav{
   backdrop-filter:none!important;
   -webkit-backdrop-filter:none!important;
 }
 
-/* The fixed universe is painted once as the viewport background, not by scrolling cards. */
 body.celestial-glass::before{
   will-change:auto!important;
   transform:translateZ(0);
 }
 
-/* Attendance toast: permanent high contrast in Celestial Glass. */
 body.celestial-glass .toast{
   background:rgba(21,43,68,.94)!important;
   color:#ffffff!important;
@@ -2076,9 +1988,6 @@ body.celestial-glass .toast{
   opacity:1!important;
 }
 
-/* v55 — CELESTIAL GLASS ULTRA-SMOOTH SCROLL
-   The cosmic scene is now one pre-rendered bitmap layer instead of many live CSS gradients.
-   This keeps the same fixed sun/planets/stars effect while dramatically reducing scroll compositing. */
 body.celestial-glass{
   background:#eaf2fb!important;
   background-image:none!important;
@@ -2099,12 +2008,12 @@ body.celestial-glass::before{
   background-attachment:scroll!important;
   will-change:auto!important;
 }
-/* Do not repaint an opaque app layer over the fixed universe. */
+
 body.celestial-glass .app,
 body.celestial-glass #app{
   background:transparent!important;
 }
-/* Lightweight crystal surfaces: transparent, but without expensive blur/filter composition. */
+
 body.celestial-glass .card,
 body.celestial-glass .datebar,
 body.celestial-glass .editionCard,
@@ -2138,14 +2047,14 @@ body.celestial-glass .nav button.active,
 body.celestial-glass .editionChoice.selected{
   transform:none!important;
 }
-/* Avoid sticky-layer blur and unnecessary GPU promotion while scrolling. */
+
 body.celestial-glass .header,
 body.celestial-glass .nav{
   backdrop-filter:none!important;
   -webkit-backdrop-filter:none!important;
   transition:none!important;
 }
-/* Keep the toast fix permanent and highly readable. */
+
 body.celestial-glass .toast{
   background:#1d3557!important;
   color:#fff!important;
@@ -2153,8 +2062,6 @@ body.celestial-glass .toast{
   text-shadow:none!important;
 }
 
-/* v56 — CELESTIAL GLASS: CSS-ONLY FIXED COSMOS (NO IMAGE)
-   Keep the universe entirely in CSS and fixed behind the app. */
 body.celestial-glass{
   background:#edf4fb!important;
   background-image:none!important;
@@ -2174,18 +2081,18 @@ body.celestial-glass::before{
   filter:none!important;
   will-change:auto!important;
   background:
-    /* bright fixed sun */
+
     radial-gradient(circle at 88% 16%,rgba(255,255,255,.98) 0 2%,rgba(255,246,180,.92) 3.5%,rgba(255,214,92,.58) 7%,rgba(255,196,77,.20) 12%,transparent 19%),
-    /* fixed blue planet */
+
     radial-gradient(circle at 13% 72%,rgba(255,255,255,.72) 0 1%,rgba(120,211,255,.88) 2%,rgba(74,158,230,.62) 5.5%,transparent 10%),
-    /* fixed lavender planet */
+
     radial-gradient(circle at 79% 76%,rgba(255,255,255,.75) 0 1%,rgba(219,190,255,.88) 2%,rgba(166,126,228,.62) 5.5%,transparent 10%),
-    /* soft fixed cosmic light */
+
     radial-gradient(ellipse at 8% 10%,rgba(91,210,255,.38),transparent 29%),
     radial-gradient(ellipse at 91% 70%,rgba(110,210,255,.30),transparent 32%),
     radial-gradient(ellipse at 11% 57%,rgba(255,166,214,.22),transparent 31%),
     radial-gradient(ellipse at 50% 40%,rgba(255,226,132,.18),transparent 27%),
-    /* lightweight stars */
+
     radial-gradient(circle at 28% 9%,rgba(255,250,209,.95) 0 1px,transparent 2px),
     radial-gradient(circle at 52% 16%,rgba(255,255,255,.95) 0 1.3px,transparent 2.4px),
     radial-gradient(circle at 69% 31%,rgba(190,234,255,.95) 0 1px,transparent 2px),
@@ -2196,7 +2103,7 @@ body.celestial-glass::before{
   background-repeat:no-repeat!important;
   background-attachment:initial!important;
 }
-/* Remove expensive repeated depth painting while scrolling. */
+
 body.celestial-glass .card,
 body.celestial-glass .datebar,
 body.celestial-glass .session,
@@ -2209,11 +2116,9 @@ body.celestial-glass .calendar,
 body.celestial-glass .nav{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.68)!important;
 }
-/* Keep the previously fixed high-contrast attendance toast. */
+
 body.celestial-glass .toast{background:#1d3557!important;color:#fff!important;}
 
-
-/* v58 — Nebula Glass only: selected Not held uses the Earth Night selected colour */
 body.nebula-glass .status.gray.active,
 body[data-edition="nebula-glass"] .status.gray.active{
   color:#fff!important;
@@ -2221,8 +2126,6 @@ body[data-edition="nebula-glass"] .status.gray.active{
   border-color:transparent!important;
 }
 
-/* v59 — GLOBAL APP EDITION SELECTOR: unmistakable active edition
-   Only the currently selected edition is raised/highlighted. */
 .editionChoices .editionChoice.selected,
 body.nebula-glass .editionChoices .editionChoice.selected,
 body.galactic-night .editionChoices .editionChoice.selected,
@@ -2259,10 +2162,6 @@ body.celestial-glass .editionChoices .editionChoice.selected{
   opacity:.78!important;
 }
 
-/* v61 — NEW APP EDITIONS: Outer Space 3D + Photon 3D
-   These rules are intentionally scoped to the two new editions only. */
-
-/* ---------- OUTER SPACE 3D ---------- */
 body.outer-space-3d,
 body[data-edition="outer-space-3d"]{
   --bg:#000000;
@@ -2427,7 +2326,6 @@ body.outer-space-3d .nav{
 body.outer-space-3d .toast{background:#e9eef7!important;color:#07090d!important;border:1px solid #fff!important;box-shadow:0 7px 0 #5e6878,0 15px 28px rgba(0,0,0,.65)!important}
 body.outer-space-3d .cosmosEdition{color:#c7d7ff!important;background:linear-gradient(145deg,#1c2432,#090c11)!important;border:1px solid #53627a!important;box-shadow:0 6px 0 #030406,0 12px 22px rgba(0,0,0,.65),inset 0 2px 0 rgba(255,255,255,.14)!important}
 
-/* ---------- PHOTON 3D ---------- */
 body.photon-3d,
 body[data-edition="photon-3d"]{
   --bg:#eef2f6;
@@ -2561,7 +2459,6 @@ body.photon-3d .nav{background:linear-gradient(145deg,#fdfefe,#e2e7ec)!important
 body.photon-3d .toast{background:#1d2d3d!important;color:#fff!important;border:1px solid #6e8eaa!important;box-shadow:0 7px 0 #0e1821,0 15px 28px rgba(55,72,90,.28)!important}
 body.photon-3d .cosmosEdition{color:#28577f!important;background:linear-gradient(145deg,#fff,#e1e7ed)!important;border:1px solid #b8c4cf!important;box-shadow:0 6px 0 #b1bcc6,0 12px 22px rgba(70,86,103,.18),inset 0 2px 0 #fff!important}
 
-/* v62 — Photon 3D readability/state fixes. Scoped to Photon 3D only. */
 body.photon-3d .tabs .filter,
 body[data-edition="photon-3d"] .tabs .filter{
   color:#314252!important;
@@ -2584,7 +2481,6 @@ body[data-edition="photon-3d"] .tabs .filter:not(.active):active{
   box-shadow:0 2px 0 #9aa7b3,0 5px 9px rgba(55,72,90,.16),inset 0 4px 8px rgba(0,0,0,.10)!important;
 }
 
-/* Bottom navigation icons must follow the readable Photon palette, not the global bold-text color. */
 body.photon-3d .nav button b,
 body[data-edition="photon-3d"] .nav button b{
   color:#315d86!important;
@@ -2600,7 +2496,6 @@ body[data-edition="photon-3d"] .nav button.active b{
   text-shadow:0 1px 2px rgba(0,0,0,.28)!important;
 }
 
-/* Photon calendar dates use a light neutral 3D surface so all attendance dots remain unmistakable. */
 body.photon-3d .calendar .calDay,
 body[data-edition="photon-3d"] .calendar .calDay{
   color:#263746!important;
@@ -2630,8 +2525,6 @@ body.photon-3d .calendar .dot.bad{background:#e34242!important}
 body.photon-3d .calendar .dot.mix{background:#e7ad20!important}
 body.photon-3d .calendar .dot.holiday{background:#8758b8!important}
 
-
-/* v64 — Photon 3D bottom navigation: blue selected, white unselected. */
 body.photon-3d .nav button,
 body[data-edition="photon-3d"] .nav button{
   color:#356fa8!important;
@@ -2670,6 +2563,5 @@ body[data-edition="photon-3d"] .nav button.active:active{
   box-shadow:0 3px 0 #1d466b,0 7px 12px rgba(46,75,103,.20),inset 0 3px 7px rgba(0,0,0,.13)!important;
 }
 
-/* v71 — keep bottom navigation stable during initial layout; no startup transition/flicker. */
 body.startup-stable .nav,
 body.startup-stable .nav button{transition:none!important;animation:none!important;}
