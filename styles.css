@@ -2588,7 +2588,8 @@ body.startup-stable .nav button{transition:none!important;animation:none!importa
 .savedNoteText{margin-top:6px;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
 .extraBelowNote{display:flex;flex-direction:column;align-items:center;width:100%;margin:16px 0 4px}
 .extraBelowNote .actionCompact{margin:0!important}
-.extraBelowNote .madeby{margin-top:42px!important;padding-top:0!important}
 
-/* v81: prevent legacy global credit from appearing; the intended credit remains inside .extraBelowNote */
-.container > .madeby{display:none!important}
+
+/* v83: original global credit on every page with uniform spacing from the last page component */
+.container > .madeby{display:block!important;margin-top:24px!important;margin-bottom:18px!important;padding:0!important;text-align:center}
+.container > :last-child:not(.madeby){margin-bottom:0!important}
