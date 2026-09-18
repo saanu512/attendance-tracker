@@ -1,4 +1,4 @@
-const CACHE = "attendance-tracker-full-app-v89";
+const CACHE = "attendance-tracker-full-app-v91";
 const ASSETS = ["./","./index.html","./manifest.json","./styles.css","./app.js","./icon-192.png","./icon-512.png"];
 
 self.addEventListener("install", event => {
@@ -13,14 +13,20 @@ self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
   event.respondWith(
     caches.match(event.request).then(cached => {
-      if (cached) return cached;
-      return fetch(event.request).then(response => {
+      const refresh = fetch(event.request).then(response => {
         if (response && response.ok) {
           const copy = response.clone();
           caches.open(CACHE).then(cache => cache.put(event.request, copy));
         }
         return response;
-      }).catch(() => caches.match("./index.html"));
+      }).catch(() => null);
+
+      if (cached) {
+        event.waitUntil(refresh.then(() => undefined));
+        return cached;
+      }
+
+      return refresh.then(response => response || caches.match("./index.html"));
     })
   );
 });
