@@ -2592,3 +2592,7 @@ body.startup-stable .nav button{transition:none!important;animation:none!importa
 .extraBelowNote{display:flex;flex-direction:column;align-items:center;width:100%;margin:16px 0 4px}
 .extraBelowNote .actionCompact{margin:0!important}
 .extraBelowNote .madeby{margin-top:16px;padding:0 0 10px}
+/* v75: clearer spacing below Add Extra Class */
+.extraBelowNote .madeby{margin-top:30px!important;padding-top:0!important}
+/* v75: make session Edit controls reliably clickable above theme effects */
+.sessionTop button{position:relative;z-index:3;pointer-events:auto!important}
