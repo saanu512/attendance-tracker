@@ -1,4 +1,4 @@
-const CACHE = "attendance-tracker-full-app-v93";
+const CACHE = "attendance-tracker-full-app-v94";
 const ASSETS = ["./","./index.html","./manifest.json","./styles.css","./app.js","./icon-192.png","./icon-512.png"];
 
 self.addEventListener("install", event => {
@@ -11,22 +11,33 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      const refresh = fetch(event.request).then(response => {
+  const url = new URL(event.request.url);
+  const sameOrigin = url.origin === self.location.origin;
+  const isAppShell = sameOrigin && (
+    url.pathname.endsWith("/") ||
+    url.pathname.endsWith("/index.html") ||
+    /\.(?:js|css|json|png|webp|jpg|jpeg|svg|ico|woff2?)$/i.test(url.pathname)
+  );
+  if (!isAppShell) return;
+
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE);
+    const cached = await cache.match(event.request);
+    const refresh = fetch(new Request(event.request, { cache: "no-store" }))
+      .then(response => {
         if (response && response.ok) {
-          const copy = response.clone();
-          caches.open(CACHE).then(cache => cache.put(event.request, copy));
+          cache.put(event.request, response.clone());
         }
         return response;
-      }).catch(() => null);
+      })
+      .catch(() => null);
 
-      if (cached) {
-        event.waitUntil(refresh.then(() => undefined));
-        return cached;
-      }
+    if (cached) {
+      event.waitUntil(refresh.then(() => undefined));
+      return cached;
+    }
 
-      return refresh.then(response => response || caches.match("./index.html"));
-    })
-  );
+    const response = await refresh;
+    return response || cache.match("./index.html");
+  })());
 });
