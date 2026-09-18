@@ -1,16 +1,27 @@
-const CACHE = "attendance-tracker-full-app-v94";
+const CACHE = "attendance-tracker-full-app-v96";
 const ASSETS = ["./","./index.html","./manifest.json","./styles.css","./app.js","./icon-192.png","./icon-512.png"];
 
 self.addEventListener("install", event => {
-  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
+  event.waitUntil(
+    caches.open(CACHE)
+      .then(cache => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener("activate", event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim()));
+  event.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(
+        keys.filter(key => key !== CACHE).map(key => caches.delete(key))
+      ))
+      .then(() => self.clients.claim())
+  );
 });
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
+
   const url = new URL(event.request.url);
   const sameOrigin = url.origin === self.location.origin;
   const isAppShell = sameOrigin && (
@@ -23,10 +34,13 @@ self.addEventListener("fetch", event => {
   event.respondWith((async () => {
     const cache = await caches.open(CACHE);
     const cached = await cache.match(event.request);
+
+    // Cache-first keeps startup off the network critical path.
+    // A fresh network request runs in the background and updates the cache.
     const refresh = fetch(new Request(event.request, { cache: "no-store" }))
       .then(response => {
-        if (response && response.ok) {
-          cache.put(event.request, response.clone());
+        if (response && response.ok && response.type !== "opaque") {
+          return cache.put(event.request, response.clone()).then(() => response);
         }
         return response;
       })
@@ -38,6 +52,6 @@ self.addEventListener("fetch", event => {
     }
 
     const response = await refresh;
-    return response || cache.match("./index.html");
+    return response || Response.error();
   })());
 });
