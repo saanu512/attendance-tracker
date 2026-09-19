@@ -2744,3 +2744,17 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 .syncTapBtn{
   color:var(--green)!important;
 }
+
+
+/* v131: theme-adaptive manual sync button surface and explicit logout styling.
+   Keep sync label green; only the button surface follows the active edition. */
+.syncTapBtn{
+  background:var(--primarySoft)!important;
+  border-color:var(--primary)!important;
+  color:var(--green)!important;
+}
+.logoutBtn{
+  background:var(--red)!important;
+  border-color:var(--red)!important;
+  color:#fff!important;
+}
