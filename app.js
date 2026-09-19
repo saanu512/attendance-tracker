@@ -286,7 +286,7 @@ function adminDashboard(){
   if(!adminCache.students.length)return `<div class="card formCard"><div class="row" style="justify-content:space-between"><b>👑 Admin Dashboard</b><div class="cloudActions"><button class="btn soft" data-act="refreshAdmin">Refresh</button><button class="btn outline" data-act="backFromAdmin">Back</button></div></div><p class="small">No student profiles have been synced to Firebase yet.</p></div>`;
   let h=`<div class="card formCard adminHero"><div class="row" style="justify-content:space-between"><div><b>👑 Admin Dashboard</b><div class="small">Complete cloud student records</div></div><button class="btn outline" data-act="backFromAdmin">Back</button></div><div class="adminSearch"><input id="adminSearch" class="input" placeholder="Search name, roll or email" oninput="filterAdminStudents(this.value)"></div></div><div id="adminStudentList">${adminStudentCards(adminCache.students)}</div>`;return h;
 }
-function adminStudentCards(students){return students.map(s=>`<button class="adminStudent card" data-act="adminStudent" data-uid="${esc(s.uid)}"><div class="adminStudentMain"><b>${esc(s.name||"Student")}</b><span>Roll: ${esc(s.rollNumber||"—")}</span></div><div class="small">${esc(s.email||"")}</div><div class="adminStudentMeta"><span>Required ${Number(s.required||75)}%</span><span>${esc(s.course||"")}</span></div></button>`).join('')||`<div class="card formCard"><p class="small">No matching students.</p></div>`}
+function adminStudentCards(students){return students.map(s=>`<button type="button" class="adminStudent card" data-act="adminStudent" data-uid="${esc(s.uid)}" onclick="openAdminStudent(this.dataset.uid)"><div class="adminStudentMain"><b>${esc(s.name||"Student")}</b><span>Roll: ${esc(s.rollNumber||"—")}</span></div><div class="small">${esc(s.email||"")}</div><div class="adminStudentMeta"><span>Required ${Number(s.required||75)}%</span><span>${esc(s.course||"")}</span></div></button>`).join('')||`<div class="card formCard"><p class="small">No matching students.</p></div>`}
 function filterAdminStudents(q){const v=String(q||'').toLowerCase();const list=adminCache.students.filter(s=>[s.name,s.rollNumber,s.email].some(x=>String(x||'').toLowerCase().includes(v)));const el=document.getElementById('adminStudentList');if(el)el.innerHTML=adminStudentCards(list)}
 function adminStudentPage(uid){
   const s=adminCache.students.find(x=>x.uid===uid), days=adminCache.days||[];
@@ -312,7 +312,8 @@ function adminStudentPage(uid){
       return `<tr><td>${scheduled}</td><td>${actual}</td><td>${esc(r.type||'Regular')}</td><td>${esc(adminStatusLabel(r.status))}</td><td>${esc(r.relationship||'')}</td><td>${esc(r.note||'')}</td></tr>`;
     }).join('')}`;
   }).join('')||`<tr><td colspan="6" class="small">No attendance records found.</td></tr>`;
-  let h=`<div class="card formCard adminHero"><div class="row" style="justify-content:space-between"><div><b>👤 ${esc(s.name||"Student")}</b><div class="small">Roll ${esc(s.rollNumber||"—")} · ${esc(s.email||"")}</div></div><button class="btn outline" data-act="backFromStudent">Back</button></div><div class="adminSummaryGrid"><div><b>${stats.present}</b><span>Present</span></div><div><b>${stats.absent}</b><span>Absent</span></div><div><b>${stats.pending}</b><span>Pending</span></div><div><b>${stats.total}</b><span>Total</span></div></div><div class="adminPercent">Overall attendance: <b>${stats.percent===null?'—':stats.percent.toFixed(1)+'%'}</b></div></div><div class="card formCard"><b>📚 Subject-wise attendance</b>${Object.entries(stats.subjects).sort((a,b)=>a[0].localeCompare(b[0])).map(([sub,x])=>`<div class="adminSubjectRow"><b>${esc(sub)}</b><span>${x.held?((x.present/x.held)*100).toFixed(1)+'%':'—'}</span><small>Present ${x.present} · Absent ${x.absent} · Pending ${x.pending} · Not Held ${x.notHeld} · Total ${x.total}</small></div>`).join('')||`<div class="small" style="margin-top:10px">No subject records yet.</div>`}</div><div class="card formCard adminDetailsCard"><div class="adminDetailsHead"><b>📋 Detailed attendance</b><div class="adminReportActions"><button class="btn outline" data-act="printAdminReport">View Full Report</button><button class="btn soft" data-act="exportAdminPdf">Export PDF</button></div></div><details class="adminDetails" open><summary>Show records grouped by date</summary><div class="adminTableWrap"><table class="adminTable adminGroupedTable"><thead><tr><th>Scheduled Class</th><th>Actual Class</th><th>Type</th><th>Status</th><th>What changed?</th><th>Note</th></tr></thead><tbody>${detailRows}</tbody></table></div></details></div>`;
+  const loadError=cloudSession.error?`<div class="banner warn adminLoadError">⚠️ ${esc(cloudSession.error)}</div>`:"";
+  let h=`<div class="card formCard adminHero"><div class="row" style="justify-content:space-between"><div><b>👤 ${esc(s.name||"Student")}</b><div class="small">Roll ${esc(s.rollNumber||"—")} · ${esc(s.email||"")}</div></div><button class="btn outline" data-act="backFromStudent">Back</button></div>${loadError}<div class="adminSummaryGrid"><div><b>${stats.present}</b><span>Present</span></div><div><b>${stats.absent}</b><span>Absent</span></div><div><b>${stats.pending}</b><span>Pending</span></div><div><b>${stats.total}</b><span>Total</span></div></div><div class="adminPercent">Overall attendance: <b>${stats.percent===null?'—':stats.percent.toFixed(1)+'%'}</b></div></div><div class="card formCard"><b>📚 Subject-wise attendance</b>${Object.entries(stats.subjects).sort((a,b)=>a[0].localeCompare(b[0])).map(([sub,x])=>`<div class="adminSubjectRow"><b>${esc(sub)}</b><span>${x.held?((x.present/x.held)*100).toFixed(1)+'%':'—'}</span><small>Present ${x.present} · Absent ${x.absent} · Pending ${x.pending} · Not Held ${x.notHeld} · Total ${x.total}</small></div>`).join('')||`<div class="small" style="margin-top:10px">No subject records yet.</div>`}</div><div class="card formCard adminDetailsCard"><div class="adminDetailsHead"><b>📋 Detailed attendance</b><div class="adminReportActions"><button class="btn outline" data-act="printAdminReport">View Full Report</button><button class="btn soft" data-act="exportAdminPdf">Export PDF</button></div></div><details class="adminDetails" open><summary>Show records grouped by date</summary><div class="adminTableWrap"><table class="adminTable adminGroupedTable"><thead><tr><th>Scheduled Class</th><th>Actual Class</th><th>Type</th><th>Status</th><th>What changed?</th><th>Note</th></tr></thead><tbody>${detailRows}</tbody></table></div></details></div>`;
   return h;
 }
 function adminCsv(){
@@ -476,8 +477,19 @@ async function openAdminDashboard(){
   try{adminCache.students=await window.AttendanceCloud.listStudents();render()}catch(e){cloudSession.error=e?.message||"Admin data could not be loaded";toast("Could not load student data")}
 }
 async function openAdminStudent(uid){
-  state.adminPage="student";adminCache.selected=uid;adminCache.days=[];render();
-  try{adminCache.days=await window.AttendanceCloud.studentDays(uid);render()}catch(e){toast("Could not load student records");state.adminPage="dashboard";render()}
+  if(!uid)return;
+  state.adminPage="student";adminCache.selected=uid;adminCache.days=[];
+  cloudSession.error="";
+  render();
+  try{
+    adminCache.days=await window.AttendanceCloud.studentDays(uid);
+    cloudSession.error="";
+    render();
+  }catch(e){
+    cloudSession.error=e?.message||"Could not load student records";
+    render();
+    toast("Student opened, but records could not be loaded");
+  }
 }
 function setupFirebaseEvents(){
   const onReady=()=>{cloudSession.ready=true;window.AttendanceCloud?.auth&&updateCloudStatus()};

@@ -1,3 +1,5 @@
+Attendance Tracker v117 — Admin student-card click/navigation fix
+
 ATTENDANCE TRACKER — FIREBASE v108 SETUP
 ========================================
 

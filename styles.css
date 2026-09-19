@@ -2616,3 +2616,6 @@ body.photon-3d .extraInfoItem{
   .pdfPreviewPage{padding:8px 6px 36px}
   .pdfReport{padding:24px 18px 34px;min-width:0}
 }
+
+.adminLoadError{margin-top:12px;word-break:break-word}
+.adminStudent:focus-visible{outline:3px solid color-mix(in srgb,var(--primary) 55%,transparent);outline-offset:2px}
