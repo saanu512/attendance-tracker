@@ -486,7 +486,22 @@ async function handleCloudLogin(mode){
 }
 function friendlyAuthError(e){const c=e?.code||"";if(c.includes("invalid-credential"))return"Incorrect email or password.";if(c.includes("user-not-found"))return"No account was found with this email.";if(c.includes("wrong-password"))return"Incorrect password.";if(c.includes("invalid-email"))return"Enter a valid email address.";if(c.includes("too-many-requests"))return"Too many attempts. Please try again later.";return e?.message||"Sign-in failed."}
 async function handlePasswordReset(){const email=(document.getElementById("resetEmail")?.value||"").trim(),err=document.getElementById("resetError");if(!email){if(err)err.textContent="Enter your email address.";return}try{await window.AttendanceCloud.sendPasswordResetEmail(email);if(err)err.className="cloudAuthSuccess";if(err)err.textContent="Password-reset email sent. Check your inbox."}catch(e){if(err)err.textContent=friendlyAuthError(e)}}
-async function handleCloudLogout(){if(window.AttendanceCloud)await window.AttendanceCloud.signOut();state=defaultState();save();state.adminPage=null;adminCache={students:[],selected:null,days:[]};render();toast("Logged out")}
+async function handleCloudLogout(){
+  // Logout must clear account-specific app data, but the user-selected visual theme
+  // is a device/UI preference and must survive logout/login.
+  const savedTheme=state?.settings?.theme||"light";
+  const savedEdition=state?.settings?.edition||"earth-day";
+  if(window.AttendanceCloud)await window.AttendanceCloud.signOut();
+  state=defaultState();
+  state.settings.theme=savedTheme;
+  state.settings.edition=savedEdition;
+  state.adminPage=null;
+  adminCache={students:[],selected:null,days:[]};
+  save();
+  applyTheme();
+  render();
+  toast("Logged out");
+}
 async function hydrateAfterLogin(user){
   try{
     const localBefore=clone(state);
@@ -593,7 +608,7 @@ state.tab="log";
 state.viewDate=key(today());
 state.calendarMonth=key(new Date(today().getFullYear(),today().getMonth(),1));
 save();
-applyTheme();watchSystemTheme();render();document.documentElement.classList.remove("preboot");if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=122",{updateViaCache:"none"}).catch(()=>{});
+applyTheme();watchSystemTheme();render();document.documentElement.classList.remove("preboot");if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=123",{updateViaCache:"none"}).catch(()=>{});
 
 function openManageSchedule(){
   document.querySelectorAll('.modal').forEach(m=>m.remove());
