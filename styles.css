@@ -2662,6 +2662,8 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
    data-theme may still be dark. Standalone admin cards remain normal .card
    elements; nested report/account surfaces inherit their parent card surface. */
 .cloudAccountCard{overflow:hidden;}
+/* Keep Admin Dashboard hero on the same base card surface; edition-specific .card rules still win. */
+.adminHero{background:var(--card)!important;}
 .adminStudent{cursor:pointer;}
 .adminStudentMain b{color:var(--ink)!important;}
 .adminStudentMain span,.adminStudentMeta,.adminStudentMeta span{color:var(--soft)!important;}
@@ -2682,6 +2684,3 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 .reportOverall{background:var(--primarySoft)!important;color:var(--primary)!important;box-shadow:none!important;}
 .reportDay h3{background:var(--primarySoft)!important;color:var(--primary)!important;}
 .reportMetrics span,.reportIdentity span,.reportTime small,.reportSubject small{color:var(--soft)!important;}
-
-/* v133: cloud sync visibility + student history filters */
-.cloudStatusBlock{display:flex;flex-direction:column;gap:3px;font-size:12px;font-weight:700;margin-top:3px}.cloudSyncState.safe{color:#16823b!important}.cloudSyncState.danger{color:#c62828!important}.cloudLastSync{font-size:11px;font-weight:600;color:var(--soft)!important}.adminStatusFilter{margin-top:12px}.adminFilterTitle{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}.adminFilterChips{display:flex;flex-wrap:wrap;gap:7px}.adminFilterChips .filter{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:8px 11px;font-weight:700}.adminFilterChips .filter.active{background:var(--primarySoft);border-color:var(--primary);color:var(--ink)}.adminMonthCard{margin-top:12px;padding:15px}.adminMonthHead{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}.adminMonthList{display:grid;grid-template-columns:1fr;gap:8px}.adminMonthChoice{width:100%!important;display:flex!important;justify-content:space-between!important;align-items:center!important;text-align:left!important;min-height:46px!important}.adminReportActionsTop{margin-top:12px}.adminStudent{cursor:pointer;pointer-events:auto!important;position:relative;z-index:1}
