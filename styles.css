@@ -2662,8 +2662,6 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
    data-theme may still be dark. Standalone admin cards remain normal .card
    elements; nested report/account surfaces inherit their parent card surface. */
 .cloudAccountCard{overflow:hidden;}
-/* Keep Admin Dashboard hero on the same base card surface; edition-specific .card rules still win. */
-.adminHero{background:var(--card)!important;}
 .adminStudent{cursor:pointer;}
 .adminStudentMain b{color:var(--ink)!important;}
 .adminStudentMain span,.adminStudentMeta,.adminStudentMeta span{color:var(--soft)!important;}
@@ -2685,62 +2683,5 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 .reportDay h3{background:var(--primarySoft)!important;color:var(--primary)!important;}
 .reportMetrics span,.reportIdentity span,.reportTime small,.reportSubject small{color:var(--soft)!important;}
 
-/* v127: restore themed card surfaces without changing application logic. */
-/* These Admin/report surfaces use the same edition-specific card surface as the rest of the app. */
-.cloudIdentity.card,
-.reportHead.card,
-.reportMetrics div.card,
-.reportDay.card,
-.adminSummaryGrid > div.card{
-  background:var(--admin-card-bg,var(--card))!important;
-  color:var(--ink)!important;
-}
-.adminHero{background:var(--admin-card-bg,var(--card))!important;}
-
-/* Edition card surfaces — copied from the existing edition .card treatment. */
-body.nebula-glass{--admin-card-bg:linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.012));}
-body.galactic-night{--admin-card-bg:linear-gradient(135deg,rgba(255,255,255,.035),rgba(80,100,155,.018));}
-body.black-hole{--admin-card-bg:linear-gradient(135deg,rgba(8,8,15,.78),rgba(19,10,31,.56));}
-body.heart-nebula{--admin-card-bg:linear-gradient(145deg,rgba(12,20,32,.96),rgba(18,29,45,.94));}
-body.roshni{--admin-card-bg:linear-gradient(145deg,rgba(255,255,255,.84),rgba(255,248,250,.73) 48%,rgba(244,236,255,.70));}
-body.opal-dream{--admin-card-bg:linear-gradient(135deg,rgba(255,255,255,.70),rgba(255,255,255,.34));}
-body.celestial-glass{--admin-card-bg:linear-gradient(135deg,rgba(255,255,255,.32),rgba(255,255,255,.08));}
-body.outer-space-3d{--admin-card-bg:linear-gradient(145deg,#171a1f 0%,#0b0d10 54%,#050608 100%);}
-body.photon-3d{--admin-card-bg:linear-gradient(145deg,#ffffff 0%,#f3f6f9 58%,#e2e7ed 100%);}
-
-/* Report section headers are card surfaces too, not the generic dark primary-soft surface. */
-.reportDay h3,
-.reportTableHead,
-.reportOverall{
-  background:var(--admin-card-bg,var(--card))!important;
-  color:var(--ink)!important;
-}
-.reportTableHead span{color:var(--ink)!important;}
-.reportOverall{border:1px solid var(--line)!important;box-shadow:none!important;}
-
-.adminSyncStamp,.adminStudentCloudStatus{display:block;color:var(--soft)!important;font-size:11px;font-weight:700;margin-top:5px;}
-.adminCloudStatus{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;font-size:11px;color:var(--soft);}
-.adminCloudStatus span:first-child{color:var(--green);font-weight:800;}
-.adminMonthCard{padding:15px;margin-top:12px;}
-.adminMonthHead{display:flex;flex-direction:column;gap:3px;margin-bottom:10px;}
-.adminMonthList{display:grid;grid-template-columns:1fr;gap:8px;}
-.adminMonthChoice{width:100%!important;display:flex!important;justify-content:space-between!important;align-items:center!important;text-align:left!important;min-height:46px!important;}
-.adminReportActionsTop{margin:12px 0 0;}
-@media(max-width:520px){.adminCloudStatus{flex-direction:column;gap:3px;}.adminMonthChoice{min-height:48px!important;}}
-
-/* v128: per-student monthly attendance status filters. */
-.adminStatusFilter{padding:14px 15px;margin:12px 0;}
-.adminFilterTitle{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
-.adminFilterChips{display:flex;gap:7px;flex-wrap:wrap;}
-.adminFilterChips .filter{min-height:40px;padding:8px 12px;}
-@media(max-width:520px){
-  .adminFilterChips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;}
-  .adminFilterChips .filter{width:100%;}
-}
-
-/* v130: explicit cloud sync state and last successful sync visibility. */
-.cloudStatusBlock{display:flex;flex-direction:column;gap:3px;margin-top:4px;}
-.cloudSyncState{font-weight:850;}
-.cloudLastSync{font-size:11px;color:var(--soft);}
-.cloudStatusBlock .danger{color:var(--red)!important;}
-.cloudStatusBlock .safe{color:var(--green)!important;}
+/* v133: cloud sync visibility + student history filters */
+.cloudStatusBlock{display:flex;flex-direction:column;gap:3px;font-size:12px;font-weight:700;margin-top:3px}.cloudSyncState.safe{color:#16823b!important}.cloudSyncState.danger{color:#c62828!important}.cloudLastSync{font-size:11px;font-weight:600;color:var(--soft)!important}.adminStatusFilter{margin-top:12px}.adminFilterTitle{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}.adminFilterChips{display:flex;flex-wrap:wrap;gap:7px}.adminFilterChips .filter{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:8px 11px;font-weight:700}.adminFilterChips .filter.active{background:var(--primarySoft);border-color:var(--primary);color:var(--ink)}.adminMonthCard{margin-top:12px;padding:15px}.adminMonthHead{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}.adminMonthList{display:grid;grid-template-columns:1fr;gap:8px}.adminMonthChoice{width:100%!important;display:flex!important;justify-content:space-between!important;align-items:center!important;text-align:left!important;min-height:46px!important}.adminReportActionsTop{margin-top:12px}.adminStudent{cursor:pointer;pointer-events:auto!important;position:relative;z-index:1}

@@ -1,9 +1,5 @@
-# Attendance Tracker v132
+# Attendance Tracker v133
 
-Targeted fixes from v132:
-- Restored direct Admin student-card tap navigation.
-- Restored visible Account & Cloud sync status and last successful cloud sync time.
-- Green status for working/syncing; red for sync failure.
-- Versioned assets/service worker to prevent stale cached v132 code from being served.
+Built from the v126 known-good Admin Dashboard baseline.
 
-Firebase Rules unchanged. Existing attendance, authentication, schedule, themes, filters, and cloud data structures are preserved.
+Targeted additions only: visible cloud sync state/last successful sync time, per-student month browsing, and Present/Absent/Not Held/Extra/Pending filters. Firebase Rules and core attendance/auth/schedule logic are unchanged.
