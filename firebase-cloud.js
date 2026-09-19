@@ -16,6 +16,61 @@ const auth = getAuth(app);
 const db = initializeFirestore(app, { ignoreUndefinedProperties: true });
 const USERS = "attendanceUsers";
 
+// Firestore does not allow arrays nested inside arrays. The attendance state can
+// legitimately contain nested arrays in schedule/session configuration, so the
+// cloud layer stores every array through a small marker object and restores the
+// original arrays when reading. This keeps the app's in-memory data unchanged.
+const ARRAY_MARKER = "__attendance_tracker_array__";
+
+function toFirestoreSafe(value, seen = new WeakSet()) {
+  if (value === undefined) return undefined;
+  if (value === null) return null;
+  if (typeof value !== "object") return value;
+
+  if (Array.isArray(value)) {
+    return {
+      [ARRAY_MARKER]: value.map(item => toFirestoreSafe(item, seen))
+    };
+  }
+
+  if (value instanceof Date) return value.toISOString();
+  if (typeof value.toDate === "function" && typeof value.toMillis === "function") return value;
+
+  if (seen.has(value)) throw new Error("Circular data cannot be synchronized to Firestore");
+  seen.add(value);
+  const out = {};
+  Object.entries(value).forEach(([key, item]) => {
+    const encoded = toFirestoreSafe(item, seen);
+    if (encoded !== undefined) out[key] = encoded;
+  });
+  seen.delete(value);
+  return out;
+}
+
+function fromFirestoreSafe(value, seen = new WeakSet()) {
+  if (value === null || typeof value !== "object") return value;
+  if (Array.isArray(value)) return value.map(item => fromFirestoreSafe(item, seen));
+
+  if (Object.prototype.hasOwnProperty.call(value, ARRAY_MARKER)) {
+    const encoded = value[ARRAY_MARKER];
+    return Array.isArray(encoded) ? encoded.map(item => fromFirestoreSafe(item, seen)) : [];
+  }
+
+  // Preserve Firestore Timestamp / GeoPoint / other SDK value objects.
+  if (typeof value.toDate === "function" || typeof value.toMillis === "function" || typeof value.latitude === "number" && typeof value.longitude === "number") {
+    return value;
+  }
+
+  if (seen.has(value)) return value;
+  seen.add(value);
+  const out = {};
+  Object.entries(value).forEach(([key, item]) => {
+    out[key] = fromFirestoreSafe(item, seen);
+  });
+  seen.delete(value);
+  return out;
+}
+
 function userRef(uid){ return doc(db, USERS, uid); }
 function daysRef(uid){ return collection(db, USERS, uid, "days"); }
 function dayRef(uid,date){ return doc(db, USERS, uid, "days", date); }
