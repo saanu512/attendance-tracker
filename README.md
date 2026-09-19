@@ -1,10 +1,12 @@
-Attendance Tracker v126
+# Attendance Tracker v134
 
-Baseline: v125.
+Built from the known-good v126 functional baseline.
 
-Targeted fix only:
-- Account & Cloud cards and the email/account identity panel now use the active edition's actual card surface instead of the generic --card color.
-- Admin Dashboard student/detail/summary card surfaces now follow the active edition's normal card treatment.
-- In-app Attendance Report nested card surfaces now inherit the active themed card appearance, including when the device/system theme is dark.
-- No attendance, Firebase/auth, schedule, clinical-posting, theme-persistence, or report-data logic was changed.
-- Service-worker cache bumped to v126.
+## v134 changes
+- Real Firebase sync status in Account & Cloud: Syncing, last successful sync time, and sync failed/unavailable state with green/red symbols.
+- Last successful sync time is persisted locally so it remains visible after app reload/logout.
+- Admin student detail now uses month selection before displaying daily records.
+- Monthly attendance filters: All, Present, Absent, Not Held, Extra Classes, Pending.
+- Month and status filtering is display-only and does not modify cloud data.
+- Admin/Cloud cards use the active edition's existing card surface variables.
+- Existing Firebase rules, authentication, attendance logic, student-card click behavior, and v126 sync architecture are preserved.

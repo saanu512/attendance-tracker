@@ -2662,8 +2662,6 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
    data-theme may still be dark. Standalone admin cards remain normal .card
    elements; nested report/account surfaces inherit their parent card surface. */
 .cloudAccountCard{overflow:hidden;}
-/* Keep Admin Dashboard hero on the same base card surface; edition-specific .card rules still win. */
-.adminHero{background:var(--card)!important;}
 .adminStudent{cursor:pointer;}
 .adminStudentMain b{color:var(--ink)!important;}
 .adminStudentMain span,.adminStudentMeta,.adminStudentMeta span{color:var(--soft)!important;}
@@ -2684,3 +2682,11 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 .reportOverall{background:var(--primarySoft)!important;color:var(--primary)!important;box-shadow:none!important;}
 .reportDay h3{background:var(--primarySoft)!important;color:var(--primary)!important;}
 .reportMetrics span,.reportIdentity span,.reportTime small,.reportSubject small{color:var(--soft)!important;}
+
+/* v134: keep Admin/Cloud surfaces on the exact active theme card system. */
+.cloudAccountCard,.adminHero,.adminStudent,.adminDetailsCard{background:var(--card)!important;color:var(--ink)!important;border:1px solid var(--line)!important;box-shadow:var(--shadow)!important;}
+.adminSummaryGrid>div{background:var(--card)!important;color:var(--ink)!important;}
+.adminStudentMain b,.adminStudentMain span,.adminStudentMeta,.adminStudentMeta span{color:var(--ink)!important;}
+.adminStudentMain span,.adminStudentMeta,.adminStudentMeta span{color:var(--soft)!important;}
+.adminMonthTabs,.adminStatusTabs{padding-top:10px;}
+.adminMonthTabs .filter,.adminStatusTabs .filter{flex:0 0 auto;}
