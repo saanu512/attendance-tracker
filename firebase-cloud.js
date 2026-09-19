@@ -70,8 +70,8 @@ function applyDay(state,p){
   if(p.extraClasses&&p.extraClasses.length)state.extraClasses[date]=p.extraClasses;else delete state.extraClasses[date];
 }
 
-async function getProfile(uid){const snap=await getDoc(userRef(uid));return snap.exists()?snap.data():null;}
-async function getDays(uid){const snap=await getDocs(daysRef(uid));return snap.docs.map(d=>d.data());}
+async function getProfile(uid){const snap=await getDoc(userRef(uid));return snap.exists()?fromFirestoreSafe(snap.data()):null;}
+async function getDays(uid){const snap=await getDocs(daysRef(uid));return snap.docs.map(d=>fromFirestoreSafe(d.data()));}
 
 async function readState(uid,localState){
   const profile=await getProfile(uid);
@@ -92,7 +92,7 @@ async function readState(uid,localState){
 }
 
 async function syncProfile(uid,state,user){
-  try{await setDoc(userRef(uid),stateToProfile(state,user),{merge:true});}
+  try{await setDoc(userRef(uid),toFirestoreSafe(stateToProfile(state,user)),{merge:true});}
   catch(e){e.operation="syncProfile";throw e;}
 }
 
@@ -101,7 +101,7 @@ async function syncDay(uid,date,state,sessions=[]){
   // Replace the complete logical day record. This is intentional: merge:true
   // would leave deleted/changed fields behind in Firestore.
   try{
-    if(hasDayData(payload)) await setDoc(dayRef(uid,date),payload,{merge:false});
+    if(hasDayData(payload)) await setDoc(dayRef(uid,date),toFirestoreSafe(payload),{merge:false});
     else await deleteDoc(dayRef(uid,date));
   }catch(e){e.operation="syncDay";e.date=date;throw e;}
 }
@@ -126,7 +126,7 @@ async function syncFullState(uid,state,user,sessionSnapshots={}){
     list.slice(i,i+400).forEach(date=>{
       const payload=dayPayload(date,state,sessionSnapshots[date]||[]);
       const ref=dayRef(uid,date);
-      if(localDates.has(date) && hasDayData(payload)) batch.set(ref,payload,{merge:false});
+      if(localDates.has(date) && hasDayData(payload)) batch.set(ref,toFirestoreSafe(payload),{merge:false});
       else if(remoteDates.has(date)) batch.delete(ref);
     });
     try{await batch.commit();}catch(e){e.operation="writeBatch";throw e;}
@@ -150,7 +150,7 @@ async function currentAdmin(){
 async function listStudents(){
   if(!(await currentAdmin())){const e=new Error("ADMIN_REQUIRED");e.code="auth/admin-required";throw e;}
   const snap=await getDocs(collection(db,USERS));
-  return snap.docs.map(d=>d.data()).sort((a,b)=>String(a.name||a.email||"").localeCompare(String(b.name||b.email||"")));
+  return snap.docs.map(d=>fromFirestoreSafe(d.data())).sort((a,b)=>String(a.name||a.email||"").localeCompare(String(b.name||b.email||"")));
 }
 async function studentDays(uid){
   if(!(await currentAdmin())){const e=new Error("ADMIN_REQUIRED");e.code="auth/admin-required";throw e;}
