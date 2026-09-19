@@ -1,4 +1,4 @@
-ATTENDANCE TRACKER — FIREBASE v105 SETUP
+ATTENDANCE TRACKER — FIREBASE v106 SETUP
 ========================================
 
 This build is based on Attendance Tracker v103 and adds Firebase Authentication,
