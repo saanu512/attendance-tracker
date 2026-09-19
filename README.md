@@ -1,4 +1,4 @@
-Attendance Tracker — v129 manual sync control fix
+Attendance Tracker — v130 sync semantic color fix
 
 Functional base
 - v126 Admin Dashboard/student-card functionality is preserved.

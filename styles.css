@@ -2727,3 +2727,20 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 }
 .syncTapBtn:active{transform:translateY(1px);}
 .syncTapBtn:disabled{opacity:.65;cursor:default;}
+
+/* v130: force sync status to use its own semantic color, independent of
+   the Account & Cloud card's native text color. Keep all other card text
+   unchanged. The manual sync label is green as requested. */
+.cloudIdentity #cloudStatusText.syncStatusGood,
+.cloudIdentity #adminSyncStatusText.syncStatusGood,
+.adminSyncStatusLine #adminSyncStatusText.syncStatusGood{
+  color:var(--green)!important;
+}
+.cloudIdentity #cloudStatusText.syncStatusBad,
+.cloudIdentity #adminSyncStatusText.syncStatusBad,
+.adminSyncStatusLine #adminSyncStatusText.syncStatusBad{
+  color:var(--red)!important;
+}
+.syncTapBtn{
+  color:var(--green)!important;
+}
