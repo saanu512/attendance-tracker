@@ -7,6 +7,8 @@
 <meta name="theme-color" content="#2A5C54">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
+<link rel="preload" href="styles.css" as="style">
+<link rel="preload" href="app.js" as="script">
 <style>
 html,body{margin:0;min-height:100%;background:#f4f6f5}
 html[data-theme="dark"],html[data-theme="dark"] body{background:#121817}
@@ -28,6 +30,7 @@ html.preboot body{visibility:hidden}
 </head>
 <body>
 <div id="app"></div>
+<script type="module" src="firebase-cloud.js"></script>
 <script src="app.js"></script>
 <div id="appAlertOverlay" class="app-alert-overlay" role="dialog" aria-modal="true" aria-labelledby="appAlertTitle">
   <div class="app-alert-box">

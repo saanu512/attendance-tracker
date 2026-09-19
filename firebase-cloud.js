@@ -1,0 +1,165 @@
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, writeBatch, deleteDoc } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDZhX50Yk41BiWULZjlr5vq9NG4cVztA7A",
+  authDomain: "attendance-tracker-3379f.firebaseapp.com",
+  projectId: "attendance-tracker-3379f",
+  storageBucket: "attendance-tracker-3379f.firebasestorage.app",
+  messagingSenderId: "72499909390",
+  appId: "1:72499909390:web:0359565becb704ac4bbd5f"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const USERS = "attendanceUsers";
+
+function userRef(uid){ return doc(db, USERS, uid); }
+function daysRef(uid){ return collection(db, USERS, uid, "days"); }
+function dayRef(uid,date){ return doc(db, USERS, uid, "days", date); }
+
+function stateToProfile(state, user){
+  return {
+    uid: user?.uid || "",
+    email: user?.email || "",
+    name: state.settings?.name || "Student",
+    rollNumber: String(state.settings?.rollNumber || ""),
+    course: state.settings?.course || "Course",
+    required: Number(state.settings?.required || 75),
+    rollLocked: !!state.settings?.rollLocked,
+    edition: state.settings?.edition || "earth-day",
+    theme: state.settings?.theme || "light",
+    schedule: state.settings?.schedule || {},
+    updatedAt: new Date().toISOString()
+  };
+}
+
+function dayPayload(date,state,sessions=[]){
+  const prefix=date+"-";
+  const status={},records={};
+  Object.keys(state.status||{}).forEach(k=>{if(k.startsWith(prefix))status[k.slice(prefix.length)]=state.status[k]});
+  Object.keys(state.records||{}).forEach(k=>{if(k.startsWith(prefix))records[k.slice(prefix.length)]=state.records[k]});
+  return {
+    date,
+    status,
+    records,
+    note: state.notes?.[date] || "",
+    holiday: !!state.holidays?.[date],
+    overrides: state.overrides?.[date] || {},
+    extraClasses: state.extraClasses?.[date] || [],
+    sessions: sessions || [],
+    updatedAt: new Date().toISOString()
+  };
+}
+
+function hasDayData(p){
+  return (p.sessions||[]).length || Object.keys(p.status||{}).length || Object.keys(p.records||{}).length || p.note || p.holiday || Object.keys(p.overrides||{}).length || (p.extraClasses||[]).length;
+}
+
+function applyDay(state,p){
+  const date=p.date;if(!date)return;
+  Object.keys(state.status||{}).forEach(k=>{if(k.startsWith(date+"-"))delete state.status[k]});
+  Object.keys(state.records||{}).forEach(k=>{if(k.startsWith(date+"-"))delete state.records[k]});
+  if(p.status)Object.entries(p.status).forEach(([i,v])=>{if(v)state.status[date+"-"+i]=v});
+  if(p.records)Object.entries(p.records).forEach(([i,v])=>{state.records[date+"-"+i]=v});
+  if(p.note)state.notes[date]=p.note;else delete state.notes[date];
+  if(p.holiday)state.holidays[date]=true;else delete state.holidays[date];
+  if(p.overrides&&Object.keys(p.overrides).length)state.overrides[date]=p.overrides;else delete state.overrides[date];
+  if(p.extraClasses&&p.extraClasses.length)state.extraClasses[date]=p.extraClasses;else delete state.extraClasses[date];
+}
+
+async function getProfile(uid){const snap=await getDoc(userRef(uid));return snap.exists()?snap.data():null;}
+async function getDays(uid){const snap=await getDocs(daysRef(uid));return snap.docs.map(d=>d.data());}
+
+async function readState(uid,localState){
+  const profile=await getProfile(uid);
+  if(!profile)return null;
+  const days=await getDays(uid);
+  const state=JSON.parse(JSON.stringify(localState));
+  if(profile.name!=null)state.settings.name=profile.name;
+  if(profile.rollNumber!=null)state.settings.rollNumber=String(profile.rollNumber);
+  if(profile.course!=null)state.settings.course=profile.course;
+  if(profile.required!=null)state.settings.required=Number(profile.required);
+  if(profile.rollLocked!=null)state.settings.rollLocked=!!profile.rollLocked;
+  if(profile.edition)state.settings.edition=profile.edition;
+  if(profile.theme)state.settings.theme=profile.theme;
+  if(profile.schedule)state.settings.schedule=profile.schedule;
+  state.status={};state.records={};state.notes={};state.holidays={};state.overrides={};state.extraClasses={};
+  days.forEach(p=>applyDay(state,p));
+  return state;
+}
+
+async function syncProfile(uid,state,user){await setDoc(userRef(uid),stateToProfile(state,user),{merge:true});}
+
+async function syncDay(uid,date,state,sessions=[]){
+  const payload=dayPayload(date,state,sessions);
+  // Replace the complete logical day record. This is intentional: merge:true
+  // would leave deleted/changed fields behind in Firestore.
+  if(hasDayData(payload)) await setDoc(dayRef(uid,date),payload,{merge:false});
+  else await deleteDoc(dayRef(uid,date));
+}
+
+async function syncFullState(uid,state,user,sessionSnapshots={}){
+  await syncProfile(uid,state,user);
+  const localDates=new Set();
+  Object.keys(state.status||{}).forEach(k=>localDates.add(k.slice(0,10)));
+  Object.keys(state.records||{}).forEach(k=>localDates.add(k.slice(0,10)));
+  Object.keys(state.notes||{}).forEach(d=>localDates.add(d));
+  Object.keys(state.holidays||{}).forEach(d=>localDates.add(d));
+  Object.keys(state.overrides||{}).forEach(d=>localDates.add(d));
+  Object.keys(state.extraClasses||{}).forEach(d=>localDates.add(d));
+  Object.keys(sessionSnapshots||{}).forEach(d=>localDates.add(d));
+  const remoteSnap=await getDocs(daysRef(uid));
+  const remoteDates=new Set(remoteSnap.docs.map(d=>d.id));
+  const allDates=new Set([...localDates,...remoteDates]);
+  const list=[...allDates].filter(Boolean);
+  for(let i=0;i<list.length;i+=400){
+    const batch=writeBatch(db);
+    list.slice(i,i+400).forEach(date=>{
+      const payload=dayPayload(date,state,sessionSnapshots[date]||[]);
+      const ref=dayRef(uid,date);
+      if(localDates.has(date) && hasDayData(payload)) batch.set(ref,payload,{merge:false});
+      else if(remoteDates.has(date)) batch.delete(ref);
+    });
+    await batch.commit();
+  }
+}
+
+async function markMigrationComplete(uid){ await setDoc(userRef(uid),{migrationV105:true,migrationCompletedAt:new Date().toISOString()},{merge:true}); }
+
+async function signIn(email,password){return signInWithEmailAndPassword(auth,email,password);}
+async function signInAdmin(email,password){
+  const cred=await signInWithEmailAndPassword(auth,email,password);
+  const token=await cred.user.getIdTokenResult(true);
+  if(token.claims?.admin!==true){await signOut(auth);const e=new Error("ADMIN_REQUIRED");e.code="auth/admin-required";throw e;}
+  return cred;
+}
+async function currentAdmin(){
+  if(!auth.currentUser)return false;
+  const token=await auth.currentUser.getIdTokenResult(true);return token.claims?.admin===true;
+}
+
+async function listStudents(){
+  if(!(await currentAdmin())){const e=new Error("ADMIN_REQUIRED");e.code="auth/admin-required";throw e;}
+  const snap=await getDocs(collection(db,USERS));
+  return snap.docs.map(d=>d.data()).sort((a,b)=>String(a.name||a.email||"").localeCompare(String(b.name||b.email||"")));
+}
+async function studentDays(uid){
+  if(!(await currentAdmin())){const e=new Error("ADMIN_REQUIRED");e.code="auth/admin-required";throw e;}
+  return getDays(uid);
+}
+
+onAuthStateChanged(auth,async user=>{
+  let admin=false;
+  if(user){try{admin=await currentAdmin()}catch(e){admin=false}}
+  window.dispatchEvent(new CustomEvent("firebase-auth-state",{detail:{user,admin}}));
+});
+
+window.AttendanceCloud={
+  auth,db,
+  signIn,signInAdmin,signOut:()=>signOut(auth),sendPasswordResetEmail:(email)=>sendPasswordResetEmail(auth,email),
+  getProfile,getDays,readState,syncProfile,syncDay,syncFullState,markMigrationComplete,listStudents,studentDays,currentAdmin
+};
+window.dispatchEvent(new Event("firebase-cloud-ready"));
