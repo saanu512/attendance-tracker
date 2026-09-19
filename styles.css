@@ -2488,3 +2488,30 @@ body.photon-3d .extraInfoItem{
 .adminSubjectRow{padding:11px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:4px 10px}.adminSubjectRow:last-child{border-bottom:0}.adminSubjectRow span{font-weight:900;color:var(--primary)}.adminSubjectRow small{grid-column:1/-1;color:var(--soft);font-size:11px}.adminTableWrap{overflow:auto;margin-top:12px;border:1px solid var(--line);border-radius:14px}.adminTable{border-collapse:collapse;width:100%;min-width:760px;font-size:11px;color:var(--ink)}.adminTable th,.adminTable td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.adminTable th{background:var(--primarySoft);color:var(--primary);font-weight:900}.adminTable tr:last-child td{border-bottom:0}
 @media(max-width:520px){.adminSummaryGrid{grid-template-columns:repeat(2,1fr)}.adminStudentMain{align-items:flex-start;flex-direction:column;gap:3px}.cloudActions>*{min-width:120px}}
 @media print{body{background:#fff!important;color:#111!important}.nav,.cloudActions,.btn,.iconbtn{display:none!important}.app{background:#fff!important}.card{box-shadow:none!important;border:1px solid #ccc!important}.adminTable{color:#111!important}.adminTable th{background:#eee!important;color:#111!important}}
+.adminDetailsHead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.adminDetails{margin-top:12px}.adminDetails summary{cursor:pointer;font-weight:800;color:var(--primary);padding:8px 0}.adminGroupedTable{min-width:620px}.adminGroupedTable .adminDateGroup th{background:color-mix(in srgb,var(--primary) 12%,var(--card));color:var(--primary);font-size:12px;padding:10px 8px;border-top:1px solid var(--line)}.adminGroupedTable td small{display:block;color:var(--soft);font-size:10px;margin-top:3px}.adminGroupedTable .adminDateGroup:first-child th{border-top:0}
+@media print{.adminDetails{display:block!important}.adminDetails summary{display:none!important}.adminDetailsCard{page-break-inside:auto}.adminGroupedTable{min-width:0!important;font-size:9px!important}.adminGroupedTable th,.adminGroupedTable td{padding:5px!important}.adminDetailsHead{display:none!important}}
+/* v114 in-app Admin report sheet */
+.reportModal{align-items:flex-end;padding:0;}
+.reportSheet{width:min(760px,100%);max-height:92dvh;border-radius:26px 26px 0 0;padding:18px 16px calc(22px + env(safe-area-inset-bottom));}
+.reportHead{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:-18px;background:var(--card);padding:2px 0 12px;z-index:2;border-bottom:1px solid var(--line);}
+.reportHead h2{margin:0;font-size:20px;}
+.reportIdentity{display:grid;gap:3px;padding:14px 0 10px;}
+.reportIdentity b{font-size:19px;}
+.reportIdentity span{font-size:12px;color:var(--soft);}
+.reportMetrics{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:8px 0;}
+.reportMetrics div{padding:10px 5px;text-align:center;background:var(--bg);border:1px solid var(--line);border-radius:12px;}
+.reportMetrics b{display:block;font-size:19px;}
+.reportMetrics span{font-size:10px;color:var(--soft);}
+.reportOverall{padding:11px 12px;border-radius:12px;background:var(--primarySoft);color:var(--primary);font-size:13px;margin-bottom:12px;}
+.reportSectionTitle{font-size:15px;margin:16px 0 8px;}
+.reportSubject{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--line);}
+.reportSubject b{font-size:14px;}
+.reportSubject>span{font-weight:800;color:var(--primary);}
+.reportSubject small{grid-column:1/-1;color:var(--soft);font-size:11px;}
+.reportDay{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:10px 0;background:var(--card);}
+.reportDay h3{margin:0;padding:11px 12px;background:var(--primarySoft);color:var(--primary);font-size:13px;}
+.reportRow{display:grid;grid-template-columns:minmax(100px,.8fr) 1.5fr;gap:10px;padding:10px 12px;border-top:1px solid var(--line);}
+.reportTime{font-size:12px;color:var(--ink);}
+.reportTime small,.reportSubjectCell small{display:block;color:var(--soft);font-size:10px;margin-top:3px;}
+.reportSubjectCell b{font-size:13px;}
+@media(max-width:430px){.reportMetrics{grid-template-columns:repeat(2,1fr)}.reportRow{grid-template-columns:1fr}.reportSheet{max-height:90dvh}}
