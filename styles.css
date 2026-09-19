@@ -2581,44 +2581,12 @@ body.photon-3d .extraInfoItem{
   .reportTableHead,.reportTableRow{min-width:760px}
 }
 
-/* v116: Admin report scrolling + explicit scheduled-vs-actual class mapping */
-.pdfPreviewModal{
-  display:block!important;
-  padding:0!important;
-  overflow:hidden!important;
-  -webkit-overflow-scrolling:touch;
-}
-.pdfPreviewPage{
-  width:100%;
-  height:100dvh;
-  min-height:100dvh;
-  overflow-y:auto!important;
-  overflow-x:hidden!important;
-  -webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;
-  padding:14px 10px 40px;
-}
-.pdfPreviewTop{position:sticky;top:0;z-index:20}
-.adminGroupedTable{min-width:880px}
-.adminGroupedTable th:nth-child(1),.adminGroupedTable th:nth-child(2){min-width:185px}
-.adminGroupedTable th:nth-child(5){min-width:230px}
-.adminGroupedTable td small{display:block;color:var(--soft);font-size:10px;margin-top:3px}
-.reportTableHead,.reportTableRow{grid-template-columns:1.25fr 1.25fr .85fr .85fr 1.55fr 1fr}
-.reportTableRow small{display:block;color:var(--soft);font-size:10px;margin-top:3px}
-.pdfDay table{table-layout:fixed}
-.pdfDay th:nth-child(1),.pdfDay td:nth-child(1),.pdfDay th:nth-child(2),.pdfDay td:nth-child(2){width:18%}
-.pdfDay th:nth-child(3),.pdfDay td:nth-child(3){width:11%}
-.pdfDay th:nth-child(4),.pdfDay td:nth-child(4){width:10%}
-.pdfDay th:nth-child(5),.pdfDay td:nth-child(5){width:25%}
-.pdfDay th:nth-child(6),.pdfDay td:nth-child(6){width:18%}
-.pdfDay td small{font-size:9px;color:#666}
-@media(max-width:520px){
-  .pdfPreviewPage{padding:8px 6px 36px}
-  .pdfReport{padding:24px 18px 34px;min-width:0}
-}
-
-.adminLoadError{margin-top:12px;word-break:break-word}
-/* v119: full student card remains clickable; no extra hint/button */
-.authDivider{display:flex;align-items:center;gap:8px;margin:14px 0 8px;color:var(--soft);font-size:11px}
-.authDivider:before,.authDivider:after{content:"";height:1px;flex:1;background:var(--line)}
-.authCreateBtn{width:100%}
+/* v122: student Create Account, no extra card/button on Admin Dashboard */
+.authCreateDivider{display:flex;align-items:center;gap:8px;margin:12px 0 4px;color:var(--soft);font-size:12px;font-weight:700}
+.authCreateDivider:before,.authCreateDivider:after{content:"";height:1px;background:var(--line);flex:1}
+.authCreateBtn{width:100%;margin-top:4px}
+/* v122: PDF-style report is a long in-app page; the modal itself scrolls on Android WebViews. */
+.pdfPreviewModal{display:block!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;padding:0!important;height:100%!important;min-height:100%!important}
+.pdfPreviewPage{display:block;width:100%;min-height:100%;height:auto;overflow:visible;padding:14px 10px 40px}
+.pdfPreviewTop{position:sticky;top:0}
+@media(max-width:650px){.pdfPreviewPage{overflow:visible;height:auto;min-height:100%;padding:0 0 40px}.pdfReport{min-height:0}}

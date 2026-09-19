@@ -1,5 +1,3 @@
-Attendance Tracker v121 — Admin student-card click fix + complete Admin class metadata
-
 ATTENDANCE TRACKER — FIREBASE v108 SETUP
 ========================================
 

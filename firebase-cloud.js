@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
 import { initializeFirestore, doc, getDoc, setDoc, collection, getDocs, writeBatch, deleteDoc } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
 
 const firebaseConfig = {
@@ -221,7 +221,7 @@ onAuthStateChanged(auth,async user=>{
 
 window.AttendanceCloud={
   auth,db,
-  signIn,signInAdmin,createStudentAccount,signOut:()=>signOut(auth),sendPasswordResetEmail:(email)=>sendPasswordResetEmail(auth,email),
+  signIn,createStudentAccount,signInAdmin,signOut:()=>signOut(auth),sendPasswordResetEmail:(email)=>sendPasswordResetEmail(auth,email),
   getProfile,getDays,readState,syncProfile,syncDay,syncFullState,markMigrationComplete,listStudents,studentDays,currentAdmin
 };
 window.dispatchEvent(new Event("firebase-cloud-ready"));
