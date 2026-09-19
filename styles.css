@@ -2656,42 +2656,31 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 }
 
 
-/* v125: Admin/Account card consistency fix.
-   These surfaces must use the same theme-driven card treatment as the other
-   cards in the active edition. No data, auth, Firebase, or attendance logic. */
-.cloudAccountCard,
-.adminHero,
-.adminStudent,
-.adminDetailsCard,
-.reportSheet,
-.reportDay,
-.adminSummaryGrid>div,
-.reportMetrics div{
-  background:var(--card)!important;
-  color:var(--ink)!important;
-  border:1px solid var(--line)!important;
-  border-radius:20px!important;
-  box-shadow:var(--shadow)!important;
-}
+/* v126: use the active edition's actual card treatment.
+   Do not substitute var(--card) for themed/glass card surfaces: several
+   editions intentionally render .card with gradients/transparency, while
+   data-theme may still be dark. Standalone admin cards remain normal .card
+   elements; nested report/account surfaces inherit their parent card surface. */
 .cloudAccountCard{overflow:hidden;}
-.cloudIdentity{
-  background:var(--card)!important;
-  color:var(--ink)!important;
-  border:1px solid var(--line)!important;
-  border-radius:20px!important;
-  box-shadow:var(--shadow)!important;
-}
+/* Keep Admin Dashboard hero on the same base card surface; edition-specific .card rules still win. */
 .adminHero{background:var(--card)!important;}
 .adminStudent{cursor:pointer;}
-.adminStudentMain b,
-.adminStudentMain span,
-.adminStudentMeta,
-.adminStudentMeta span{color:var(--ink);}
-.adminStudentMain span,
-.adminStudentMeta,
-.adminStudentMeta span{color:var(--soft)!important;}
-.reportHead{background:var(--card)!important;color:var(--ink)!important;}
+.adminStudentMain b{color:var(--ink)!important;}
+.adminStudentMain span,.adminStudentMeta,.adminStudentMeta span{color:var(--soft)!important;}
+.cloudIdentity,
+.reportHead,
+.adminSummaryGrid>div,
+.reportMetrics div,
+.reportDay{
+  background:inherit!important;
+  color:inherit!important;
+}
+.cloudIdentity,
+.adminSummaryGrid>div,
+.reportMetrics div,
+.reportDay{
+  border-color:var(--line)!important;
+}
 .reportOverall{background:var(--primarySoft)!important;color:var(--primary)!important;box-shadow:none!important;}
 .reportDay h3{background:var(--primarySoft)!important;color:var(--primary)!important;}
-.reportMetrics div{background:var(--card)!important;}
 .reportMetrics span,.reportIdentity span,.reportTime small,.reportSubject small{color:var(--soft)!important;}
