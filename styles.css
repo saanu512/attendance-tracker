@@ -2654,3 +2654,44 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 @media(max-width:650px){
   .pdfPreviewTop{padding-top:max(18px,calc(env(safe-area-inset-top,0px) + 12px))!important;}
 }
+
+
+/* v125: Admin/Account card consistency fix.
+   These surfaces must use the same theme-driven card treatment as the other
+   cards in the active edition. No data, auth, Firebase, or attendance logic. */
+.cloudAccountCard,
+.adminHero,
+.adminStudent,
+.adminDetailsCard,
+.reportSheet,
+.reportDay,
+.adminSummaryGrid>div,
+.reportMetrics div{
+  background:var(--card)!important;
+  color:var(--ink)!important;
+  border:1px solid var(--line)!important;
+  border-radius:20px!important;
+  box-shadow:var(--shadow)!important;
+}
+.cloudAccountCard{overflow:hidden;}
+.cloudIdentity{
+  background:var(--card)!important;
+  color:var(--ink)!important;
+  border:1px solid var(--line)!important;
+  border-radius:20px!important;
+  box-shadow:var(--shadow)!important;
+}
+.adminHero{background:var(--card)!important;}
+.adminStudent{cursor:pointer;}
+.adminStudentMain b,
+.adminStudentMain span,
+.adminStudentMeta,
+.adminStudentMeta span{color:var(--ink);}
+.adminStudentMain span,
+.adminStudentMeta,
+.adminStudentMeta span{color:var(--soft)!important;}
+.reportHead{background:var(--card)!important;color:var(--ink)!important;}
+.reportOverall{background:var(--primarySoft)!important;color:var(--primary)!important;box-shadow:none!important;}
+.reportDay h3{background:var(--primarySoft)!important;color:var(--primary)!important;}
+.reportMetrics div{background:var(--card)!important;}
+.reportMetrics span,.reportIdentity span,.reportTime small,.reportSubject small{color:var(--soft)!important;}
