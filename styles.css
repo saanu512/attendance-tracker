@@ -2737,3 +2737,10 @@ body.photon-3d{--admin-card-bg:linear-gradient(145deg,#ffffff 0%,#f3f6f9 58%,#e2
   .adminFilterChips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;}
   .adminFilterChips .filter{width:100%;}
 }
+
+/* v130: explicit cloud sync state and last successful sync visibility. */
+.cloudStatusBlock{display:flex;flex-direction:column;gap:3px;margin-top:4px;}
+.cloudSyncState{font-weight:850;}
+.cloudLastSync{font-size:11px;color:var(--soft);}
+.cloudStatusBlock .danger{color:var(--red)!important;}
+.cloudStatusBlock .safe{color:var(--green)!important;}
