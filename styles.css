@@ -2619,3 +2619,10 @@ body.photon-3d .extraInfoItem{
 
 .adminLoadError{margin-top:12px;word-break:break-word}
 .adminStudent:focus-visible{outline:3px solid color-mix(in srgb,var(--primary) 55%,transparent);outline-offset:2px}
+/* v119: full student card remains clickable; no extra hint/button */
+.adminStudent{position:relative;min-height:92px;user-select:none;-webkit-user-select:none;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.adminStudent:active{transform:scale(.995)}
+.adminStudent:focus{outline:3px solid color-mix(in srgb,var(--primary) 45%,transparent);outline-offset:2px}
+.authDivider{display:flex;align-items:center;gap:8px;margin:14px 0 8px;color:var(--soft);font-size:11px}
+.authDivider:before,.authDivider:after{content:"";height:1px;flex:1;background:var(--line)}
+.authCreateBtn{width:100%}

@@ -191,6 +191,7 @@ async function syncFullState(uid,state,user,sessionSnapshots={}){
 async function markMigrationComplete(uid){ try{await setDoc(userRef(uid),{migrationV105:true,migrationCompletedAt:new Date().toISOString()},{merge:true});}catch(e){e.operation="markMigrationComplete";throw e;} }
 
 async function signIn(email,password){return signInWithEmailAndPassword(auth,email,password);}
+async function createStudentAccount(email,password){return createUserWithEmailAndPassword(auth,email,password);}
 async function signInAdmin(email,password){
   const cred=await signInWithEmailAndPassword(auth,email,password);
   const token=await cred.user.getIdTokenResult(true);
@@ -220,7 +221,7 @@ onAuthStateChanged(auth,async user=>{
 
 window.AttendanceCloud={
   auth,db,
-  signIn,signInAdmin,signOut:()=>signOut(auth),sendPasswordResetEmail:(email)=>sendPasswordResetEmail(auth,email),
+  signIn,signInAdmin,createStudentAccount,signOut:()=>signOut(auth),sendPasswordResetEmail:(email)=>sendPasswordResetEmail(auth,email),
   getProfile,getDays,readState,syncProfile,syncDay,syncFullState,markMigrationComplete,listStudents,studentDays,currentAdmin
 };
 window.dispatchEvent(new Event("firebase-cloud-ready"));
