@@ -2590,3 +2590,67 @@ body.photon-3d .extraInfoItem{
 .pdfPreviewPage{display:block;width:100%;min-height:100%;height:auto;overflow:visible;padding:14px 10px 40px}
 .pdfPreviewTop{position:sticky;top:0}
 @media(max-width:650px){.pdfPreviewPage{overflow:visible;height:auto;min-height:100%;padding:0 0 40px}.pdfReport{min-height:0}}
+
+/* v124 targeted UI visibility + safe-area fixes only */
+/* Account & Cloud: the signed-out identity panel must use the same themed card
+   surface instead of inheriting a dark primary-soft background. */
+.cloudIdentity{
+  background:var(--card)!important;
+  color:var(--ink)!important;
+  border-color:var(--line)!important;
+}
+.cloudIdentity b,.cloudIdentity .small,.cloudIdentity .safe,.cloudIdentity .danger{
+  opacity:1!important;
+}
+.cloudIdentity .small{color:var(--soft)!important;}
+
+/* Roshni: strengthen the general text palette so secondary text remains readable
+   against the bright glass/pastel surfaces. Semantic status colors stay untouched. */
+body.roshni{
+  --ink:#30283f;
+  --soft:#51495f;
+  --line:rgba(118,96,139,.30);
+}
+body.roshni .small,
+body.roshni .sub,
+body.roshni .soft,
+body.roshni .progressText,
+body.roshni .sessionTime,
+body.roshni .subjectMeta,
+body.roshni .metric span,
+body.roshni .locktag,
+body.roshni .datecenter span,
+body.roshni .calDow,
+body.roshni .madeby,
+body.roshni .statsLegend{
+  color:#51495f!important;
+  opacity:1!important;
+}
+body.roshni .sectionTitle,
+body.roshni .datecenter b,
+body.roshni .sessionName,
+body.roshni .subjectName,
+body.roshni .label,
+body.roshni .cloudIdentity b{
+  color:#30283f!important;
+  opacity:1!important;
+}
+body.roshni .cloudIdentity .small{color:#51495f!important;}
+
+/* Attendance Report PDF-style preview: keep the Close control below the
+   Android/WebView status-bar area and give it a comfortable touch target. */
+.pdfPreviewTop{
+  padding-top:max(12px,calc(env(safe-area-inset-top,0px) + 10px))!important;
+  padding-right:max(10px,env(safe-area-inset-right,0px))!important;
+  padding-left:max(10px,env(safe-area-inset-left,0px))!important;
+}
+.pdfPreviewTop .btn{
+  min-width:92px!important;
+  min-height:44px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+@media(max-width:650px){
+  .pdfPreviewTop{padding-top:max(18px,calc(env(safe-area-inset-top,0px) + 12px))!important;}
+}
