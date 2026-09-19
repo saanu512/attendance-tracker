@@ -13,6 +13,8 @@ const DAYS=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturda
 function clone(x){return JSON.parse(JSON.stringify(x))}function pad(n){return String(n).padStart(2,"0")}function key(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}function parseKey(k){let p=k.split("-").map(Number);return new Date(p[0],p[1]-1,p[2])}function add(d,n){let x=new Date(d);x.setDate(x.getDate()+n);return x}function today(){let d=new Date();d.setHours(0,0,0,0);return d}function fmt(d){return d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"})}function monthFmt(d){return d.toLocaleDateString("en-GB",{month:"long",year:"numeric"})}function time(s){let[h,m]=s.split(":").map(Number),ap=h>=12?"PM":"AM";h=h%12||12;return h+":"+pad(m)+" "+ap}function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
 function defaultState(){return {status:{},records:{},holidays:{},notes:{},overrides:{},extraClasses:{},tab:"log",viewDate:key(today()),calendarMonth:key(new Date(today().getFullYear(),today().getMonth(),1)),statsFilter:"all",settings:{name:"Sharad Sourav",course:"3rd Prof Part-II",required:75,unlockHour:6,theme:"light",edition:"earth-day",rollNumber:"",rollLocked:false,schedule:clone(DEFAULT_SCHEDULE)}}}
 let state=defaultState();
+const ADMIN_CLOUD_SYNC_KEY="attendance-tracker-admin-last-cloud-sync-v1";
+function readAdminLastSync(){try{const v=localStorage.getItem(ADMIN_CLOUD_SYNC_KEY);if(!v)return null;const d=new Date(v);return Number.isNaN(d.getTime())?null:d}catch(e){return null}}
 let cloudSession={user:null,admin:false,ready:!!window.AttendanceCloud,syncing:false,lastSync:null,error:""};
 const CLOUD_PENDING_KEY="attendance-tracker-cloud-pending";
 const CLOUD_MIGRATION_KEY="attendance-tracker-cloud-migration-v105";
@@ -304,13 +306,15 @@ function formatCloudTime(v){
 function adminSyncStatusHtml(){
   if(cloudSession.syncing)return '<span class="syncStatus syncStatusGood">✓ Syncing…</span>';
   if(cloudSession.error)return '<span class="syncStatus syncStatusBad">✕ Sync failed</span>';
-  if(cloudSession.user&&cloudSession.lastSync)return `<span class="syncStatus syncStatusGood">✓ Last synced · ${formatCloudTime(cloudSession.lastSync)}</span>`;
+  const t=cloudSession.lastSync||readAdminLastSync();
+  if(cloudSession.user&&t)return `<span class="syncStatus syncStatusGood">✓ Last synced · ${formatCloudTime(t)}</span>`;
   return '<span class="syncStatus syncStatusBad">✕ Sync status unavailable</span>';
 }
 function cloudStatusMarkup(){
   if(cloudSession.syncing)return '<span id="cloudStatusText" class="small syncStatus syncStatusGood">✓ Syncing…</span>';
   if(cloudSession.error)return `<span id="cloudStatusText" class="small syncStatus syncStatusBad">✕ Sync failed · ${esc(cloudSession.error)}</span>`;
-  if(cloudSession.user&&cloudSession.lastSync)return `<span id="cloudStatusText" class="small syncStatus syncStatusGood">✓ Last synced · ${formatCloudTime(cloudSession.lastSync)}</span>`;
+  const t=cloudSession.admin?(cloudSession.lastSync||readAdminLastSync()):cloudSession.lastSync;
+  if(cloudSession.user&&t)return `<span id="cloudStatusText" class="small syncStatus syncStatusGood">✓ Last synced · ${formatCloudTime(t)}</span>`;
   if(cloudSession.user)return '<span id="cloudStatusText" class="small syncStatus syncStatusBad">✕ Sync status unavailable</span>';
   return '<span id="cloudStatusText" class="small syncStatus syncStatusBad">✕ Not signed in</span>';
 }
@@ -595,7 +599,7 @@ function hasMeaningfulLocalData(s){
 
 async function openAdminDashboard(){
   if(!cloudSession.admin)return;state.adminPage="dashboard";adminCache.selected=null;render();
-  try{adminCache.students=await window.AttendanceCloud.listStudents();render()}catch(e){cloudSession.error=e?.message||"Admin data could not be loaded";toast("Could not load student data")}
+  try{adminCache.students=await window.AttendanceCloud.listStudents();cloudSession.lastSync=new Date();cloudSession.error="";localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());updateCloudStatus();render()}catch(e){cloudSession.error=e?.message||"Admin data could not be loaded";updateCloudStatus();toast("Could not load student data")}
 }
 async function openAdminStudent(uid){
   state.adminPage="student";adminCache.selected=uid;adminCache.days=[];adminCache.studentMonth="";adminCache.studentFilter="all";render();
@@ -604,7 +608,7 @@ async function openAdminStudent(uid){
 function setupFirebaseEvents(){
   const onReady=()=>{cloudSession.ready=true;window.AttendanceCloud?.auth&&updateCloudStatus()};
   window.addEventListener("firebase-cloud-ready",onReady,{once:true});
-  window.addEventListener("firebase-auth-state",async e=>{const user=e.detail?.user||null;cloudSession.user=user;cloudSession.admin=!!e.detail?.admin;if(!user)cloudSession.error="";if(user&&!cloudSession.admin){cloudSession.error="";await hydrateAfterLogin(user)}else{cloudSession.lastSync=null;state.adminPage=null;adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};render()}updateCloudStatus();render()});
+  window.addEventListener("firebase-auth-state",async e=>{const user=e.detail?.user||null;cloudSession.user=user;cloudSession.admin=!!e.detail?.admin;if(!user){cloudSession.error="";cloudSession.lastSync=null;state.adminPage=null;adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};render();updateCloudStatus();return}if(!cloudSession.admin){cloudSession.error="";await hydrateAfterLogin(user)}else{cloudSession.error="";cloudSession.lastSync=readAdminLastSync();try{await window.AttendanceCloud.listStudents();cloudSession.lastSync=new Date();localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());}catch(err){cloudSession.error=err?.message||"Admin cloud sync failed";}state.adminPage=null;adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};}updateCloudStatus();render()});
   if(window.AttendanceCloud)onReady();
   setInterval(()=>{if(cloudAvailable() && !document.hidden)cloudQueueFull("interval")},CLOUD_SYNC_INTERVAL);
   window.addEventListener("online",()=>{if(cloudAvailable())cloudQueueFull("reconnect")});
@@ -656,7 +660,7 @@ state.tab="log";
 state.viewDate=key(today());
 state.calendarMonth=key(new Date(today().getFullYear(),today().getMonth(),1));
 save();
-applyTheme();watchSystemTheme();render();document.documentElement.classList.remove("preboot");if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=123",{updateViaCache:"none"}).catch(()=>{});
+applyTheme();watchSystemTheme();render();document.documentElement.classList.remove("preboot");if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=128",{updateViaCache:"none"}).catch(()=>{});
 
 function openManageSchedule(){
   document.querySelectorAll('.modal').forEach(m=>m.remove());

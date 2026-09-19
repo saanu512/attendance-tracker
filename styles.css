@@ -2480,6 +2480,9 @@ body.photon-3d .extraInfoItem{
 /* Firebase account + admin UI: uses the active edition variables for all surfaces and text. */
 .cloudAccountCard{overflow:hidden}
 .cloudIdentity{display:flex;align-items:center;gap:12px;padding:12px;border-radius:18px;background:color-mix(in srgb,var(--primarySoft) 38%,var(--card));border:1px solid var(--line);margin-top:12px}
+.cloudIdentity .grow{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:3px;}
+.cloudIdentity .grow>b{display:block;max-width:100%;overflow-wrap:anywhere;}
+.cloudIdentity .grow .syncStatus{display:block;white-space:normal;}
 .cloudAvatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex:0 0 42px;background:var(--primary);color:#fff;font-weight:900;box-shadow:0 5px 12px color-mix(in srgb,var(--primary) 22%,transparent)}
 .cloudActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.cloudActions>*{flex:1;min-width:130px}.cloudActions.secondary{margin-top:8px}.cloudAuthBox{width:min(520px,100%)}
 .cloudAuthError{min-height:20px;margin-top:10px;color:var(--red);font-size:13px;font-weight:800}.cloudAuthSuccess{color:var(--green)!important}
@@ -2684,7 +2687,7 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 .reportMetrics span,.reportIdentity span,.reportTime small,.reportSubject small{color:var(--soft)!important;}
 
 
-/* v127 targeted Admin Dashboard theme + sync/filter UI fixes.
+/* v128 targeted sync status visibility and typography fix; preserve v127 layout and filters.
    Keep Admin elements on the same active-edition card surface. */
 .adminStudent{background:inherit!important;}
 .adminSummaryGrid>div{background:inherit!important;color:inherit!important;}
@@ -2692,7 +2695,7 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 .adminSyncBar{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);}
 .adminStudentSync{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);}
 .detailSync{margin-top:10px;}
-.syncStatus{font-weight:850;letter-spacing:.05px;}
+.syncStatus{font-weight:850;letter-spacing:.05px;font-size:12px!important;line-height:1.35;}
 .syncStatusGood{color:var(--green)!important;}
 .syncStatusBad{color:var(--red)!important;}
 .adminMonthFilterCard{margin-top:10px;}
