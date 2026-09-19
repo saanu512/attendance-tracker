@@ -2778,3 +2778,33 @@ body .logoutBtn:active{
   text-shadow:none !important;
   box-shadow:0 5px 0 #9f1717,0 10px 18px rgba(214,40,40,.22) !important;
 }
+
+
+/* v134: manual sync is intentionally transparent and borderless; its label remains green.
+   Logout is a universal safety/visibility action and is always red in every theme. */
+.syncTapBtn,
+.syncTapBtn:hover,
+.syncTapBtn:focus,
+.syncTapBtn:focus-visible,
+.syncTapBtn:active {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-color: transparent !important;
+  color: var(--green) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+body .logoutBtn,
+body .logoutBtn:hover,
+body .logoutBtn:focus,
+body .logoutBtn:focus-visible,
+body .logoutBtn:active {
+  background: #d62828 !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-color: #d62828 !important;
+  color: #fff !important;
+  box-shadow: 0 5px 0 #9f1717, 0 10px 18px rgba(214,40,40,.22) !important;
+  text-shadow: none !important;
+}

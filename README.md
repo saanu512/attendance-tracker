@@ -1,3 +1,3 @@
-Attendance Tracker — v131
+Attendance Tracker — v134
 
-Based on v130. Only requested UI changes: the Tap to Sync button surface follows the active theme while its label remains green; Logout is red with white text. All other v130 behavior is preserved.
+Based on v133. Only requested UI changes: Tap to Sync is transparent and borderless with green text; Logout is universally red with white text in every theme. All other v133 behavior is preserved.
