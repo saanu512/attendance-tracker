@@ -20,7 +20,7 @@ const USERS = "attendanceUsers";
 // legitimately contain nested arrays in schedule/session configuration, so the
 // cloud layer stores every array through a small marker object and restores the
 // original arrays when reading. This keeps the app's in-memory data unchanged.
-const ARRAY_MARKER = "__attendance_tracker_array__";
+const ARRAY_MARKER = "$attendance_tracker_array";
 
 function toFirestoreSafe(value, seen = new WeakSet()) {
   if (value === undefined) return undefined;
