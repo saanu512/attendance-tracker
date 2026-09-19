@@ -1,17 +1,9 @@
-# Attendance Tracker — v130
+# Attendance Tracker v131
 
-## v130 change
-Added a per-student attendance status filter inside the selected month in Admin Dashboard.
+Targeted fixes from v130:
+- Restored direct Admin student-card tap navigation.
+- Restored visible Account & Cloud sync status and last successful cloud sync time.
+- Green status for working/syncing; red for sync failure.
+- Versioned assets/service worker to prevent stale cached v130 code from being served.
 
-Available filters:
-- All
-- Present
-- Absent
-- Not Held
-- Extra Classes
-- Pending
-
-The filter only changes how the selected student's monthly records are displayed. Attendance data, Firebase rules, sync, calculations, schedules, authentication, themes, reports, and other existing functionality are unchanged.
-
-## Baseline
-v127 — Sync + Monthly Filter + Theme Fix
+Firebase Rules unchanged. Existing attendance, authentication, schedule, themes, filters, and cloud data structures are preserved.
