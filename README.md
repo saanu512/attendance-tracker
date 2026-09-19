@@ -1,17 +1,18 @@
-Attendance Tracker — Rebuilt from v126
+Attendance Tracker — v129 manual sync control fix
 
 Functional base
 - v126 Admin Dashboard/student-card functionality is preserved.
 - Firebase rules and authentication architecture are unchanged.
 
 Sync status
+- Account & Cloud successful status uses green text; failed status uses red text.
 - Settings → Account & Cloud shows real sync state.
 - Green ✓ = syncing / last successful sync.
 - Red ✕ = sync failed / unavailable / signed out.
 - Last successful sync time is shown.
 - Admin Dashboard shows the admin account's sync state.
 - Every student card shows that student's last cloud profile sync time.
-- The existing automatic sync, reconnect sync, startup/login sync and manual Sync Now remain in place.
+- The existing automatic sync, reconnect sync, startup/login sync and manual sync remain in place, with a small “↻ Tap to Sync” control in Account & Cloud and Admin Dashboard.
 
 Student detail
 - Subject-wise Attendance remains first.

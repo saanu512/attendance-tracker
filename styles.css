@@ -2704,3 +2704,26 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 .adminFilterHint{margin-top:8px;}
 .adminFilterTitle{display:block;margin-top:16px;}
 .adminStatusFilters{margin-top:8px;}
+
+/* v129: manual sync controls only; preserve v128 layout and theme surfaces. */
+.cloudIdentity .syncStatusGood{color:var(--green)!important;}
+.cloudIdentity .syncStatusBad{color:var(--red)!important;}
+.adminSyncStatusLine{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.syncTapBtn{
+  appearance:none;
+  border:1px solid var(--line);
+  background:var(--primarySoft);
+  color:var(--primary);
+  border-radius:999px;
+  min-height:28px;
+  padding:3px 10px;
+  font:inherit;
+  font-size:11px;
+  font-weight:800;
+  line-height:1.15;
+  cursor:pointer;
+  white-space:nowrap;
+  box-shadow:none;
+}
+.syncTapBtn:active{transform:translateY(1px);}
+.syncTapBtn:disabled{opacity:.65;cursor:default;}
