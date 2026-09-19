@@ -2754,7 +2754,7 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
   color:var(--green)!important;
 }
 .logoutBtn{
-  background:var(--red)!important;
-  border-color:var(--red)!important;
+  background:#d32f2f!important;
+  border-color:#d32f2f!important;
   color:#fff!important;
 }
