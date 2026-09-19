@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
-import { getFirestore, doc, getDoc, setDoc, collection, getDocs, writeBatch, deleteDoc } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+import { initializeFirestore, doc, getDoc, setDoc, collection, getDocs, writeBatch, deleteDoc } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDZhX50Yk41BiWULZjlr5vq9NG4cVztA7A",
@@ -13,7 +13,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+const db = initializeFirestore(app, { ignoreUndefinedProperties: true });
 const USERS = "attendanceUsers";
 
 function userRef(uid){ return doc(db, USERS, uid); }
@@ -91,14 +91,19 @@ async function readState(uid,localState){
   return state;
 }
 
-async function syncProfile(uid,state,user){await setDoc(userRef(uid),stateToProfile(state,user),{merge:true});}
+async function syncProfile(uid,state,user){
+  try{await setDoc(userRef(uid),stateToProfile(state,user),{merge:true});}
+  catch(e){e.operation="syncProfile";throw e;}
+}
 
 async function syncDay(uid,date,state,sessions=[]){
   const payload=dayPayload(date,state,sessions);
   // Replace the complete logical day record. This is intentional: merge:true
   // would leave deleted/changed fields behind in Firestore.
-  if(hasDayData(payload)) await setDoc(dayRef(uid,date),payload,{merge:false});
-  else await deleteDoc(dayRef(uid,date));
+  try{
+    if(hasDayData(payload)) await setDoc(dayRef(uid,date),payload,{merge:false});
+    else await deleteDoc(dayRef(uid,date));
+  }catch(e){e.operation="syncDay";e.date=date;throw e;}
 }
 
 async function syncFullState(uid,state,user,sessionSnapshots={}){
@@ -111,7 +116,8 @@ async function syncFullState(uid,state,user,sessionSnapshots={}){
   Object.keys(state.overrides||{}).forEach(d=>localDates.add(d));
   Object.keys(state.extraClasses||{}).forEach(d=>localDates.add(d));
   Object.keys(sessionSnapshots||{}).forEach(d=>localDates.add(d));
-  const remoteSnap=await getDocs(daysRef(uid));
+  let remoteSnap;
+  try{remoteSnap=await getDocs(daysRef(uid));}catch(e){e.operation="listStudentDays";throw e;}
   const remoteDates=new Set(remoteSnap.docs.map(d=>d.id));
   const allDates=new Set([...localDates,...remoteDates]);
   const list=[...allDates].filter(Boolean);
@@ -123,11 +129,11 @@ async function syncFullState(uid,state,user,sessionSnapshots={}){
       if(localDates.has(date) && hasDayData(payload)) batch.set(ref,payload,{merge:false});
       else if(remoteDates.has(date)) batch.delete(ref);
     });
-    await batch.commit();
+    try{await batch.commit();}catch(e){e.operation="writeBatch";throw e;}
   }
 }
 
-async function markMigrationComplete(uid){ await setDoc(userRef(uid),{migrationV105:true,migrationCompletedAt:new Date().toISOString()},{merge:true}); }
+async function markMigrationComplete(uid){ try{await setDoc(userRef(uid),{migrationV105:true,migrationCompletedAt:new Date().toISOString()},{merge:true});}catch(e){e.operation="markMigrationComplete";throw e;} }
 
 async function signIn(email,password){return signInWithEmailAndPassword(auth,email,password);}
 async function signInAdmin(email,password){

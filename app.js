@@ -17,6 +17,7 @@ let cloudSession={user:null,admin:false,ready:!!window.AttendanceCloud,syncing:f
 const CLOUD_PENDING_KEY="attendance-tracker-cloud-pending";
 const CLOUD_MIGRATION_KEY="attendance-tracker-cloud-migration-v105";
 const CLOUD_SYNC_INTERVAL=60000;
+function cloudErrorText(e){const c=e?.code||"unknown";const op=e?.operation?" ["+e.operation+"]":"";const msg=e?.message||"Cloud sync failed";return c+op+": "+msg;}
 let cloudSyncChain=Promise.resolve();
 let adminCache={students:[],selected:null,days:[]};
 function applyEveningLabels(){let changed=false;Object.values(state.settings.schedule||{}).forEach(a=>(a||[]).forEach(s=>{let h=Number(String(s[0]).slice(0,2));if(h>=15&&!/\s\(Evening\)$/.test(s[2])){s[2]=s[2]+" (Evening)";changed=true}}));return changed}
@@ -56,7 +57,7 @@ function cloudQueue(label,date){
       }
       cloudSession.lastSync=new Date();
       cloudSession.error="";
-    }catch(e){cloudSession.error=e?.message||"Cloud sync failed";throw e}
+    }catch(e){cloudSession.error=cloudErrorText(e);throw e}
     finally{cloudSession.syncing=false;updateCloudStatus();}
   }).then(()=>{localStorage.removeItem(CLOUD_PENDING_KEY);updateCloudStatus()}).catch(()=>{updateCloudStatus()});
   return cloudSyncChain;
@@ -71,13 +72,13 @@ function cloudQueueFull(label){
     try{
       await window.AttendanceCloud.syncFullState(cloudSession.user.uid,clone(state),cloudSession.user,buildCloudSessionSnapshots());
       cloudSession.lastSync=new Date(); cloudSession.error="";
-    }catch(e){cloudSession.error=e?.message||"Cloud sync failed";throw e}
+    }catch(e){cloudSession.error=cloudErrorText(e);throw e}
     finally{cloudSession.syncing=false;updateCloudStatus();}
   }).then(()=>{localStorage.removeItem(CLOUD_PENDING_KEY);updateCloudStatus()}).catch(()=>{updateCloudStatus()});
   return cloudSyncChain;
 }
 
-function updateCloudStatus(){const el=document.getElementById("cloudStatusText");if(!el)return;el.textContent=cloudSession.syncing?"Syncing…":cloudSession.error?"Cloud sync failed":cloudSession.user?(cloudSession.lastSync?"Synced · "+cloudSession.lastSync.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}):"Cloud connected"):"Not signed in";el.className="small "+(cloudSession.error?"danger":cloudSession.user?"safe":"");}
+function updateCloudStatus(){const el=document.getElementById("cloudStatusText");if(!el)return;el.textContent=cloudSession.syncing?"Syncing…":cloudSession.error?cloudSession.error:cloudSession.user?(cloudSession.lastSync?"Synced · "+cloudSession.lastSync.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}):"Cloud connected"):"Not signed in";el.className="small "+(cloudSession.error?"danger":cloudSession.user?"safe":"");}
 function hasSavedRoll(){return !!(state.settings&&state.settings.rollLocked&&/^(?:[1-9]|[1-9][0-9]|100)$/.test(String(state.settings.rollNumber||"")))}
 function requireSavedRoll(){if(hasSavedRoll())return true;showAppAlert('Please save your roll number in Settings before marking or saving attendance.', '⚠️ Save Roll Number First');return false}
 function applyTheme(){const ed=(state.settings&&state.settings.edition)||"earth-day";document.body.classList.toggle("nebula-glass",ed==="nebula-glass");document.body.classList.toggle("galactic-night",ed==="galactic-night");document.body.classList.toggle("black-hole",ed==="black-hole");document.body.classList.toggle("heart-nebula",ed==="heart-nebula");document.body.classList.toggle("roshni",ed==="roshni");document.body.classList.toggle("opal-dream",ed==="opal-dream");document.body.classList.toggle("celestial-glass",ed==="celestial-glass");document.body.classList.toggle("outer-space-3d",ed==="outer-space-3d");document.body.classList.toggle("photon-3d",ed==="photon-3d");document.body.setAttribute("data-edition",ed);
@@ -401,7 +402,7 @@ async function hydrateAfterLogin(user){
       cloudSession.lastSync=new Date();updateCloudStatus();
       toast("Cloud account created from this device's saved data");
     }
-  }catch(e){cloudSession.error=e?.message||"Cloud data could not be loaded";updateCloudStatus();toast("Cloud unavailable — using local cache")}
+  }catch(e){cloudSession.error=cloudErrorText(e);updateCloudStatus();toast("Cloud sync failed — see Account & Cloud for the exact Firebase error")}
 }
 function hasMeaningfulLocalData(s){
   if(!s)return false;
@@ -472,7 +473,7 @@ state.tab="log";
 state.viewDate=key(today());
 state.calendarMonth=key(new Date(today().getFullYear(),today().getMonth(),1));
 save();
-applyTheme();watchSystemTheme();render();document.documentElement.classList.remove("preboot");if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=105",{updateViaCache:"none"}).catch(()=>{});
+applyTheme();watchSystemTheme();render();document.documentElement.classList.remove("preboot");if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=108",{updateViaCache:"none"}).catch(()=>{});
 
 function openManageSchedule(){
   document.querySelectorAll('.modal').forEach(m=>m.remove());
