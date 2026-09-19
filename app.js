@@ -293,6 +293,31 @@ function adminDashboard(){
 }
 function adminStudentCards(students){return students.map(s=>`<button class="adminStudent card" data-act="adminStudent" data-uid="${esc(s.uid)}"><div class="adminStudentMain"><b>${esc(s.name||"Student")}</b><span>Roll: ${esc(s.rollNumber||"—")}</span></div><div class="small">${esc(s.email||"")}</div><div class="adminStudentMeta"><span>Required ${Number(s.required||75)}%</span><span>${esc(s.course||"")}</span></div></button>`).join('')||`<div class="card formCard"><p class="small">No matching students.</p></div>`}
 function filterAdminStudents(q){const v=String(q||'').toLowerCase();const list=adminCache.students.filter(s=>[s.name,s.rollNumber,s.email].some(x=>String(x||'').toLowerCase().includes(v)));const el=document.getElementById('adminStudentList');if(el)el.innerHTML=adminStudentCards(list)}
+function adminClassInfo(snap={},rec={},i=0,sessions=[]){
+  const scheduledSubject=rec.scheduled||snap.scheduledSubject||snap._scheduled||snap.subject||rec.subject||"Scheduled";
+  const actualSubject=rec.subject||snap.subject||scheduledSubject;
+  const scheduledStart=rec.scheduledStart||snap.scheduledStart||snap.originalStart||snap.start||"";
+  const scheduledEnd=rec.scheduledEnd||snap.scheduledEnd||snap.originalEnd||snap.end||"";
+  const actualStart=rec.start||snap.start||scheduledStart;
+  const actualEnd=rec.end||snap.end||scheduledEnd;
+  const scheduledTime=scheduledStart&&scheduledEnd?`${time(scheduledStart)}–${time(scheduledEnd)}`:"";
+  const actualTime=actualStart&&actualEnd?`${time(actualStart)}–${time(actualEnd)}`:"";
+  const type=rec.type||classTypeForSnapshot(snap,rec,i,sessions);
+  let relationship="";
+  if(type==="Extra"){
+    relationship="Extra class — no original scheduled class";
+  }else if(actualSubject!==scheduledSubject){
+    const counterpart=(sessions||[]).find((x,j)=>j!==i&&!x?.extra&&(x?.scheduledSubject||x?.subject)===actualSubject);
+    if(counterpart){
+      relationship=`Exchange: ${scheduledSubject} ↔ ${actualSubject}`;
+    }else{
+      relationship=`Replaces: ${scheduledSubject}`;
+    }
+  }else if(scheduledTime&&actualTime&&scheduledTime!==actualTime){
+    relationship=`Rescheduled from ${scheduledTime}`;
+  }
+  return {scheduledSubject,actualSubject,scheduledStart,scheduledEnd,actualStart,actualEnd,type,relationship};
+}
 function adminStudentPage(uid){
   const s=adminCache.students.find(x=>x.uid===uid), days=adminCache.days||[];
   if(!s)return `<div class="card formCard"><p>Student not found.</p><button class="btn" data-act="backFromStudent">Back</button></div>`;
@@ -571,7 +596,7 @@ state.tab="log";
 state.viewDate=key(today());
 state.calendarMonth=key(new Date(today().getFullYear(),today().getMonth(),1));
 save();
-applyTheme();watchSystemTheme();render();document.documentElement.classList.remove("preboot");if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=118",{updateViaCache:"none"}).catch(()=>{});
+applyTheme();watchSystemTheme();render();document.documentElement.classList.remove("preboot");if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=121",{updateViaCache:"none"}).catch(()=>{});
 
 function openManageSchedule(){
   document.querySelectorAll('.modal').forEach(m=>m.remove());
