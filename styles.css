@@ -2683,10 +2683,21 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 .reportDay h3{background:var(--primarySoft)!important;color:var(--primary)!important;}
 .reportMetrics span,.reportIdentity span,.reportTime small,.reportSubject small{color:var(--soft)!important;}
 
-/* v134: keep Admin/Cloud surfaces on the exact active theme card system. */
-.cloudAccountCard,.adminHero,.adminStudent,.adminDetailsCard{background:var(--card)!important;color:var(--ink)!important;border:1px solid var(--line)!important;box-shadow:var(--shadow)!important;}
-.adminSummaryGrid>div{background:var(--card)!important;color:var(--ink)!important;}
-.adminStudentMain b,.adminStudentMain span,.adminStudentMeta,.adminStudentMeta span{color:var(--ink)!important;}
-.adminStudentMain span,.adminStudentMeta,.adminStudentMeta span{color:var(--soft)!important;}
-.adminMonthTabs,.adminStatusTabs{padding-top:10px;}
-.adminMonthTabs .filter,.adminStatusTabs .filter{flex:0 0 auto;}
+
+/* v127 targeted Admin Dashboard theme + sync/filter UI fixes.
+   Keep Admin elements on the same active-edition card surface. */
+.adminStudent{background:inherit!important;}
+.adminSummaryGrid>div{background:inherit!important;color:inherit!important;}
+.adminSummaryGrid>div b,.adminSummaryGrid>div span{color:inherit;}
+.adminSyncBar{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);}
+.adminStudentSync{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);}
+.detailSync{margin-top:10px;}
+.syncStatus{font-weight:850;letter-spacing:.05px;}
+.syncStatusGood{color:var(--green)!important;}
+.syncStatusBad{color:var(--red)!important;}
+.adminMonthFilterCard{margin-top:10px;}
+.adminMonthList,.adminStatusFilters{flex-wrap:wrap;overflow:visible;margin-top:9px;padding-bottom:0;}
+.adminMonthList .filter,.adminStatusFilters .filter{white-space:normal;min-height:40px;display:inline-flex;align-items:center;justify-content:center;text-align:center;}
+.adminFilterHint{margin-top:8px;}
+.adminFilterTitle{display:block;margin-top:16px;}
+.adminStatusFilters{margin-top:8px;}

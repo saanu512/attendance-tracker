@@ -1,12 +1,31 @@
-# Attendance Tracker v134
+Attendance Tracker — Rebuilt from v126
 
-Built from the known-good v126 functional baseline.
+Functional base
+- v126 Admin Dashboard/student-card functionality is preserved.
+- Firebase rules and authentication architecture are unchanged.
 
-## v134 changes
-- Real Firebase sync status in Account & Cloud: Syncing, last successful sync time, and sync failed/unavailable state with green/red symbols.
-- Last successful sync time is persisted locally so it remains visible after app reload/logout.
-- Admin student detail now uses month selection before displaying daily records.
-- Monthly attendance filters: All, Present, Absent, Not Held, Extra Classes, Pending.
-- Month and status filtering is display-only and does not modify cloud data.
-- Admin/Cloud cards use the active edition's existing card surface variables.
-- Existing Firebase rules, authentication, attendance logic, student-card click behavior, and v126 sync architecture are preserved.
+Sync status
+- Settings → Account & Cloud shows real sync state.
+- Green ✓ = syncing / last successful sync.
+- Red ✕ = sync failed / unavailable / signed out.
+- Last successful sync time is shown.
+- Admin Dashboard shows the admin account's sync state.
+- Every student card shows that student's last cloud profile sync time.
+- The existing automatic sync, reconnect sync, startup/login sync and manual Sync Now remain in place.
+
+Student detail
+- Subject-wise Attendance remains first.
+- Month selection is directly below Subject-wise Attendance.
+- Attendance status filters are directly below the month selector.
+- Daily records are displayed only for the selected month and selected filter.
+- Filters: All, Present, Absent, Not Held, Extra Classes, Pending.
+- Filtering is display-only and does not modify cloud data.
+
+Theme
+- Admin cards use the active edition's card surface instead of forcing a generic dark surface.
+- Summary cards inherit the surrounding themed card treatment.
+
+Firebase
+- Project: attendance-tracker-3379f
+- Firestore structure and security rules are unchanged from v126.
+- Admin access remains based on the trusted Firebase Auth custom claim admin=true.
