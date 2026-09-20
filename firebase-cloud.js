@@ -200,7 +200,10 @@ async function signInAdmin(email,password){
 }
 async function currentAdmin(){
   if(!auth.currentUser)return false;
-  const token=await auth.currentUser.getIdTokenResult(true);return token.claims?.admin===true;
+  // Use the already-cached ID token during startup. A forced refresh here was
+  // making every app launch wait for an extra network round-trip. Admin login
+  // itself still performs the explicit forced refresh in signInAdmin().
+  const token=await auth.currentUser.getIdTokenResult(false);return token.claims?.admin===true;
 }
 
 async function listStudents(){

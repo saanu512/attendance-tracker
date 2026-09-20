@@ -575,7 +575,7 @@ function hideStartupWait(){
 function setupFirebaseEvents(){
   const onReady=()=>{cloudSession.ready=true;window.AttendanceCloud?.auth&&updateCloudStatus()};
   window.addEventListener("firebase-cloud-ready",onReady,{once:true});
-  window.addEventListener("firebase-auth-state",async e=>{const user=e.detail?.user||null;cloudSession.user=user;cloudSession.admin=!!e.detail?.admin;if(!user){cloudSession.error="";cloudSession.lastSync=null;state.adminPage=null;adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};updateCloudStatus();render();hideStartupWait();return}if(!cloudSession.admin){cloudSession.error="";await hydrateAfterLogin(user)}else{cloudSession.error="";cloudSession.lastSync=readAdminLastSync();try{await window.AttendanceCloud.listStudents();cloudSession.lastSync=new Date();localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());}catch(err){cloudSession.error=err?.message||"Admin cloud sync failed";}state.adminPage=null;adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};}updateCloudStatus();render();hideStartupWait()});
+  window.addEventListener("firebase-auth-state",e=>{const user=e.detail?.user||null;cloudSession.user=user;cloudSession.admin=!!e.detail?.admin;if(!user){cloudSession.error="";cloudSession.lastSync=null;state.adminPage=null;adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};updateCloudStatus();render();hideStartupWait();return}cloudSession.error="";state.adminPage=null;adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};updateCloudStatus();render();hideStartupWait();if(!cloudSession.admin){hydrateAfterLogin(user).then(()=>{updateCloudStatus()}).catch(()=>{updateCloudStatus()})}else{cloudSession.lastSync=readAdminLastSync();window.AttendanceCloud.listStudents().then(students=>{adminCache.students=students;cloudSession.lastSync=new Date();localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());updateCloudStatus()}).catch(err=>{cloudSession.error=err?.message||"Admin cloud sync failed";updateCloudStatus()})}});
   if(window.AttendanceCloud)onReady();
   setInterval(()=>{if(cloudSession.user && window.AttendanceCloud && !document.hidden)cloudQueueFull("interval")},CLOUD_SYNC_INTERVAL);
   window.addEventListener("online",()=>{if(cloudSession.user && window.AttendanceCloud)cloudQueueFull("reconnect")});
@@ -632,7 +632,7 @@ setTimeout(()=>{
   render();
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",activateGate,{once:true});
   else activateGate();
-  if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=143",{updateViaCache:"none"}).catch(()=>{});
+  if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=144",{updateViaCache:"none"}).catch(()=>{});
 },0);
 
 function openManageSchedule(){

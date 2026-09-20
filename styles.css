@@ -2808,3 +2808,9 @@ body .logoutBtn:active {
   box-shadow: 0 5px 0 #9f1717, 0 10px 18px rgba(214,40,40,.22) !important;
   text-shadow: none !important;
 }
+
+/* v145: Attendance Report white page must use black text in every edition. */
+.pdfReport,
+.pdfReport *{
+  color:#111111!important;
+}
