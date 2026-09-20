@@ -628,16 +628,14 @@ state.viewDate=key(today());
 state.calendarMonth=key(new Date(today().getFullYear(),today().getMonth(),1));
 save();
 watchSystemTheme();
-setTimeout(()=>{
-  render();
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",activateGate,{once:true});
-  else activateGate();
-  if("serviceWorker" in navigator){
-    const registerSW=()=>navigator.serviceWorker.register("sw.js?v=156",{updateViaCache:"none"}).catch(()=>{});
-    if("requestIdleCallback" in window)requestIdleCallback(registerSW,{timeout:1500});
-    else setTimeout(registerSW,800);
-  }
-},0);
+render();
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",activateGate,{once:true});
+else activateGate();
+if("serviceWorker" in navigator){
+  const registerSW=()=>navigator.serviceWorker.register("sw.js?v=157",{updateViaCache:"none"}).catch(()=>{});
+  if("requestIdleCallback" in window)requestIdleCallback(registerSW,{timeout:1500});
+  else setTimeout(registerSW,800);
+}
 
 function openManageSchedule(){
   document.querySelectorAll('.modal').forEach(m=>m.remove());

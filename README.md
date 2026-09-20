@@ -21,4 +21,6 @@ Version 146: Attendance Report white-page text visibility fix only. All text ins
 - No attendance, Firebase, schedule, theme, Admin Dashboard, report, or data logic changed.
 
 
-Version v156: Export PDF Attendance Report Close button is fixed with inline black/white styling so theme CSS cannot override it. Service-worker registration/cache version bumped to v156. No other functional changes.
+Version v157: Export PDF Attendance Report Close button is fixed with inline black/white styling so theme CSS cannot override it. Service-worker registration/cache version bumped to v157. No other functional changes.
+
+Version 157: startup-only performance cleanup from v156. Removed the unused booting class/CSS, removed an unnecessary zero-delay startup timer, and added a preconnect for the Firebase SDK host. No app behavior, Firebase rules, attendance logic, themes, reports, or data structures were changed.
