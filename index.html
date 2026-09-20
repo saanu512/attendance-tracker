@@ -13,7 +13,7 @@
 html,body{margin:0;min-height:100%;background:#f4f6f5}
 html[data-theme="dark"],html[data-theme="dark"] body{background:#121817}
 #app.booting{min-height:100vh}
-.bootApp{min-height:100vh;display:flex;flex-direction:column}
+.bootApp{min-height:100vh;display:flex;flex-direction:column;background:var(--bg,#f4f6f5)}
 .bootHeader{padding:18px 16px 12px}
 .bootBrand{font-size:22px;font-weight:800;line-height:1.2}
 .bootSub{font-size:12px;opacity:.68;margin-top:5px}
@@ -46,6 +46,7 @@ html[data-theme="dark"],html[data-theme="dark"] body{background:#121817}
   try{
     const edition=document.documentElement.getAttribute("data-edition")||"earth-day";
     document.body.classList.add(edition);
+    document.body.setAttribute("data-edition",edition);
   }catch(e){document.body.classList.add("earth-day")}
 })();
 </script>
