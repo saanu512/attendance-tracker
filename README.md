@@ -9,3 +9,6 @@ Startup loading state: themed Please Wait screen with a rotating Rod of Asclepiu
 
 
 Version 144: startup authentication performance maintenance. Existing cached Firebase ID tokens are used for startup admin-role detection instead of forcing a token refresh; cloud profile/data hydration continues in the background after the authenticated app shell is shown. No attendance, sync, Firebase rules, schedule, theme, or UI logic was intentionally changed.
+
+
+Version 146: Attendance Report white-page text visibility fix only. All text inside .pdfReport is explicitly forced to solid black, including WebKit text fill and opacity, across every edition. No other app behavior or layout was changed.

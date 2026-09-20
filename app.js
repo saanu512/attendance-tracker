@@ -632,7 +632,7 @@ setTimeout(()=>{
   render();
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",activateGate,{once:true});
   else activateGate();
-  if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=144",{updateViaCache:"none"}).catch(()=>{});
+  if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=146",{updateViaCache:"none"}).catch(()=>{});
 },0);
 
 function openManageSchedule(){

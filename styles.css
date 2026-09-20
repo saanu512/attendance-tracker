@@ -2809,8 +2809,13 @@ body .logoutBtn:active {
   text-shadow: none !important;
 }
 
-/* v145: Attendance Report white page must use black text in every edition. */
+/* v146: Attendance Report white page text must be solid black in every edition.
+   Explicitly override theme color, text-fill, opacity, and text effects only
+   inside the white report page. */
 .pdfReport,
 .pdfReport *{
-  color:#111111!important;
+  color:#000000!important;
+  -webkit-text-fill-color:#000000!important;
+  opacity:1!important;
+  text-shadow:none!important;
 }
