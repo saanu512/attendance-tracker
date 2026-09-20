@@ -34,14 +34,21 @@ html[data-theme="dark"],html[data-theme="dark"] body{background:#121817}
     const editions=["earth-day","earth-night","nebula-glass","galactic-night","black-hole","heart-nebula","roshni","opal-dream","celestial-glass","outer-space-3d","photon-3d"];
     const edition=editions.includes(settings.edition)?settings.edition:"earth-day";
     document.documentElement.setAttribute("data-edition",edition);
-    document.body.classList.add(edition);
-  }catch(e){document.documentElement.setAttribute("data-theme","light");document.documentElement.setAttribute("data-edition","earth-day");document.body.classList.add("earth-day")}
+  }catch(e){document.documentElement.setAttribute("data-theme","light");document.documentElement.setAttribute("data-edition","earth-day")}
 })();
 </script>
 <link rel="stylesheet" href="styles.css">
 
 </head>
 <body>
+<script>
+(function(){
+  try{
+    const edition=document.documentElement.getAttribute("data-edition")||"earth-day";
+    document.body.classList.add(edition);
+  }catch(e){document.body.classList.add("earth-day")}
+})();
+</script>
 <div id="app" class="booting"><div class="bootApp">
   <div class="bootHeader"><div class="bootBrand">▣ Attendance</div><div class="bootSub">7 Sep 2026 onwards · 3rd Prof Part-II</div><div class="bootSub">Personal attendance tracker</div></div>
   <div class="bootMain"></div>
