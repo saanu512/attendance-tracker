@@ -2819,3 +2819,26 @@ body .logoutBtn:active {
   opacity:1!important;
   text-shadow:none!important;
 }
+/* v153: Export PDF Close button is fixed across every theme.
+   Only the white PDF-preview Close control is affected. */
+.pdfPreviewTop .btn[data-act="closeModal"] {
+  background:#000000 !important;
+  background-image:none !important;
+  border:1px solid #ffffff !important;
+  border-color:#ffffff !important;
+  color:#ffffff !important;
+  -webkit-text-fill-color:#ffffff !important;
+  text-shadow:none !important;
+}
+.pdfPreviewTop .btn[data-act="closeModal"]:hover,
+.pdfPreviewTop .btn[data-act="closeModal"]:focus,
+.pdfPreviewTop .btn[data-act="closeModal"]:focus-visible,
+.pdfPreviewTop .btn[data-act="closeModal"]:active {
+  background:#000000 !important;
+  background-image:none !important;
+  border-color:#ffffff !important;
+  color:#ffffff !important;
+  -webkit-text-fill-color:#ffffff !important;
+  text-shadow:none !important;
+}
+

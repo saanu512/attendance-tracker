@@ -14,7 +14,7 @@ Version 144: startup authentication performance maintenance. Existing cached Fir
 Version 146: Attendance Report white-page text visibility fix only. All text inside .pdfReport is explicitly forced to solid black, including WebKit text fill and opacity, across every edition. No other app behavior or layout was changed.
 
 
-## v150 surgical startup optimization
+## v153 surgical startup optimization
 - Kept only the four current rotating medical loading icons.
 - Removed obsolete CSS animation rules left from the previous 11-icon loading system.
 - Deferred service-worker registration until browser idle/short fallback so startup authentication/rendering is not competing with SW registration.
