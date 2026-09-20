@@ -2477,7 +2477,7 @@ body.photon-3d .extraInfoItem{
   border-left-color:#4f86d9!important;
 }
 
-/* Firebase account + admin UI: uses the active edition variables for all surfaces and text. */
+
 .cloudAccountCard{overflow:hidden}
 .cloudIdentity{display:flex;align-items:center;gap:12px;padding:12px;border-radius:18px;background:color-mix(in srgb,var(--primarySoft) 38%,var(--card));border:1px solid var(--line);margin-top:12px}
 .cloudIdentity .grow{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:3px;}
@@ -2493,7 +2493,7 @@ body.photon-3d .extraInfoItem{
 @media print{body{background:#fff!important;color:#111!important}.nav,.cloudActions,.btn,.iconbtn{display:none!important}.app{background:#fff!important}.card{box-shadow:none!important;border:1px solid #ccc!important}.adminTable{color:#111!important}.adminTable th{background:#eee!important;color:#111!important}}
 .adminDetailsHead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.adminDetails{margin-top:12px}.adminDetails summary{cursor:pointer;font-weight:800;color:var(--primary);padding:8px 0}.adminGroupedTable{min-width:620px}.adminGroupedTable .adminDateGroup th{background:color-mix(in srgb,var(--primary) 12%,var(--card));color:var(--primary);font-size:12px;padding:10px 8px;border-top:1px solid var(--line)}.adminGroupedTable td small{display:block;color:var(--soft);font-size:10px;margin-top:3px}.adminGroupedTable .adminDateGroup:first-child th{border-top:0}
 @media print{.adminDetails{display:block!important}.adminDetails summary{display:none!important}.adminDetailsCard{page-break-inside:auto}.adminGroupedTable{min-width:0!important;font-size:9px!important}.adminGroupedTable th,.adminGroupedTable td{padding:5px!important}.adminDetailsHead{display:none!important}}
-/* v114 in-app Admin report sheet */
+
 .reportModal{align-items:flex-end;padding:0;}
 .reportSheet{width:min(760px,100%);max-height:92dvh;border-radius:26px 26px 0 0;padding:18px 16px calc(22px + env(safe-area-inset-bottom));}
 .reportHead{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:-18px;background:var(--card);padding:2px 0 12px;z-index:2;border-bottom:1px solid var(--line);}
@@ -2519,12 +2519,12 @@ body.photon-3d .extraInfoItem{
 .reportSubjectCell b{font-size:13px;}
 @media(max-width:430px){.reportMetrics{grid-template-columns:repeat(2,1fr)}.reportRow{grid-template-columns:1fr}.reportSheet{max-height:90dvh}}
 
-/* v115 Admin report improvements */
+
 .adminReportActions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
 .adminGroupedTable th,.adminGroupedTable td{vertical-align:top}
 .adminGroupedTable th:nth-child(1),.adminGroupedTable th:nth-child(2){min-width:112px}
 
-/* Full white PDF-style report preview. It is a view-only report; no file is downloaded. */
+
 .pdfPreviewModal{align-items:flex-start;justify-content:center;padding:0;background:rgba(0,0,0,.48);overflow:auto}
 .pdfPreviewPage{width:100%;min-height:100dvh;background:#f1f1f1;padding:14px 10px 30px;overflow:auto}
 .pdfPreviewTop{max-width:980px;margin:0 auto 10px;display:flex;justify-content:flex-end;position:sticky;top:0;z-index:5;padding:4px 0}
@@ -2554,7 +2554,7 @@ body.photon-3d .extraInfoItem{
 .pdfFooter{margin-top:28px;padding-top:10px;border-top:1px solid #bbb;color:#666;font-size:10px}
 .pdfEmpty{padding:12px;color:#666}
 
-/* View Full Report remains a compact in-app sheet, but it now shows scheduled and actual time separately. */
+
 .reportTable{border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .reportTableHead,.reportTableRow{display:grid;grid-template-columns:1.05fr 1.05fr 1.35fr 1fr 1fr 1.25fr;align-items:start}
 .reportTableHead{background:var(--primarySoft);color:var(--primary);font-size:10px;font-weight:800}
@@ -2584,19 +2584,18 @@ body.photon-3d .extraInfoItem{
   .reportTableHead,.reportTableRow{min-width:760px}
 }
 
-/* v122: student Create Account, no extra card/button on Admin Dashboard */
+
 .authCreateDivider{display:flex;align-items:center;gap:8px;margin:12px 0 4px;color:var(--soft);font-size:12px;font-weight:700}
 .authCreateDivider:before,.authCreateDivider:after{content:"";height:1px;background:var(--line);flex:1}
 .authCreateBtn{width:100%;margin-top:4px}
-/* v122: PDF-style report is a long in-app page; the modal itself scrolls on Android WebViews. */
+
 .pdfPreviewModal{display:block!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;padding:0!important;height:100%!important;min-height:100%!important}
 .pdfPreviewPage{display:block;width:100%;min-height:100%;height:auto;overflow:visible;padding:14px 10px 40px}
 .pdfPreviewTop{position:sticky;top:0}
 @media(max-width:650px){.pdfPreviewPage{overflow:visible;height:auto;min-height:100%;padding:0 0 40px}.pdfReport{min-height:0}}
 
-/* v124 targeted UI visibility + safe-area fixes only */
-/* Account & Cloud: the signed-out identity panel must use the same themed card
-   surface instead of inheriting a dark primary-soft background. */
+
+
 .cloudIdentity{
   background:var(--card)!important;
   color:var(--ink)!important;
@@ -2607,8 +2606,7 @@ body.photon-3d .extraInfoItem{
 }
 .cloudIdentity .small{color:var(--soft)!important;}
 
-/* Roshni: strengthen the general text palette so secondary text remains readable
-   against the bright glass/pastel surfaces. Semantic status colors stay untouched. */
+
 body.roshni{
   --ink:#30283f;
   --soft:#51495f;
@@ -2640,8 +2638,7 @@ body.roshni .cloudIdentity b{
 }
 body.roshni .cloudIdentity .small{color:#51495f!important;}
 
-/* Attendance Report PDF-style preview: keep the Close control below the
-   Android/WebView status-bar area and give it a comfortable touch target. */
+
 .pdfPreviewTop{
   padding-top:max(12px,calc(env(safe-area-inset-top,0px) + 10px))!important;
   padding-right:max(10px,env(safe-area-inset-right,0px))!important;
@@ -2659,11 +2656,7 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 }
 
 
-/* v126: use the active edition's actual card treatment.
-   Do not substitute var(--card) for themed/glass card surfaces: several
-   editions intentionally render .card with gradients/transparency, while
-   data-theme may still be dark. Standalone admin cards remain normal .card
-   elements; nested report/account surfaces inherit their parent card surface. */
+
 .cloudAccountCard{overflow:hidden;}
 .adminStudent{cursor:pointer;}
 .adminStudentMain b{color:var(--ink)!important;}
@@ -2687,8 +2680,7 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 .reportMetrics span,.reportIdentity span,.reportTime small,.reportSubject small{color:var(--soft)!important;}
 
 
-/* v128 targeted sync status visibility and typography fix; preserve v127 layout and filters.
-   Keep Admin elements on the same active-edition card surface. */
+
 .adminStudent{background:inherit!important;}
 .adminSummaryGrid>div{background:inherit!important;color:inherit!important;}
 .adminSummaryGrid>div b,.adminSummaryGrid>div span{color:inherit;}
@@ -2705,7 +2697,7 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 .adminFilterTitle{display:block;margin-top:16px;}
 .adminStatusFilters{margin-top:8px;}
 
-/* v129: manual sync controls only; preserve v128 layout and theme surfaces. */
+
 .cloudIdentity .syncStatusGood{color:var(--green)!important;}
 .cloudIdentity .syncStatusBad{color:var(--red)!important;}
 .adminSyncStatusLine{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
@@ -2728,9 +2720,7 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 .syncTapBtn:active{transform:translateY(1px);}
 .syncTapBtn:disabled{opacity:.65;cursor:default;}
 
-/* v130: force sync status to use its own semantic color, independent of
-   the Account & Cloud card's native text color. Keep all other card text
-   unchanged. The manual sync label is green as requested. */
+
 .cloudIdentity #cloudStatusText.syncStatusGood,
 .cloudIdentity #adminSyncStatusText.syncStatusGood,
 .adminSyncStatusLine #adminSyncStatusText.syncStatusGood{
@@ -2746,8 +2736,7 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
 }
 
 
-/* v131: theme-adaptive manual sync button surface and explicit logout styling.
-   Keep sync label green; only the button surface follows the active edition. */
+
 .syncTapBtn{
   background:var(--primarySoft)!important;
   border-color:var(--primary)!important;
@@ -2759,8 +2748,7 @@ body.roshni .cloudIdentity .small{color:#51495f!important;}
   color:#fff!important;
 }
 
-/* v133: Universal logout visibility override. The logout action is always red,
-   independent of the active theme; text stays white for clear visibility. */
+
 .logoutBtn,
 .logoutBtn:hover,
 .logoutBtn:focus,
@@ -2780,8 +2768,7 @@ body .logoutBtn:active{
 }
 
 
-/* v134: manual sync is intentionally transparent and borderless; its label remains green.
-   Logout is a universal safety/visibility action and is always red in every theme. */
+
 .syncTapBtn,
 .syncTapBtn:hover,
 .syncTapBtn:focus,
@@ -2809,9 +2796,7 @@ body .logoutBtn:active {
   text-shadow: none !important;
 }
 
-/* v146: Attendance Report white page text must be solid black in every edition.
-   Explicitly override theme color, text-fill, opacity, and text effects only
-   inside the white report page. */
+
 .pdfReport,
 .pdfReport *{
   color:#000000!important;

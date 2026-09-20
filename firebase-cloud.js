@@ -200,10 +200,16 @@ async function signInAdmin(email,password){
 }
 async function currentAdmin(){
   if(!auth.currentUser)return false;
-  // Use the already-cached ID token during startup. A forced refresh here was
-  // making every app launch wait for an extra network round-trip. Admin login
-  // itself still performs the explicit forced refresh in signInAdmin().
   const token=await auth.currentUser.getIdTokenResult(false);return token.claims?.admin===true;
+}
+function cachedAdminClaim(user){
+  try{
+    const raw=user?.stsTokenManager?.accessToken||"";
+    const part=raw.split('.')[1];
+    if(!part)return false;
+    const json=atob(part.replace(/-/g,'+').replace(/_/g,'/')+'='.repeat((4-part.length%4)%4));
+    return JSON.parse(json).admin===true;
+  }catch(e){return false}
 }
 
 async function listStudents(){
@@ -216,9 +222,8 @@ async function studentDays(uid){
   return getDays(uid);
 }
 
-onAuthStateChanged(auth,async user=>{
-  let admin=false;
-  if(user){try{admin=await currentAdmin()}catch(e){admin=false}}
+onAuthStateChanged(auth,user=>{
+  const admin=user?cachedAdminClaim(user):false;
   window.dispatchEvent(new CustomEvent("firebase-auth-state",{detail:{user,admin}}));
 });
 
