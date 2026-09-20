@@ -14,22 +14,8 @@ Version 144: startup authentication performance maintenance. Existing cached Fir
 Version 146: Attendance Report white-page text visibility fix only. All text inside .pdfReport is explicitly forced to solid black, including WebKit text fill and opacity, across every edition. No other app behavior or layout was changed.
 
 
-## v152 surgical startup optimization
+## v150 surgical startup optimization
 - Kept only the four current rotating medical loading icons.
 - Removed obsolete CSS animation rules left from the previous 11-icon loading system.
 - Deferred service-worker registration until browser idle/short fallback so startup authentication/rendering is not competing with SW registration.
 - No attendance, Firebase, schedule, theme, Admin Dashboard, report, or data logic changed.
-
-
-## v152 startup performance
-- Added browser preconnect/modulepreload hints for the existing Firebase SDK modules.
-- Removed the asynchronous cached-token admin check from the initial auth-state event; startup now uses the already-present cached token claim synchronously.
-- Explicit admin sign-in still performs the existing forced token refresh.
-- No attendance, Firebase data model, theme, schedule, report, or other app behavior was intentionally changed.
-
-
-## v152 cleanup/performance
-- Removed CSS comments only; no CSS rules changed.
-- Service worker now serves cached static assets directly without starting a background network request on every asset fetch.
-- Document cache-first/background refresh behavior remains unchanged.
-- No attendance, Firebase, authentication, schedule, theme, report, or UI logic changed.
