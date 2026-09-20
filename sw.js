@@ -1,4 +1,4 @@
-const CACHE="attendance-tracker-firebase-v135";
+const CACHE="attendance-tracker-firebase-v136";
 const ASSETS=["./","./index.html","./manifest.json","./styles.css","./app.js","./firebase-cloud.js","./icon-192.png","./icon-512.png"];
 
 self.addEventListener("install",event=>{
