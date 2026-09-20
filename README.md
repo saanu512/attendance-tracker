@@ -19,3 +19,6 @@ Version 146: Attendance Report white-page text visibility fix only. All text ins
 - Removed obsolete CSS animation rules left from the previous 11-icon loading system.
 - Deferred service-worker registration until browser idle/short fallback so startup authentication/rendering is not competing with SW registration.
 - No attendance, Firebase, schedule, theme, Admin Dashboard, report, or data logic changed.
+
+
+Version v156: Export PDF Attendance Report Close button is fixed with inline black/white styling so theme CSS cannot override it. Service-worker registration/cache version bumped to v156. No other functional changes.

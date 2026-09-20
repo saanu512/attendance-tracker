@@ -2819,24 +2819,3 @@ body .logoutBtn:active {
   opacity:1!important;
   text-shadow:none!important;
 }
-
-
-/* v155: Attendance Report Export PDF Close button is permanently black/white.
-   Higher-specificity selector prevents every edition theme from overriding it. */
-body .pdfPreviewTop button.pdfCloseButton,
-body .pdfPreviewTop button.pdfCloseButton:hover,
-body .pdfPreviewTop button.pdfCloseButton:focus,
-body .pdfPreviewTop button.pdfCloseButton:focus-visible,
-body .pdfPreviewTop button.pdfCloseButton:active {
-  background:#000000 !important;
-  background-color:#000000 !important;
-  background-image:none !important;
-  border:1px solid #ffffff !important;
-  border-color:#ffffff !important;
-  color:#ffffff !important;
-  -webkit-text-fill-color:#ffffff !important;
-  box-shadow:none !important;
-  text-shadow:none !important;
-  opacity:1 !important;
-  filter:none !important;
-}
