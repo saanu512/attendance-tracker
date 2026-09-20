@@ -410,39 +410,8 @@ function adminStudentPage(uid){
   const studentSync=s.updatedAt?`<span class="syncStatus syncStatusGood">✓ Last synced · ${formatCloudTime(s.updatedAt)}</span>`:'<span class="syncStatus syncStatusBad">✕ Last sync time unavailable</span>';
   return `<div class="card formCard adminHero"><div class="row" style="justify-content:space-between"><div><b>👤 ${esc(s.name||"Student")}</b><div class="small">Roll ${esc(s.rollNumber||"—")} · ${esc(s.email||"")}</div></div><button class="btn outline" data-act="backFromStudent">Back</button></div><div class="adminStudentSync detailSync">${studentSync}</div><div class="adminSummaryGrid"><div><b>${stats.present}</b><span>Present</span></div><div><b>${stats.absent}</b><span>Absent</span></div><div><b>${stats.pending}</b><span>Pending</span></div><div><b>${stats.total}</b><span>Total</span></div></div><div class="adminPercent">Overall attendance: <b>${stats.percent===null?'—':stats.percent.toFixed(1)+'%'}</b></div></div><div class="card formCard"><b>📚 Subject-wise attendance</b>${Object.entries(stats.subjects).sort((a,b)=>a[0].localeCompare(b[0])).map(([sub,x])=>`<div class="adminSubjectRow"><b>${esc(sub)}</b><span>${x.held?((x.present/x.held)*100).toFixed(1)+'%':'—'}</span><small>Present ${x.present} · Absent ${x.absent} · Pending ${x.pending} · Not Held ${x.notHeld} · Total ${x.total}</small></div>`).join('')||`<div class="small" style="margin-top:10px">No subject records yet.</div>`}</div><div class="card formCard adminMonthFilterCard"><b>🗓️ Attendance month</b><div class="tabs adminMonthList">${monthButtons}</div><div class="small adminFilterHint">Select a month to view its daily attendance.</div><b class="adminFilterTitle">🔎 Attendance filter</b><div class="tabs adminStatusFilters">${filters.map(([v,l])=>`<button class="filter ${selectedFilter===v?'active':''}" data-act="adminStudentFilter" data-v="${v}">${l}</button>`).join('')}</div></div><div class="card formCard adminDetailsCard"><div class="adminDetailsHead"><b>📋 Detailed attendance${selectedMonth?` · ${esc(monthFmt(parseKey(selectedMonth+'-01')))}`:''}</b><div class="adminReportActions"><button class="btn outline" data-act="printAdminReport">View Full Report</button><button class="btn soft" data-act="exportAdminPdf">Export PDF</button></div></div><details class="adminDetails" open><summary>Show records grouped by date</summary><div class="adminTableWrap"><table class="adminTable adminGroupedTable"><thead><tr><th>Scheduled Class</th><th>Actual Class</th><th>Type</th><th>Status</th><th>What changed?</th><th>Note</th></tr></thead><tbody>${detailRows}</tbody></table></div></details></div>`;
 }
-function classTypeForSnapshot(snap,rec,i,sessions){if(rec?.type)return rec.type;if(snap?.extra)return "Extra";const scheduled=snap?.scheduledSubject||rec?.scheduled||snap?.subject||rec?.subject||"";const actual=snap?.subject||rec?.subject||scheduled;const st=(snap?.start||rec?.start||"")+(snap?.end||rec?.end||"");const ot=(snap?.start||"")+(snap?.end||"");if(actual===scheduled&&st===ot)return "Regular";if(actual===scheduled)return "Rescheduled";const others=(sessions||[]).filter(x=>!x.extra).map(x=>x.scheduledSubject||x.subject);return others.includes(actual)?"Exchange / Replacement":"Replacement"}
 function adminStatusLabel(v){return v==="attended"?"Present":v==="absent"?"Absent":v==="leave"?"Absent / Leave":v==="not_held"?"Not Held":v==="pending"?"Pending":v==="note"?"Note":String(v||"")}
-function adminCompute(days){const o={present:0,absent:0,pending:0,notHeld:0,total:0,subjects:{}};days.forEach(d=>{const sessions=d.sessions||[],max=Math.max(sessions.length,Object.keys(d.records||{}).length,Object.keys(d.status||{}).length);for(let i=0;i<max;i++){const r=d.records?.[i]||{},snap=sessions[i]||{},sub=r.subject||snap.subject||r.scheduled||snap.scheduledSubject||"Unknown",st=d.status?.[i]||"pending";const x=o.subjects[sub]||(o.subjects[sub]={present:0,absent:0,pending:0,notHeld:0,total:0,held:0});o.total++;x.total++;if(st==="attended"){o.present++;x.present++;x.held++}else if(st==="absent"||st==="leave"){o.absent++;x.absent++;x.held++}else if(st==="not_held"){o.notHeld++;x.notHeld++}else{o.pending++;x.pending++}}});o.percent=o.present+o.absent?o.present/(o.present+o.absent)*100:null;return o}
-async function collectAllStudentCloudData(){
-  const students=await window.AttendanceCloud.listStudents(),out=[];
-  for(const student of students){const days=await window.AttendanceCloud.studentDays(student.uid);out.push({student,days});}
-  return out;
-}
-function pdfSafe(v){return String(v??"").replace(/[^\x20-\x7E]/g,"?").replace(/\\/g,"\\\\").replace(/\(/g,"\\(").replace(/\)/g,"\\)")}
-function wrapPdfText(text,max=88){const words=String(text||"").split(/\s+/);const out=[];let line="";for(const w of words){if(!line){line=w;continue}if((line+" "+w).length<=max)line+=" "+w;else{out.push(line);line=w}}if(line)out.push(line);return out}
-function buildAdminPdf(s,days){
-  const stats=adminCompute(days), lines=[];
-  lines.push("ATTENDANCE REPORT");lines.push(`Student: ${s.name||"Student"}`);lines.push(`Roll: ${s.rollNumber||"-"}`);lines.push(`Email: ${s.email||"-"}`);lines.push(`Required attendance: ${Number(s.required||75)}%`);lines.push(`Overall: ${stats.percent===null?"-":stats.percent.toFixed(1)+"%"}`);lines.push(`Present: ${stats.present}   Absent: ${stats.absent}   Pending: ${stats.pending}   Total: ${stats.total}`);lines.push("");lines.push("SUBJECT-WISE ATTENDANCE");
-  Object.entries(stats.subjects).sort((a,b)=>a[0].localeCompare(b[0])).forEach(([sub,x])=>lines.push(`${sub}: ${x.held?((x.present/x.held)*100).toFixed(1)+"%":"-"} | Present ${x.present} | Absent ${x.absent} | Pending ${x.pending} | Not Held ${x.notHeld} | Total ${x.total}`));
-  lines.push("");lines.push("DETAILED ATTENDANCE");
-  days.slice().sort((a,b)=>String(a.date).localeCompare(String(b.date))).forEach(d=>{
-    const dt=parseKey(d.date),label=`${DAYS[dt.getDay()]}, ${fmt(dt)}`;lines.push("");lines.push(label);
-    const sessions=d.sessions||[],max=Math.max(sessions.length,Object.keys(d.records||{}).length,Object.keys(d.status||{}).length);
-    for(let i=0;i<max;i++){
-      const snap=sessions[i]||{},rec=d.records?.[i]||{},status=d.status?.[i]||"pending",subject=rec.subject||snap.subject||rec.scheduled||snap.scheduledSubject||"Scheduled";
-      const scheduled=rec.scheduledStart&&rec.scheduledEnd?time(rec.scheduledStart)+"-"+time(rec.scheduledEnd):snap.start&&snap.end?time(snap.start)+"-"+time(snap.end):"-";
-      const actual=rec.start&&rec.end?time(rec.start)+"-"+time(rec.end):"";
-      const type=rec.type||classTypeForSnapshot(snap,rec,i,sessions);const note=d.note?` | Note: ${d.note}`:"";
-      wrapPdfText(`${scheduled}${actual&&actual!==scheduled?` (Actual ${actual})`:""} | ${subject} | ${type} | ${adminStatusLabel(status)}${note}`,105).forEach(x=>lines.push(x));
-    }
-  });
-  const pageW=595,pageH=842,margin=40,lineH=14,maxLines=Math.floor((pageH-70)/lineH),pages=[];for(let i=0;i<lines.length;i+=maxLines)pages.push(lines.slice(i,i+maxLines));
-  const objects=[];const addObj=x=>{objects.push(x);return objects.length};const fontObj=addObj("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>");const pageObjs=[];
-  pages.forEach((pg,pi)=>{let stream="BT\n/F1 10 Tf\n";let y=pageH-45;pg.forEach((ln,idx)=>{const size=(idx===0&&pi===0)?16:10;stream+=`/F1 ${size} Tf\n1 0 0 1 ${margin} ${y} Tm (${pdfSafe(ln)}) Tj\n`;y-=lineH;if(y<45)y=45});stream+="ET";const content=addObj(`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);const page=addObj(`<< /Type /Page /Parent 0 0 R /MediaBox [0 0 ${pageW} ${pageH}] /Resources << /Font << /F1 ${fontObj} 0 R >> >> /Contents ${content} 0 R >>`);pageObjs.push(page)});
-  const pagesObj=addObj(`<< /Type /Pages /Kids [${pageObjs.map(n=>n+" 0 R").join(" ")}] /Count ${pageObjs.length} >>`);
-  pageObjs.forEach(n=>{objects[n-1]=objects[n-1].replace("/Parent 0 0 R",`/Parent ${pagesObj} 0 R`)});
-  const catalog=addObj(`<< /Type /Catalog /Pages ${pagesObj} 0 R >>`);let pdf="%PDF-1.4\n";const offsets=[0];objects.forEach((obj,i)=>{offsets.push(pdf.length);pdf+=`${i+1} 0 obj\n${obj}\nendobj\n`});const xref=pdf.length;pdf+=`xref\n0 ${objects.length+1}\n0000000000 65535 f \n`;for(let i=1;i<offsets.length;i++)pdf+=String(offsets[i]).padStart(10,"0")+" 00000 n \n";pdf+=`trailer\n<< /Size ${objects.length+1} /Root ${catalog} 0 R >>\nstartxref\n${xref}\n%%EOF`;return new Blob([pdf],{type:"application/pdf"})
-}
+function adminCompute(days){const o={present:0,absent:0,pending:0,notHeld:0,total:0,subjects:{}};days.forEach(d=>{const sessions=d.sessions||[],max=Math.max(sessions.length,Object.keys(d.records||{}).length,Object.keys(d.status||{}).length);for(let i=0;i<max;i++){const r=d.records?.[i]||{},snap=sessions[i]||{},sub=r.subject||snap.subject||r.scheduled||snap.scheduledSubject||"Unknown",st=d.status?.[i]||"pending";const x=o.subjects[sub]||(o.subjects[sub]={present:0,absent:0,pending:0,notHeld:0,total:0,held:0});if(st==="attended"){o.present++;o.total++;x.present++;x.total++;x.held++}else if(st==="absent"||st==="leave"){o.absent++;o.total++;x.absent++;x.total++;x.held++}else if(st==="not_held"){o.notHeld++;x.notHeld++}else{o.pending++;x.pending++}}});o.percent=o.present+o.absent?o.present/(o.present+o.absent)*100:null;return o}
 function buildAdminReportData(s,days){
   const stats=adminCompute(days),grouped=[];
   days.slice().sort((a,b)=>String(a.date).localeCompare(String(b.date))).forEach(d=>{
@@ -654,7 +623,13 @@ state.tab="log";
 state.viewDate=key(today());
 state.calendarMonth=key(new Date(today().getFullYear(),today().getMonth(),1));
 save();
-applyTheme();watchSystemTheme();render();document.documentElement.classList.remove("preboot");if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",activateGate,{once:true});}else{activateGate();}if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=136",{updateViaCache:"none"}).catch(()=>{});
+watchSystemTheme();
+setTimeout(()=>{
+  render();
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",activateGate,{once:true});
+  else activateGate();
+  if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=138",{updateViaCache:"none"}).catch(()=>{});
+},0);
 
 function openManageSchedule(){
   document.querySelectorAll('.modal').forEach(m=>m.remove());
