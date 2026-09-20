@@ -633,7 +633,7 @@ setTimeout(()=>{
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",activateGate,{once:true});
   else activateGate();
   if("serviceWorker" in navigator){
-    const registerSW=()=>navigator.serviceWorker.register("sw.js?v=150",{updateViaCache:"none"}).catch(()=>{});
+    const registerSW=()=>navigator.serviceWorker.register("sw.js?v=154",{updateViaCache:"none"}).catch(()=>{});
     if("requestIdleCallback" in window)requestIdleCallback(registerSW,{timeout:1500});
     else setTimeout(registerSW,800);
   }

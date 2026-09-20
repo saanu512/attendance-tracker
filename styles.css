@@ -2819,26 +2819,22 @@ body .logoutBtn:active {
   opacity:1!important;
   text-shadow:none!important;
 }
-/* v153: Export PDF Close button is fixed across every theme.
-   Only the white PDF-preview Close control is affected. */
-.pdfPreviewTop .btn[data-act="closeModal"] {
+
+
+/* v154: Attendance Report Export PDF Close button uses one fixed black/white style in every theme. */
+.pdfPreviewTop > button[data-act="closeModal"],
+.pdfPreviewTop > button[data-act="closeModal"]:hover,
+.pdfPreviewTop > button[data-act="closeModal"]:focus,
+.pdfPreviewTop > button[data-act="closeModal"]:focus-visible,
+.pdfPreviewTop > button[data-act="closeModal"]:active {
   background:#000000 !important;
+  background-color:#000000 !important;
   background-image:none !important;
   border:1px solid #ffffff !important;
   border-color:#ffffff !important;
   color:#ffffff !important;
   -webkit-text-fill-color:#ffffff !important;
+  box-shadow:none !important;
   text-shadow:none !important;
+  opacity:1 !important;
 }
-.pdfPreviewTop .btn[data-act="closeModal"]:hover,
-.pdfPreviewTop .btn[data-act="closeModal"]:focus,
-.pdfPreviewTop .btn[data-act="closeModal"]:focus-visible,
-.pdfPreviewTop .btn[data-act="closeModal"]:active {
-  background:#000000 !important;
-  background-image:none !important;
-  border-color:#ffffff !important;
-  color:#ffffff !important;
-  -webkit-text-fill-color:#ffffff !important;
-  text-shadow:none !important;
-}
-
