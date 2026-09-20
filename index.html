@@ -24,11 +24,33 @@ html[data-theme="dark"],html[data-theme="dark"] body{background:#121817}
 .startupWait{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;box-sizing:border-box;background:inherit;color:inherit;transition:opacity .16s ease,visibility .16s ease}
 .startupWait.hidden{opacity:0;visibility:hidden;pointer-events:none}
 .startupWaitInner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;max-width:300px}
-.startupRod{font-family:Arial,sans-serif;font-size:76px;line-height:1;display:block;transform-style:preserve-3d;animation:startupRodSpin 1.7s linear infinite;will-change:transform}
+.startupIcon{font-family:Arial,sans-serif;font-size:76px;line-height:1;display:none;transform-style:preserve-3d;will-change:transform;position:relative;min-width:90px;min-height:76px;align-items:center;justify-content:center}
+.startupIcon.active{display:flex}
+.startupIcon.stetho{animation:startupStetho 1.8s ease-in-out infinite}
+.startupIcon.ecg{font-size:58px;animation:startupEcg 1.25s ease-in-out infinite}
+.startupIcon.heart{animation:startupHeart 1.2s ease-in-out infinite}
+.startupIcon.doctor{font-size:70px;animation:startupDoctor 2s ease-in-out infinite}
+.startupIcon.rod{animation:startupRodSpin 1.7s linear infinite}
+.startupIcon.capsule{animation:startupCapsule 1.5s ease-in-out infinite}
+.startupIcon.brain{animation:startupBrain 1.7s ease-in-out infinite}
+.startupIcon.scope{animation:startupScope 1.6s ease-in-out infinite}
+.startupIcon.combo{font-size:68px;animation:startupCombo 1.6s ease-in-out infinite}
+.startupIcon.book{font-size:68px;animation:startupBook 1.7s ease-in-out infinite}
 .startupWaitTitle{font-size:20px;font-weight:800;line-height:1.2}
 .startupWaitText{font-size:14px;line-height:1.45;opacity:.78}
+.startupEcgLine{font-family:monospace;letter-spacing:-7px;font-size:48px;font-weight:900}
+.startupCross{font-size:28px;position:absolute;right:3px;top:5px}
+@keyframes startupStetho{0%,100%{transform:rotate(-5deg) scale(1)}50%{transform:rotate(5deg) scale(1.04)}}
+@keyframes startupEcg{0%,100%{transform:translateX(-3px) scaleX(.96)}50%{transform:translateX(3px) scaleX(1.04)}}
+@keyframes startupHeart{0%,100%{transform:scale(1)}15%{transform:scale(1.12)}30%{transform:scale(1)}45%{transform:scale(1.07)}}
+@keyframes startupDoctor{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 @keyframes startupRodSpin{from{transform:perspective(260px) rotateY(0deg)}to{transform:perspective(260px) rotateY(360deg)}}
-@media (prefers-reduced-motion:reduce){.startupRod{animation:none}}
+@keyframes startupCapsule{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
+@keyframes startupBrain{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.05);filter:brightness(1.18)}}
+@keyframes startupScope{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@keyframes startupCombo{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes startupBook{0%,100%{transform:rotateY(0deg)}50%{transform:rotateY(12deg)}}
+@media (prefers-reduced-motion:reduce){.startupIcon{animation:none!important}}
 </style>
 <script>
 (function(){
@@ -60,11 +82,27 @@ html[data-theme="dark"],html[data-theme="dark"] body{background:#121817}
 </script>
 <div id="startupWait" class="startupWait" aria-live="polite">
   <div class="startupWaitInner">
-    <div class="startupRod" aria-hidden="true">⚕</div>
+    <div id="startupIcon" class="startupIcon" aria-hidden="true"></div>
     <div class="startupWaitTitle">Please wait</div>
     <div class="startupWaitText">We are getting your login details…</div>
   </div>
 </div>
+<script>
+(function(){
+  try{
+    const icons=[
+      ['stetho','🩺〰'],['ecg','⌁⌁⌁⌁✚'],['heart','🫀✚'],['doctor','🧑‍⚕️✚'],['rod','⚕'],
+      ['capsule','💊'],['brain','🧠〰'],['scope','🔬〰'],['combo','🩻〰'],['book','📖〰']
+    ];
+    const pick=icons[Math.floor(Math.random()*icons.length)];
+    const el=document.getElementById('startupIcon');
+    if(el){el.className='startupIcon '+pick[0]+' active';el.textContent=pick[1]}
+  }catch(e){
+    const el=document.getElementById('startupIcon');
+    if(el){el.className='startupIcon rod active';el.textContent='⚕'}
+  }
+})();
+</script>
 <div id="app" class="booting"><div class="bootApp">
   <div class="bootHeader"><div class="bootBrand">▣ Attendance</div><div class="bootSub">7 Sep 2026 onwards · 3rd Prof Part-II</div><div class="bootSub">Personal attendance tracker</div></div>
   <div class="bootMain"></div>
