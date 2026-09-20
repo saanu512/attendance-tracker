@@ -4,3 +4,5 @@ Based on the confirmed v135 baseline. Surgical maintenance release only: removed
 
 
 Maintenance: removed only clearly unreachable legacy PDF/cloud helper code; startup now gives the initial shell a paint opportunity before the main app render to reduce blank-screen and navigation flicker. No attendance, sync, Firebase, schedule, theme, design, or calculation behavior was intentionally changed.
+
+Startup loading state: themed Please Wait screen with a rotating Rod of Asclepius remains visible until Firebase authentication state is resolved and startup rendering completes.
