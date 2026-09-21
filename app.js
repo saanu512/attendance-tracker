@@ -100,7 +100,7 @@ function updateCloudStatus(){
   let text="",cls="syncStatus syncStatusBad";
   if(cloudSession.syncing){text="✓ Syncing…";cls="syncStatus syncStatusGood";}
   else if(cloudSession.error){text="✕ Sync failed · "+cloudSession.error;cls="syncStatus syncStatusBad";}
-  else if(cloudSession.user&&cloudSession.lastSync){text="✓ Last synced · "+cloudSession.lastSync.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});cls="syncStatus syncStatusGood";}
+  else if(cloudSession.user&&cloudSession.lastSync){text="✓ Last synced · "+formatCloudTime(cloudSession.lastSync);cls="syncStatus syncStatusGood";}
   else if(cloudSession.user){text="✕ Sync status unavailable";cls="syncStatus syncStatusBad";}
   else{text="✕ Not signed in";cls="syncStatus syncStatusBad";}
   const els=[document.getElementById("cloudStatusText"),document.getElementById("adminSyncStatusText")].filter(Boolean);
@@ -316,7 +316,7 @@ function cloudForgotModal(prefill=""){
 function formatCloudTime(v){
   if(!v)return "—";
   const d=new Date(v);
-  return Number.isNaN(d.getTime())?"—":d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+  return Number.isNaN(d.getTime())?"—":d.toLocaleDateString("en-GB", {day:"2-digit",month:"short",year:"numeric"})+", "+d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
 }
 function adminSyncStatusHtml(){
   if(cloudSession.syncing)return '<span id="adminSyncStatusText" class="syncStatus syncStatusGood">✓ Syncing…</span>';
