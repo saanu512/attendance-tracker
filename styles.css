@@ -2838,29 +2838,3 @@ body[data-edition="roshni"] .calendar .calDay.today,
   border-color:rgba(255,255,255,.98)!important;
   box-shadow:0 0 0 2px rgba(185,150,240,.16),0 8px 18px rgba(125,88,170,.20),inset 0 1px 0 rgba(255,255,255,.98)!important;
 }
-
-/* Black Hole: make the selected Attendance month and Attendance filter visibly distinct. */
-body.black-hole .adminMonthList .filter.active,
-body.black-hole .adminStatusFilters .filter.active{
-  color:#ffffff!important;
-  background:linear-gradient(145deg,#7f4bd8,#4b248e)!important;
-  border-color:#c5a4ff!important;
-  box-shadow:0 6px 0 #2d1658,0 0 20px rgba(139,87,232,.42),inset 0 1px 0 rgba(255,255,255,.22)!important;
-  transform:translateY(-2px)!important;
-}
-
-
-/* v163: Roshni-only report header readability fix.
-   Keep all report structure and other themes unchanged. */
-body.roshni .reportDay h3,
-body[data-edition="roshni"] .reportDay h3,
-[data-theme="dark"] body.roshni .reportDay h3{
-  background:linear-gradient(145deg,#ddd0e2,#cdbbd6)!important;
-  color:#332d4a!important;
-}
-body.roshni .reportTableHead,
-body[data-edition="roshni"] .reportTableHead,
-[data-theme="dark"] body.roshni .reportTableHead{
-  background:linear-gradient(145deg,#ddd0e2,#cdbbd6)!important;
-  color:#332d4a!important;
-}
