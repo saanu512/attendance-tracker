@@ -2819,3 +2819,22 @@ body .logoutBtn:active {
   opacity:1!important;
   text-shadow:none!important;
 }
+
+/* v160: restore Today highlight only for Nebula Glass and Roshni. */
+body.nebula-glass .calendar .calDay.today,
+body[data-edition="nebula-glass"] .calendar .calDay.today{
+  outline:2px solid #7c6cff!important;
+  background:linear-gradient(145deg,rgba(92,105,255,.72),rgba(83,55,190,.58))!important;
+  color:#fff!important;
+  border-color:rgba(180,190,255,.78)!important;
+  box-shadow:0 0 0 2px rgba(124,108,255,.18),0 8px 22px rgba(90,90,255,.30)!important;
+}
+body.roshni .calendar .calDay.today,
+body[data-edition="roshni"] .calendar .calDay.today,
+[data-theme="dark"] body.roshni .calendar .calDay.today{
+  outline:2px solid rgba(171,133,235,.78)!important;
+  background:linear-gradient(145deg,rgba(213,190,255,.96),rgba(192,161,245,.86))!important;
+  color:#4c3e61!important;
+  border-color:rgba(255,255,255,.98)!important;
+  box-shadow:0 0 0 2px rgba(185,150,240,.16),0 8px 18px rgba(125,88,170,.20),inset 0 1px 0 rgba(255,255,255,.98)!important;
+}
