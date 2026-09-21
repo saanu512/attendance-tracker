@@ -15,6 +15,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = initializeFirestore(app, { ignoreUndefinedProperties: true });
 const USERS = "attendanceUsers";
+
 const ARRAY_MARKER = "$attendance_tracker_array";
 
 function toFirestoreSafe(value, seen = new WeakSet()) {
@@ -50,6 +51,7 @@ function fromFirestoreSafe(value, seen = new WeakSet()) {
     const encoded = value[ARRAY_MARKER];
     return Array.isArray(encoded) ? encoded.map(item => fromFirestoreSafe(item, seen)) : [];
   }
+
   if (typeof value.toDate === "function" || typeof value.toMillis === "function" || typeof value.latitude === "number" && typeof value.longitude === "number") {
     return value;
   }

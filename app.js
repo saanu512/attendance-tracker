@@ -623,7 +623,6 @@ state.calendarMonth=key(new Date(today().getFullYear(),today().getMonth(),1));
 save();
 watchSystemTheme();
 render();
-hideStartupWait();
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",activateGate,{once:true});
 else activateGate();
 if("serviceWorker" in navigator){
