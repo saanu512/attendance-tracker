@@ -2491,7 +2491,9 @@ body.photon-3d .extraInfoItem{
 .adminSubjectRow{padding:11px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:4px 10px}.adminSubjectRow:last-child{border-bottom:0}.adminSubjectRow span{font-weight:900;color:var(--primary)}.adminSubjectRow small{grid-column:1/-1;color:var(--soft);font-size:11px}.adminTableWrap{overflow:auto;margin-top:12px;border:1px solid var(--line);border-radius:14px}.adminTable{border-collapse:collapse;width:100%;min-width:760px;font-size:11px;color:var(--ink)}.adminTable th,.adminTable td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.adminTable th{background:var(--primarySoft);color:var(--primary);font-weight:900}.adminTable tr:last-child td{border-bottom:0}
 @media(max-width:520px){.adminSummaryGrid{grid-template-columns:repeat(2,1fr)}.adminStudentMain{align-items:flex-start;flex-direction:column;gap:3px}.cloudActions>*{min-width:120px}}
 @media print{body{background:#fff!important;color:#111!important}.nav,.cloudActions,.btn,.iconbtn{display:none!important}.app{background:#fff!important}.card{box-shadow:none!important;border:1px solid #ccc!important}.adminTable{color:#111!important}.adminTable th{background:#eee!important;color:#111!important}}
-.adminDetailsHead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.adminDetails{margin-top:12px}.adminDetails summary{cursor:pointer;font-weight:800;color:var(--primary);padding:8px 0}.adminGroupedTable{min-width:620px}.adminGroupedTable .adminDateGroup th{background:color-mix(in srgb,var(--primary) 12%,var(--card));color:var(--primary);font-size:12px;padding:10px 8px;border-top:1px solid var(--line)}.adminGroupedTable td small{display:block;color:var(--soft);font-size:10px;margin-top:3px}.adminGroupedTable .adminDateGroup:first-child th{border-top:0}
+.adminDetailsHead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.adminDetails{margin-top:12px}.adminDetails summary{cursor:pointer;font-weight:800;color:var(--primary);padding:8px 0}.adminGroupedTable{min-width:620px;table-layout:auto}
+.adminGroupedTable td[rowspan]{border-bottom:0!important;vertical-align:middle}
+.adminGroupedTable td:nth-child(5){border-right:1px solid var(--line)!important}.adminGroupedTable .adminDateGroup th{background:color-mix(in srgb,var(--primary) 12%,var(--card));color:var(--primary);font-size:12px;padding:10px 8px;border-top:1px solid var(--line)}.adminGroupedTable td small{display:block;color:var(--soft);font-size:10px;margin-top:3px}.adminGroupedTable .adminDateGroup:first-child th{border-top:0}
 @media print{.adminDetails{display:block!important}.adminDetails summary{display:none!important}.adminDetailsCard{page-break-inside:auto}.adminGroupedTable{min-width:0!important;font-size:9px!important}.adminGroupedTable th,.adminGroupedTable td{padding:5px!important}.adminDetailsHead{display:none!important}}
 /* v114 in-app Admin report sheet */
 .reportModal{align-items:flex-end;padding:0;}
@@ -2556,11 +2558,13 @@ body.photon-3d .extraInfoItem{
 
 /* View Full Report remains a compact in-app sheet, but it now shows scheduled and actual time separately. */
 .reportTable{border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.reportTableHead,.reportTableRow{display:grid;grid-template-columns:1.05fr 1.05fr 1.35fr 1fr 1fr 1.25fr;align-items:start}
+.reportTableHead,.reportTableRow{display:grid;grid-template-columns:1.05fr 1.05fr 1.35fr 1fr 1fr 1.25fr;align-items:stretch}
 .reportTableHead{background:var(--primarySoft);color:var(--primary);font-size:10px;font-weight:800}
-.reportTableHead span,.reportTableRow span{padding:8px 7px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0;word-break:break-word}
-.reportTableHead span:last-child,.reportTableRow span:last-child{border-right:0}
-.reportTableRow:last-child span{border-bottom:0}
+.reportTableHead span,.reportTableRow span{padding:8px 7px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0;word-break:break-word;overflow-wrap:anywhere}
+.reportTableHead span:last-child{border-right:0}
+.reportTableRow span:nth-child(5){border-right:1px solid var(--line)}
+.reportTableRow .reportMergedNote{grid-column:6;grid-row:1 / -1;border-right:0;border-bottom:0;min-height:100%;align-self:stretch}
+.reportTableRow:last-child span:not(.reportMergedNote){border-bottom:0}
 .reportTableRow{font-size:11px}
 @media(max-width:650px){
   .adminReportActions{width:100%;justify-content:flex-start}
@@ -2837,4 +2841,30 @@ body[data-edition="roshni"] .calendar .calDay.today,
   color:#4c3e61!important;
   border-color:rgba(255,255,255,.98)!important;
   box-shadow:0 0 0 2px rgba(185,150,240,.16),0 8px 18px rgba(125,88,170,.20),inset 0 1px 0 rgba(255,255,255,.98)!important;
+}
+
+/* Black Hole: make the selected Attendance month and Attendance filter visibly distinct. */
+body.black-hole .adminMonthList .filter.active,
+body.black-hole .adminStatusFilters .filter.active{
+  color:#ffffff!important;
+  background:linear-gradient(145deg,#7f4bd8,#4b248e)!important;
+  border-color:#c5a4ff!important;
+  box-shadow:0 6px 0 #2d1658,0 0 20px rgba(139,87,232,.42),inset 0 1px 0 rgba(255,255,255,.22)!important;
+  transform:translateY(-2px)!important;
+}
+
+
+/* v163: Roshni-only report header readability fix.
+   Keep all report structure and other themes unchanged. */
+body.roshni .reportDay h3,
+body[data-edition="roshni"] .reportDay h3,
+[data-theme="dark"] body.roshni .reportDay h3{
+  background:linear-gradient(145deg,#ddd0e2,#cdbbd6)!important;
+  color:#332d4a!important;
+}
+body.roshni .reportTableHead,
+body[data-edition="roshni"] .reportTableHead,
+[data-theme="dark"] body.roshni .reportTableHead{
+  background:linear-gradient(145deg,#ddd0e2,#cdbbd6)!important;
+  color:#332d4a!important;
 }
