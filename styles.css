@@ -2855,12 +2855,12 @@ body.black-hole .adminStatusFilters .filter.active{
 body.roshni .reportDay h3,
 body[data-edition="roshni"] .reportDay h3,
 [data-theme="dark"] body.roshni .reportDay h3{
-  background:linear-gradient(145deg,#f4eaf3,#eadcf0)!important;
+  background:linear-gradient(145deg,#ddd0e2,#cdbbd6)!important;
   color:#332d4a!important;
 }
 body.roshni .reportTableHead,
 body[data-edition="roshni"] .reportTableHead,
 [data-theme="dark"] body.roshni .reportTableHead{
-  background:linear-gradient(145deg,#f4eaf3,#eadcf0)!important;
+  background:linear-gradient(145deg,#ddd0e2,#cdbbd6)!important;
   color:#332d4a!important;
 }
