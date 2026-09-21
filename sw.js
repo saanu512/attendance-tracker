@@ -1,4 +1,4 @@
-const CACHE="attendance-tracker-firebase-v158";
+const CACHE="attendance-tracker-firebase-v159";
 const ASSETS=["./","./index.html","./manifest.json","./styles.css","./app.js","./firebase-cloud.js","./icon-192.png","./icon-512.png"];
 
 self.addEventListener("install",event=>{
@@ -18,21 +18,12 @@ self.addEventListener("fetch",event=>{
   if(!isDocument&&!isAsset)return;
   event.respondWith((async()=>{
     const cache=await caches.open(CACHE);
-    if(isDocument){
-      const cached=await cache.match(event.request);
-      const refresh=fetch(new Request(event.request,{cache:"no-store"})).then(response=>{
-        if(response&&response.ok&&!response.opaque)return cache.put(event.request,response.clone()).then(()=>response);
-        return response;
-      }).catch(()=>null);
-      if(cached){event.waitUntil(refresh.then(()=>undefined));return cached;}
-      return (await refresh)||Response.error();
-    }
     const cached=await cache.match(event.request);
-    const refresh=fetch(new Request(event.request,{cache:"no-store"})).then(response=>{
-      if(response&&response.ok&&!response.opaque)return cache.put(event.request,response.clone()).then(()=>response);
+    if(cached)return cached;
+    try{
+      const response=await fetch(event.request);
+      if(response&&response.ok&&!response.opaque)await cache.put(event.request,response.clone());
       return response;
-    }).catch(()=>null);
-    if(cached){event.waitUntil(refresh.then(()=>undefined));return cached;}
-    return (await refresh)||Response.error();
+    }catch(e){return Response.error()}
   })());
 });

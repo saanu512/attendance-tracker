@@ -73,8 +73,6 @@ function cloudQueueFull(label){
     cloudSession.syncing=true; cloudSession.error=""; updateCloudStatus();
     try{
       if(cloudSession.admin){
-        // Admin accounts do not write student data; a manual/automatic admin sync
-        // refreshes the authoritative student list and records the successful cloud fetch.
         adminCache.students=await window.AttendanceCloud.listStudents();
         cloudSession.lastSync=new Date();
         localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());
@@ -501,8 +499,6 @@ async function handleCloudLogin(mode){
 function friendlyAuthError(e){const c=e?.code||"";if(c.includes("invalid-credential"))return"Incorrect email or password.";if(c.includes("user-not-found"))return"No account was found with this email.";if(c.includes("wrong-password"))return"Incorrect password.";if(c.includes("invalid-email"))return"Enter a valid email address.";if(c.includes("too-many-requests"))return"Too many attempts. Please try again later.";return e?.message||"Sign-in failed."}
 async function handlePasswordReset(){const email=(document.getElementById("resetEmail")?.value||"").trim(),err=document.getElementById("resetError");if(!email){if(err)err.textContent="Enter your email address.";return}try{await window.AttendanceCloud.sendPasswordResetEmail(email);if(err)err.className="cloudAuthSuccess";if(err)err.textContent="Password-reset email sent. Check your inbox."}catch(e){if(err)err.textContent=friendlyAuthError(e)}}
 async function handleCloudLogout(){
-  // Logout must clear account-specific app data, but the user-selected visual theme
-  // is a device/UI preference and must survive logout/login.
   const savedTheme=state?.settings?.theme||"light";
   const savedEdition=state?.settings?.edition||"earth-day";
   if(window.AttendanceCloud)await window.AttendanceCloud.signOut();
@@ -524,8 +520,6 @@ async function hydrateAfterLogin(user){
     if(profile?.updatedAt){const t=new Date(profile.updatedAt);if(!Number.isNaN(t.getTime()))cloudSession.lastSync=t;}
     const migrated=localStorage.getItem(CLOUD_MIGRATION_KEY+":"+user.uid)==="1" || !!profile?.migrationV105;
     if(!migrated && localHasData){
-      // Existing phone data is the migration source on first Firebase login.
-      // Never replace it with an empty/new cloud profile.
       localStorage.setItem("attendance-tracker-local-backup-v105:"+user.uid,JSON.stringify(localBefore));
       await window.AttendanceCloud.syncFullState(user.uid,localBefore,user,buildCloudSessionSnapshots(localBefore));
       await window.AttendanceCloud.markMigrationComplete(user.uid);
@@ -629,10 +623,11 @@ state.calendarMonth=key(new Date(today().getFullYear(),today().getMonth(),1));
 save();
 watchSystemTheme();
 render();
+hideStartupWait();
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",activateGate,{once:true});
 else activateGate();
 if("serviceWorker" in navigator){
-  const registerSW=()=>navigator.serviceWorker.register("sw.js?v=157",{updateViaCache:"none"}).catch(()=>{});
+  const registerSW=()=>navigator.serviceWorker.register("sw.js?v=159",{updateViaCache:"none"}).catch(()=>{});
   if("requestIdleCallback" in window)requestIdleCallback(registerSW,{timeout:1500});
   else setTimeout(registerSW,800);
 }
