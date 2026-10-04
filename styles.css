@@ -2849,3 +2849,26 @@ body[data-edition="roshni"] .reportTableHead,
   opacity:1!important;
   filter:none!important;
 }
+
+/* Final theme-proof calendar holiday marker: keep every edition identical. */
+html body .calendar .dot.holiday{
+  width:5px!important;
+  height:5px!important;
+  bottom:4px!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  padding:0!important;
+  margin:0!important;
+  display:block!important;
+  line-height:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:#a23bb8!important;
+  color:transparent!important;
+  font-size:0!important;
+  font-weight:400!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  opacity:1!important;
+  filter:none!important;
+}
