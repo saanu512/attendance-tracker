@@ -44,18 +44,20 @@ function buildCloudSessionSnapshots(sourceState=state){
 }
 function cloudAvailable(){return !!(window.AttendanceCloud&&cloudSession.user&&!cloudSession.admin)}
 function cloudQueue(label,date){
-  if(!cloudAvailable())return Promise.resolve();
   localStorage.setItem(CLOUD_PENDING_KEY,"1");
+  if(!cloudAvailable())return Promise.resolve();
   cloudSession.error=""; updateCloudStatus();
   cloudSyncChain=cloudSyncChain.then(async()=>{
     if(!cloudAvailable())return;
     cloudSession.syncing=true; updateCloudStatus();
     try{
+      const current=clone(state);
       if(date){
         const d=parseKey(date), sessions=sessionsFor(d).map((x,i)=>({index:i,start:x[0],end:x[1],subject:x[2],scheduledSubject:x._scheduled||x[2],extra:!!x[3]}));
-        await window.AttendanceCloud.syncDay(cloudSession.user.uid,date,clone(state),sessions);
+        await window.AttendanceCloud.syncDay(cloudSession.user.uid,date,current,sessions);
+        await window.AttendanceCloud.syncProfile(cloudSession.user.uid,current,cloudSession.user);
       }else{
-        await window.AttendanceCloud.syncProfile(cloudSession.user.uid,clone(state),cloudSession.user);
+        await window.AttendanceCloud.syncProfile(cloudSession.user.uid,current,cloudSession.user);
       }
       cloudSession.lastSync=new Date();
       cloudSession.error="";
@@ -372,11 +374,15 @@ function adminStudentPage(uid){
   const grouped=[];
   days.slice().sort((a,b)=>String(a.date).localeCompare(String(b.date))).forEach(d=>{
     const rows=[]; const sessions=d.sessions||[]; const max=Math.max(sessions.length,Object.keys(d.records||{}).length,Object.keys(d.status||{}).length);
-    for(let i=0;i<max;i++){
-      const snap=sessions[i]||{},rec=d.records?.[i]||{},status=d.status?.[i]||"pending",info=adminClassInfo(d.date,snap,rec,i,sessions);
-      rows.push({date:d.date,index:i,status,scheduledSubject:info.scheduledSubject,actualSubject:info.actualSubject,scheduledStart:info.scheduledStart,scheduledEnd:info.scheduledEnd,actualStart:info.actualStart,actualEnd:info.actualEnd,note:d.note||"",holiday:d.holiday,type:info.type,relationship:info.relationship});
+    if(d.holiday){
+      rows.push({date:d.date,index:"",status:"holiday",scheduledSubject:"—",actualSubject:"—",scheduledStart:"",scheduledEnd:"",actualStart:"",actualEnd:"",note:d.note||"",holiday:true,type:"Holiday",relationship:"Whole day marked as holiday — classes excluded from attendance"});
+    }else{
+      for(let i=0;i<max;i++){
+        const snap=sessions[i]||{},rec=d.records?.[i]||{},status=d.status?.[i]||"pending",info=adminClassInfo(d.date,snap,rec,i,sessions);
+        rows.push({date:d.date,index:i,status,scheduledSubject:info.scheduledSubject,actualSubject:info.actualSubject,scheduledStart:info.scheduledStart,scheduledEnd:info.scheduledEnd,actualStart:info.actualStart,actualEnd:info.actualEnd,note:d.note||"",holiday:false,type:info.type,relationship:info.relationship});
+      }
+      if(d.note&&!max)rows.push({date:d.date,index:"",status:"note",scheduledSubject:"—",actualSubject:"Day note",scheduledStart:"",scheduledEnd:"",actualStart:"",actualEnd:"",note:d.note,holiday:false,type:"Note",relationship:"Day note"});
     }
-    if(d.note&&!max)rows.push({date:d.date,index:"",status:"note",scheduledSubject:"—",actualSubject:"Day note",scheduledStart:"",scheduledEnd:"",actualStart:"",actualEnd:"",note:d.note,holiday:d.holiday,type:"Note",relationship:"Day note"});
     if(rows.length)grouped.push({date:d.date,rows,note:d.note||""});
   });
   const stats=adminCompute(days);
@@ -409,17 +415,21 @@ function adminStudentPage(uid){
   const studentSync=s.updatedAt?`<span class="syncStatus syncStatusGood">✓ Last synced · ${formatCloudTime(s.updatedAt)}</span>`:'<span class="syncStatus syncStatusBad">✕ Last sync time unavailable</span>';
   return `<div class="card formCard adminHero"><div class="row" style="justify-content:space-between"><div><b>👤 ${esc(s.name||"Student")}</b><div class="small">Roll ${esc(s.rollNumber||"—")} · ${esc(s.email||"")}</div></div><button class="btn outline" data-act="backFromStudent">Back</button></div><div class="adminStudentSync detailSync">${studentSync}</div><div class="adminSummaryGrid"><div><b>${stats.present}</b><span>Present</span></div><div><b>${stats.absent}</b><span>Absent</span></div><div><b>${stats.notHeld}</b><span>Not Held</span></div><div><b>${stats.pending}</b><span>Pending</span></div><div><b>${stats.total}</b><span>Total</span></div></div><div class="adminPercent">Overall attendance: <b>${stats.percent===null?'—':stats.percent.toFixed(1)+'%'}</b></div></div><div class="card formCard"><b>📚 Subject-wise attendance</b>${Object.entries(stats.subjects).sort((a,b)=>a[0].localeCompare(b[0])).map(([sub,x])=>`<div class="adminSubjectRow"><b>${esc(sub)}</b><span>${x.held?((x.present/x.held)*100).toFixed(1)+'%':'—'}</span><small>Present ${x.present} · Absent ${x.absent} · Pending ${x.pending} · Not Held ${x.notHeld} · Total ${x.total}</small></div>`).join('')||`<div class="small" style="margin-top:10px">No subject records yet.</div>`}</div><div class="card formCard adminMonthFilterCard"><b>🗓️ Attendance month</b><div class="tabs adminMonthList">${monthButtons}</div><div class="small adminFilterHint">Select a month to view its daily attendance.</div><b class="adminFilterTitle">🔎 Attendance filter</b><div class="tabs adminStatusFilters">${filters.map(([v,l])=>`<button class="filter ${selectedFilter===v?'active':''}" data-act="adminStudentFilter" data-v="${v}">${l}</button>`).join('')}</div></div><div class="card formCard adminDetailsCard"><div class="adminDetailsHead"><b>📋 Detailed attendance${selectedMonth?` · ${esc(monthFmt(parseKey(selectedMonth+'-01')))}`:''}</b><div class="adminReportActions"><button class="btn outline" data-act="printAdminReport">View Full Report</button><button class="btn soft" data-act="exportAdminPdf">Export PDF</button></div></div><details class="adminDetails" open><summary>Show records grouped by date</summary><div class="adminTableWrap"><table class="adminTable adminGroupedTable"><thead><tr><th>Scheduled Class</th><th>Actual Class</th><th>Type</th><th>Status</th><th>What changed?</th><th>Note</th></tr></thead><tbody>${detailRows}</tbody></table></div></details></div>`;
 }
-function adminStatusLabel(v){return v==="attended"?"Present":v==="absent"?"Absent":v==="leave"?"Absent / Leave":v==="not_held"?"Not Held":v==="pending"?"Pending":v==="note"?"Note":String(v||"")}
-function adminCompute(days){const o={present:0,absent:0,pending:0,notHeld:0,total:0,subjects:{}};days.forEach(d=>{const sessions=d.sessions||[],max=Math.max(sessions.length,Object.keys(d.records||{}).length,Object.keys(d.status||{}).length);for(let i=0;i<max;i++){const r=d.records?.[i]||{},snap=sessions[i]||{},sub=r.subject||snap.subject||r.scheduled||snap.scheduledSubject||"Unknown",st=d.status?.[i]||"pending";const x=o.subjects[sub]||(o.subjects[sub]={present:0,absent:0,pending:0,notHeld:0,total:0,held:0});if(st==="attended"){o.present++;o.total++;x.present++;x.total++;x.held++}else if(st==="absent"||st==="leave"){o.absent++;o.total++;x.absent++;x.total++;x.held++}else if(st==="not_held"){o.notHeld++;x.notHeld++}else{o.pending++;x.pending++}}});o.percent=o.present+o.absent?o.present/(o.present+o.absent)*100:null;return o}
+function adminStatusLabel(v){return v==="attended"?"Present":v==="absent"?"Absent":v==="leave"?"Absent / Leave":v==="not_held"?"Not Held":v==="pending"?"Pending":v==="holiday"?"Holiday":v==="note"?"Note":String(v||"")}
+function adminCompute(days){const o={present:0,absent:0,pending:0,notHeld:0,total:0,subjects:{}};days.forEach(d=>{if(d.holiday)return;const sessions=d.sessions||[],max=Math.max(sessions.length,Object.keys(d.records||{}).length,Object.keys(d.status||{}).length);for(let i=0;i<max;i++){const r=d.records?.[i]||{},snap=sessions[i]||{},sub=r.subject||snap.subject||r.scheduled||snap.scheduledSubject||"Unknown",st=d.status?.[i]||"pending";const x=o.subjects[sub]||(o.subjects[sub]={present:0,absent:0,pending:0,notHeld:0,total:0,held:0});if(st==="attended"){o.present++;o.total++;x.present++;x.total++;x.held++}else if(st==="absent"||st==="leave"){o.absent++;o.total++;x.absent++;x.total++;x.held++}else if(st==="not_held"){o.notHeld++;x.notHeld++}else{o.pending++;x.pending++}}});o.percent=o.present+o.absent?o.present/(o.present+o.absent)*100:null;return o}
 function buildAdminReportData(s,days){
   const stats=adminCompute(days),grouped=[];
   days.slice().sort((a,b)=>String(a.date).localeCompare(String(b.date))).forEach(d=>{
     const sessions=d.sessions||[],max=Math.max(sessions.length,Object.keys(d.records||{}).length,Object.keys(d.status||{}).length),rows=[];
-    for(let i=0;i<max;i++){
-      const r=d.records?.[i]||{},snap=sessions[i]||{},status=d.status?.[i]||"pending",info=adminClassInfo(d.date,snap,r,i,sessions);
-      rows.push({scheduledSubject:info.scheduledSubject,actualSubject:info.actualSubject,scheduled:info.scheduledStart&&info.scheduledEnd?time(info.scheduledStart)+'–'+time(info.scheduledEnd):'—',actual:info.actualStart&&info.actualEnd?time(info.actualStart)+'–'+time(info.actualEnd):'—',type:info.type,status:adminStatusLabel(status),relationship:info.relationship,note:d.note||""});
+    if(d.holiday){
+      rows.push({scheduledSubject:"—",actualSubject:"—",scheduled:"—",actual:"—",type:"Holiday",status:"Holiday",relationship:"Whole day marked as holiday — classes excluded from attendance",note:d.note||""});
+    }else{
+      for(let i=0;i<max;i++){
+        const r=d.records?.[i]||{},snap=sessions[i]||{},status=d.status?.[i]||"pending",info=adminClassInfo(d.date,snap,r,i,sessions);
+        rows.push({scheduledSubject:info.scheduledSubject,actualSubject:info.actualSubject,scheduled:info.scheduledStart&&info.scheduledEnd?time(info.scheduledStart)+'–'+time(info.scheduledEnd):'—',actual:info.actualStart&&info.actualEnd?time(info.actualStart)+'–'+time(info.actualEnd):'—',type:info.type,status:adminStatusLabel(status),relationship:info.relationship,note:d.note||""});
+      }
+      if(d.note&&!rows.length)rows.push({scheduledSubject:"—",actualSubject:"Day note",scheduled:"—",actual:"—",type:"Note",status:"Note",relationship:"Day note",note:d.note});
     }
-    if(d.note&&!rows.length)rows.push({scheduledSubject:"—",actualSubject:"Day note",scheduled:"—",actual:"—",type:"Note",status:"Note",relationship:"Day note",note:d.note});
     if(rows.length){const dk=parseKey(d.date);grouped.push({label:`${DAYS[dk.getDay()]}, ${fmt(dk)}`,rows,note:d.note||""})}
   });
   return {stats,grouped};
@@ -627,7 +637,7 @@ render();
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",activateGate,{once:true});
 else activateGate();
 if("serviceWorker" in navigator){
-  const registerSW=()=>navigator.serviceWorker.register("sw.js?v=159",{updateViaCache:"none"}).catch(()=>{});
+  const registerSW=()=>navigator.serviceWorker.register("sw.js?v=175",{updateViaCache:"none"}).catch(()=>{});
   if("requestIdleCallback" in window)requestIdleCallback(registerSW,{timeout:1500});
   else setTimeout(registerSW,800);
 }
