@@ -183,12 +183,17 @@ async function syncFullState(uid,state,user,sessionSnapshots={}){
 
 async function markMigrationComplete(uid){ try{await setDoc(userRef(uid),{migrationV105:true,migrationCompletedAt:new Date().toISOString()},{merge:true});}catch(e){e.operation="markMigrationComplete";throw e;} }
 
-async function signIn(email,password){return signInWithEmailAndPassword(auth,email,password);}
+async function signIn(email,password){
+  const cred=await signInWithEmailAndPassword(auth,email,password);
+  const token=await cred.user.getIdTokenResult(true);
+  if(token.claims?.admin===true){await signOut(auth);const e=new Error("INVALID_CREDENTIALS");e.code="auth/admin-used-student-login";throw e;}
+  return cred;
+}
 async function createStudentAccount(email,password){return createUserWithEmailAndPassword(auth,email,password);}
 async function signInAdmin(email,password){
   const cred=await signInWithEmailAndPassword(auth,email,password);
   const token=await cred.user.getIdTokenResult(true);
-  if(token.claims?.admin!==true){await signOut(auth);const e=new Error("ADMIN_REQUIRED");e.code="auth/admin-required";throw e;}
+  if(token.claims?.admin!==true){await signOut(auth);const e=new Error("STUDENT_USED_ADMIN_LOGIN");e.code="auth/student-used-admin-login";throw e;}
   return cred;
 }
 async function currentAdmin(){
