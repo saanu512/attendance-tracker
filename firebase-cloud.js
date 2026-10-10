@@ -148,6 +148,12 @@ async function syncProfile(uid,state,user){
   catch(e){e.operation="syncProfile";throw e;}
 }
 
+// One shared, cloud-stored timestamp for the last completed student sync.
+async function markSyncSuccess(uid, timestamp=new Date().toISOString()){
+  try{await setDoc(userRef(uid),{lastSyncedAt:timestamp},{merge:true});return timestamp;}
+  catch(e){e.operation="markSyncSuccess";throw e;}
+}
+
 async function syncDay(uid,date,state,sessions=[]){
   const payload=dayPayload(date,state,sessions);
   try{
@@ -222,6 +228,6 @@ onAuthStateChanged(auth,async user=>{
 window.AttendanceCloud={
   auth,db,
   signIn,createStudentAccount,signInAdmin,signOut:()=>signOut(auth),sendPasswordResetEmail:(email)=>sendPasswordResetEmail(auth,email),
-  getProfile,getDays,readState,syncProfile,syncDay,syncFullState,markMigrationComplete,listStudents,studentDays,currentAdmin
+  getProfile,getDays,readState,syncProfile,syncDay,syncFullState,markSyncSuccess,markMigrationComplete,listStudents,studentDays,currentAdmin
 };
 window.dispatchEvent(new Event("firebase-cloud-ready"));
