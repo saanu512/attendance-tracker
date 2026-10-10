@@ -65,8 +65,8 @@ function cloudQueue(label,date){
       }
       if(!cloudSession.user||cloudSession.user.uid!==requestUid)throw Object.assign(new Error("Account changed during sync; result ignored."),{code:"cloud/account-changed"});
       const completedAt=new Date();
-      await window.AttendanceCloud.markSyncSuccess(requestUid,completedAt.toISOString());
-      cloudSession.lastSync=completedAt;
+      const authoritativeTimestamp=await window.AttendanceCloud.markSyncSuccess(requestUid,completedAt.toISOString());
+      cloudSession.lastSync=new Date(authoritativeTimestamp);
       cloudSession.error="";
     }catch(e){cloudSession.error=cloudErrorText(e);showStartupWait();scheduleCloudGateRetry();throw e}
     finally{cloudSession.syncing=false;updateCloudStatus();}
@@ -348,7 +348,7 @@ function adminDashboard(){
   let h=`<div class="card formCard adminHero"><div class="row" style="justify-content:space-between"><div><b>👑 Admin Dashboard</b><div class="small">Complete cloud student records</div></div><button class="btn outline" data-act="backFromAdmin">Back</button></div><div class="adminSyncBar"><div class="adminSyncStatusLine">${adminSyncStatusHtml()}<button class="syncTapBtn" data-act="syncNow">↻ Tap to Sync</button></div></div><div class="adminSearch"><input id="adminSearch" class="input" placeholder="Search name, roll or email" oninput="filterAdminStudents(this.value)"></div></div><div id="adminStudentList">${adminStudentCards(adminCache.students)}</div>`;return h;
 }
 function adminStudentCards(students){return students.map(s=>{
-  const studentLastSync=s.lastSyncedAt||s.updatedAt;
+  const studentLastSync=s.lastSyncedAt||null;
   const sync=studentLastSync?`<span class="syncStatus syncStatusGood">✓ Last synced · ${formatCloudTime(studentLastSync)}</span>`:'<span class="syncStatus syncStatusBad">✕ Last sync time unavailable</span>';
   return `<button class="adminStudent card" data-act="adminStudent" data-uid="${esc(s.uid)}"><div class="adminStudentMain"><b>${esc(s.name||"Student")}</b><span>Roll: ${esc(s.rollNumber||"—")}</span></div><div class="small">${esc(s.email||"")}</div><div class="adminStudentMeta"><span>Required ${Number(s.required||75)}%</span><span>${esc(s.course||"")}</span></div><div class="adminStudentSync">${sync}</div></button>`;
 }).join('')||`<div class="card formCard"><p class="small">No matching students.</p></div>`}
@@ -422,7 +422,7 @@ function adminStudentPage(uid){
       return `<tr><td>${scheduled}</td><td>${actual}</td><td>${esc(r.type||'Regular')}</td><td>${esc(adminStatusLabel(r.status))}</td><td>${esc(r.relationship||'—')}</td>${noteCell}</tr>`;
     }).join('')}`;
   }).join('')||`<tr><td colspan="6" class="small">No attendance records match this month/filter.</td></tr>`;
-  const studentLastSync=s.lastSyncedAt||s.updatedAt;
+  const studentLastSync=s.lastSyncedAt||null;
   const studentSync=studentLastSync?`<span class="syncStatus syncStatusGood">✓ Last synced · ${formatCloudTime(studentLastSync)}</span>`:'<span class="syncStatus syncStatusBad">✕ Last sync time unavailable</span>';
   return `<div class="card formCard adminHero"><div class="row" style="justify-content:space-between"><div><b>👤 ${esc(s.name||"Student")}</b><div class="small">Roll ${esc(s.rollNumber||"—")} · ${esc(s.email||"")}</div></div><button class="btn outline" data-act="backFromStudent">Back</button></div><div class="adminStudentSync detailSync">${studentSync}</div><div class="adminSummaryGrid"><div><b>${stats.present}</b><span>Present</span></div><div><b>${stats.absent}</b><span>Absent</span></div><div><b>${stats.notHeld}</b><span>Not Held</span></div><div><b>${stats.pending}</b><span>Pending</span></div><div><b>${stats.total}</b><span>Total</span></div></div><div class="adminPercent">Overall attendance: <b>${stats.percent===null?'—':stats.percent.toFixed(1)+'%'}</b></div></div><div class="card formCard"><b>📚 Subject-wise attendance</b>${Object.entries(stats.subjects).sort((a,b)=>a[0].localeCompare(b[0])).map(([sub,x])=>`<div class="adminSubjectRow"><b>${esc(sub)}</b><span>${x.held?((x.present/x.held)*100).toFixed(1)+'%':'—'}</span><small>Present ${x.present} · Absent ${x.absent} · Pending ${x.pending} · Not Held ${x.notHeld} · Total ${x.total}</small></div>`).join('')||`<div class="small" style="margin-top:10px">No subject records yet.</div>`}</div><div class="card formCard adminMonthFilterCard"><b>🗓️ Attendance month</b><div class="tabs adminMonthList">${monthButtons}</div><div class="small adminFilterHint">Select a month to view its daily attendance.</div><b class="adminFilterTitle">🔎 Attendance filter</b><div class="tabs adminStatusFilters">${filters.map(([v,l])=>`<button class="filter ${selectedFilter===v?'active':''}" data-act="adminStudentFilter" data-v="${v}">${l}</button>`).join('')}</div></div><div class="card formCard adminDetailsCard"><div class="adminDetailsHead"><b>📋 Detailed attendance${selectedMonth?` · ${esc(monthFmt(parseKey(selectedMonth+'-01')))}`:''}</b><div class="adminReportActions"><button class="btn outline" data-act="printAdminReport">View Full Report</button><button class="btn soft" data-act="exportAdminPdf">Export PDF</button></div></div><details class="adminDetails" open><summary>Show records grouped by date</summary><div class="adminTableWrap"><table class="adminTable adminGroupedTable"><thead><tr><th>Scheduled Class</th><th>Actual Class</th><th>Type</th><th>Status</th><th>What changed?</th><th>Note</th></tr></thead><tbody>${detailRows}</tbody></table></div></details></div>`;
 }
@@ -585,9 +585,9 @@ async function hydrateAfterLogin(user){
     // Publish the same authoritative timestamp the student UI will display so the
     // Admin Dashboard can read the exact same value from the student's cloud profile.
     const completedAt=new Date();
-    await window.AttendanceCloud.markSyncSuccess(user.uid,completedAt.toISOString());
+    const authoritativeTimestamp=await window.AttendanceCloud.markSyncSuccess(user.uid,completedAt.toISOString());
     cloudSession.hydrated=true;
-    localStorage.removeItem(CLOUD_PENDING_KEY);cloudSession.lastSync=completedAt;cloudSession.error="";updateCloudStatus();render();
+    localStorage.removeItem(CLOUD_PENDING_KEY);cloudSession.lastSync=new Date(authoritativeTimestamp);cloudSession.error="";updateCloudStatus();render();
   }catch(e){
     cloudSession.hydrated=false;cloudSession.error=cloudErrorText(e);updateCloudStatus();showStartupWait();throw e;
   }
