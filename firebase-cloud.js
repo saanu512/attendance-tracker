@@ -123,19 +123,21 @@ function applyDay(state,p){
 async function getProfile(uid){const snap=await getDoc(userRef(uid));return snap.exists()?fromFirestoreSafe(snap.data()):null;}
 async function getDays(uid){const snap=await getDocs(daysRef(uid));return snap.docs.map(d=>fromFirestoreSafe(d.data()));}
 
-async function readState(uid,localState){
+async function readState(uid,localState,options={}){
   const profile=await getProfile(uid);
-  if(!profile)return null;
+  if(!profile&&!options.allowMissingProfile)return null;
   const days=await getDays(uid);
   const state=JSON.parse(JSON.stringify(localState));
-  if(profile.name!=null)state.settings.name=profile.name;
-  if(profile.rollNumber!=null)state.settings.rollNumber=String(profile.rollNumber);
-  if(profile.course!=null)state.settings.course=profile.course;
-  if(profile.required!=null)state.settings.required=Number(profile.required);
-  if(profile.rollLocked!=null)state.settings.rollLocked=!!profile.rollLocked;
-  if(profile.edition)state.settings.edition=profile.edition;
-  if(profile.theme)state.settings.theme=profile.theme;
-  if(profile.schedule)state.settings.schedule=profile.schedule;
+  if(profile){
+    if(profile.name!=null)state.settings.name=profile.name;
+    if(profile.rollNumber!=null)state.settings.rollNumber=String(profile.rollNumber);
+    if(profile.course!=null)state.settings.course=profile.course;
+    if(profile.required!=null)state.settings.required=Number(profile.required);
+    if(profile.rollLocked!=null)state.settings.rollLocked=!!profile.rollLocked;
+    if(profile.edition)state.settings.edition=profile.edition;
+    if(profile.theme)state.settings.theme=profile.theme;
+    if(profile.schedule)state.settings.schedule=profile.schedule;
+  }
   state.status={};state.records={};state.notes={};state.holidays={};state.overrides={};state.extraClasses={};
   days.forEach(p=>applyDay(state,p));
   return state;
@@ -155,7 +157,9 @@ async function syncDay(uid,date,state,sessions=[]){
 }
 
 async function syncFullState(uid,state,user,sessionSnapshots={}){
-  await syncProfile(uid,state,user);
+  // Verify the existing cloud day collection before any write.
+  let remoteSnap;
+  try{remoteSnap=await getDocs(daysRef(uid));}catch(e){e.operation="listStudentDays";throw e;}
   const localDates=new Set();
   Object.keys(state.status||{}).forEach(k=>localDates.add(k.slice(0,10)));
   Object.keys(state.records||{}).forEach(k=>localDates.add(k.slice(0,10)));
@@ -164,21 +168,19 @@ async function syncFullState(uid,state,user,sessionSnapshots={}){
   Object.keys(state.overrides||{}).forEach(d=>localDates.add(d));
   Object.keys(state.extraClasses||{}).forEach(d=>localDates.add(d));
   Object.keys(sessionSnapshots||{}).forEach(d=>localDates.add(d));
-  let remoteSnap;
-  try{remoteSnap=await getDocs(daysRef(uid));}catch(e){e.operation="listStudentDays";throw e;}
   const remoteDates=new Set(remoteSnap.docs.map(d=>d.id));
-  const allDates=new Set([...localDates,...remoteDates]);
-  const list=[...allDates].filter(Boolean);
+  // Do not delete remote-only dates during normal synchronization.
+  const list=[...localDates].filter(Boolean);
   for(let i=0;i<list.length;i+=400){
     const batch=writeBatch(db);
     list.slice(i,i+400).forEach(date=>{
       const payload=dayPayload(date,state,sessionSnapshots[date]||[]);
       const ref=dayRef(uid,date);
-      if(localDates.has(date) && hasDayData(payload)) batch.set(ref,toFirestoreSafe(payload),{merge:false});
-      else if(remoteDates.has(date)) batch.delete(ref);
+      if(hasDayData(payload)) batch.set(ref,toFirestoreSafe(payload),{merge:false});
     });
     try{await batch.commit();}catch(e){e.operation="writeBatch";throw e;}
   }
+  await syncProfile(uid,state,user);
 }
 
 async function markMigrationComplete(uid){ try{await setDoc(userRef(uid),{migrationV105:true,migrationCompletedAt:new Date().toISOString()},{merge:true});}catch(e){e.operation="markMigrationComplete";throw e;} }

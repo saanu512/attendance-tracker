@@ -15,11 +15,15 @@ function defaultState(){return {status:{},records:{},holidays:{},notes:{},overri
 let state=defaultState();
 const ADMIN_CLOUD_SYNC_KEY="attendance-tracker-admin-last-cloud-sync-v1";
 function readAdminLastSync(){try{const v=localStorage.getItem(ADMIN_CLOUD_SYNC_KEY);if(!v)return null;const d=new Date(v);return Number.isNaN(d.getTime())?null:d}catch(e){return null}}
-let cloudSession={user:null,admin:false,ready:!!window.AttendanceCloud,syncing:false,lastSync:null,error:""};
+let cloudSession={user:null,admin:false,ready:!!window.AttendanceCloud,syncing:false,lastSync:null,error:"",hydrated:false};
 const CLOUD_PENDING_KEY="attendance-tracker-cloud-pending";
 const CLOUD_MIGRATION_KEY="attendance-tracker-cloud-migration-v105";
 const CLOUD_SYNC_INTERVAL=60000;
 function cloudErrorText(e){const c=e?.code||"unknown";const op=e?.operation?" ["+e.operation+"]":"";const msg=e?.message||"Cloud sync failed";return c+op+": "+msg;}
+let cloudGateRetryTimer=null,cloudGateRetrying=false;
+function showStartupWait(){const el=document.getElementById("startupWait");if(el)el.classList.remove("hidden");}
+function hideStartupWait(){const el=document.getElementById("startupWait");if(el)el.classList.add("hidden");}
+function scheduleCloudGateRetry(){if(cloudGateRetryTimer||!cloudSession.user)return;cloudGateRetryTimer=setTimeout(async()=>{cloudGateRetryTimer=null;if(!cloudSession.user||cloudGateRetrying)return;cloudGateRetrying=true;showStartupWait();try{if(cloudSession.admin){const students=await window.AttendanceCloud.listStudents();adminCache.students=students;cloudSession.lastSync=new Date();cloudSession.error="";localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());updateCloudStatus();render();hideStartupWait();}else{await hydrateAfterLogin(cloudSession.user);if(cloudSession.error)throw new Error(cloudSession.error);hideStartupWait();}}catch(e){cloudSession.error=cloudErrorText(e);updateCloudStatus();showStartupWait();scheduleCloudGateRetry();}finally{cloudGateRetrying=false;}},10000);}
 let cloudSyncChain=Promise.resolve();
 let adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};
 function applyEveningLabels(){let changed=false;Object.values(state.settings.schedule||{}).forEach(a=>(a||[]).forEach(s=>{let h=Number(String(s[0]).slice(0,2));if(h>=15&&!/\s\(Evening\)$/.test(s[2])){s[2]=s[2]+" (Evening)";changed=true}}));return changed}
@@ -44,11 +48,13 @@ function buildCloudSessionSnapshots(sourceState=state){
 }
 function cloudAvailable(){return !!(window.AttendanceCloud&&cloudSession.user&&!cloudSession.admin)}
 function cloudQueue(label,date){
-  if(!cloudAvailable())return Promise.resolve();
+  // Fail closed: no local-to-cloud writes until a verified cloud snapshot has been loaded.
+  if(!cloudAvailable()||!cloudSession.hydrated){if(cloudSession.user&&!cloudSession.admin){localStorage.setItem(CLOUD_PENDING_KEY,"1");showStartupWait();scheduleCloudGateRetry();}return Promise.resolve();}
   localStorage.setItem(CLOUD_PENDING_KEY,"1");
   cloudSession.error=""; updateCloudStatus();
   cloudSyncChain=cloudSyncChain.then(async()=>{
-    if(!cloudAvailable())return;
+    if(!cloudAvailable()||!cloudSession.hydrated)return;
+    const requestUid=cloudSession.user.uid;
     cloudSession.syncing=true; updateCloudStatus();
     try{
       if(date){
@@ -57,43 +63,45 @@ function cloudQueue(label,date){
       }else{
         await window.AttendanceCloud.syncProfile(cloudSession.user.uid,clone(state),cloudSession.user);
       }
+      if(!cloudSession.user||cloudSession.user.uid!==requestUid)throw Object.assign(new Error("Account changed during sync; result ignored."),{code:"cloud/account-changed"});
       cloudSession.lastSync=new Date();
       cloudSession.error="";
-    }catch(e){cloudSession.error=cloudErrorText(e);throw e}
+    }catch(e){cloudSession.error=cloudErrorText(e);showStartupWait();scheduleCloudGateRetry();throw e}
     finally{cloudSession.syncing=false;updateCloudStatus();}
   }).then(()=>{localStorage.removeItem(CLOUD_PENDING_KEY);updateCloudStatus()}).catch(()=>{updateCloudStatus()});
   return cloudSyncChain;
 }
 function cloudQueueFull(label){
   if(!cloudSession.user||!window.AttendanceCloud)return Promise.resolve();
-  localStorage.setItem(CLOUD_PENDING_KEY,"1");
-  cloudSession.error=""; cloudSession.syncing=true; updateCloudStatus();
+  // Student full-sync/retry is cloud-first: re-read and hydrate the verified cloud
+  // snapshot, merge only explicitly pending local changes, and let hydrateAfterLogin
+  // upload only after those reads succeed. Never upload the current in-memory state
+  // directly from a periodic/reconnect retry.
+  if(!cloudSession.admin){
+    showStartupWait();
+    return hydrateAfterLogin(cloudSession.user).then(()=>{
+      if(cloudSession.error||!cloudSession.hydrated)throw new Error(cloudSession.error||"Cloud data is not verified yet.");
+      hideStartupWait();
+    }).catch(e=>{
+      cloudSession.hydrated=false;
+      cloudSession.error=cloudErrorText(e);
+      updateCloudStatus();showStartupWait();scheduleCloudGateRetry();
+      throw e;
+    });
+  }
+  cloudSession.error="";cloudSession.syncing=true;updateCloudStatus();
   cloudSyncChain=cloudSyncChain.then(async()=>{
     if(!cloudSession.user||!window.AttendanceCloud)return;
-    cloudSession.syncing=true; cloudSession.error=""; updateCloudStatus();
     try{
-      if(cloudSession.admin){
-        adminCache.students=await window.AttendanceCloud.listStudents();
-        cloudSession.lastSync=new Date();
-        localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());
-      }else{
-        await window.AttendanceCloud.syncFullState(cloudSession.user.uid,clone(state),cloudSession.user,buildCloudSessionSnapshots());
-        cloudSession.lastSync=new Date();
-      }
+      adminCache.students=await window.AttendanceCloud.listStudents();
+      cloudSession.lastSync=new Date();
+      localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());
       cloudSession.error="";
-      localStorage.removeItem(CLOUD_PENDING_KEY);
-    }catch(e){
-      cloudSession.error=cloudErrorText(e);
-      throw e;
-    }finally{
-      cloudSession.syncing=false;
-      updateCloudStatus();
-      render();
-    }
-  }).catch(()=>{updateCloudStatus();render()});
+    }catch(e){cloudSession.error=cloudErrorText(e);showStartupWait();scheduleCloudGateRetry();throw e;}
+    finally{cloudSession.syncing=false;updateCloudStatus();render();}
+  });
   return cloudSyncChain;
 }
-
 function updateCloudStatus(){
   let text="",cls="syncStatus syncStatusBad";
   if(cloudSession.syncing){text="✓ Syncing…";cls="syncStatus syncStatusGood";}
@@ -523,41 +531,79 @@ async function handleCloudLogout(){
   toast("Logged out");
 }
 async function hydrateAfterLogin(user){
+  const localBefore=clone(state);
+  cloudSession.hydrated=false;
+  showStartupWait();
   try{
-    const localBefore=clone(state);
-    const localHasData=hasMeaningfulLocalData(localBefore);
+    if(!window.AttendanceCloud)throw Object.assign(new Error("Cloud service is not ready."),{code:"cloud/not-ready"});
+    // READ PHASE: both profile and day collection must be fetched successfully before any write.
     const profile=await window.AttendanceCloud.getProfile(user.uid);
-    if(profile?.updatedAt){const t=new Date(profile.updatedAt);if(!Number.isNaN(t.getTime()))cloudSession.lastSync=t;}
-    const migrated=localStorage.getItem(CLOUD_MIGRATION_KEY+":"+user.uid)==="1" || !!profile?.migrationV105;
-    if(!migrated && localHasData){
-      localStorage.setItem("attendance-tracker-local-backup-v105:"+user.uid,JSON.stringify(localBefore));
-      await window.AttendanceCloud.syncFullState(user.uid,localBefore,user,buildCloudSessionSnapshots(localBefore));
-      await window.AttendanceCloud.markMigrationComplete(user.uid);
-      localStorage.setItem(CLOUD_MIGRATION_KEY+":"+user.uid,"1");
-      localStorage.removeItem(CLOUD_PENDING_KEY);
-      cloudSession.lastSync=new Date(); cloudSession.error="";
-      updateCloudStatus();
-      render();
-      toast("Your existing phone data was safely migrated to cloud");
-      return;
-    }
+    const days=await window.AttendanceCloud.getDays(user.uid);
+    if(!Array.isArray(days))throw Object.assign(new Error("Cloud day records could not be verified."),{code:"cloud/days-unverified"});
+    let remote=null;
     if(profile){
-      if(localStorage.getItem(CLOUD_PENDING_KEY)==="1"){
-        await cloudQueueFull("pending-offline");
-        toast("Pending local changes are being synced to cloud");
-      }else{
-        const remote=await window.AttendanceCloud.readState(user.uid,state);
-        if(remote){const ui={tab:state.tab,viewDate:state.viewDate,calendarMonth:state.calendarMonth,statsFilter:state.statsFilter};state=remote;state.tab=ui.tab;state.viewDate=ui.viewDate;state.calendarMonth=ui.calendarMonth;state.statsFilter=ui.statsFilter;save();applyTheme();render();toast("Cloud data loaded")}
-      }
-    }else{
-      await window.AttendanceCloud.syncFullState(user.uid,localBefore,user,buildCloudSessionSnapshots(localBefore));
-      await window.AttendanceCloud.markMigrationComplete(user.uid);
-      localStorage.setItem(CLOUD_MIGRATION_KEY+":"+user.uid,"1");
-      cloudSession.lastSync=new Date();updateCloudStatus();
-      toast("Cloud account created from this device's saved data");
+      remote=await window.AttendanceCloud.readState(user.uid,defaultState());
+      if(!remote)throw Object.assign(new Error("Cloud profile exists but cloud state could not be loaded."),{code:"cloud/state-unverified"});
+    }else if(days.length){
+      // Existing day documents without a profile are still cloud data. Never initialize over them.
+      remote=await window.AttendanceCloud.readState(user.uid,defaultState(),{allowMissingProfile:true});
+      if(!remote)throw Object.assign(new Error("Cloud day records exist but could not be reconstructed."),{code:"cloud/state-unverified"});
     }
-  }catch(e){cloudSession.error=cloudErrorText(e);updateCloudStatus();toast("Cloud sync failed — see Account & Cloud for the exact Firebase error")}
+    const hasPendingLocal=localStorage.getItem(CLOUD_PENDING_KEY)==="1"&&hasMeaningfulLocalData(localBefore);
+    if(hasPendingLocal){
+      // Keep a recoverable copy before reconciling. Local edits remain in localStorage even if
+      // any later upload fails, and pending local entries are merged only after cloud reads pass.
+      localStorage.setItem("attendance-tracker-pending-backup:"+user.uid,JSON.stringify({savedAt:new Date().toISOString(),state:localBefore}));
+    }
+    const ui={tab:localBefore.tab||"log",viewDate:localBefore.viewDate||key(today()),calendarMonth:localBefore.calendarMonth||key(new Date(today().getFullYear(),today().getMonth(),1)),statsFilter:localBefore.statsFilter||"all"};
+    if(remote){
+      state=remote;
+      if(hasPendingLocal) mergePendingLocalState(state,localBefore);
+      state.tab=ui.tab;state.viewDate=ui.viewDate;state.calendarMonth=ui.calendarMonth;state.statsFilter=ui.statsFilter;
+      save();applyTheme();render();
+    }else{
+      // Profile and day collection reads succeeded and confirmed there are no cloud records.
+      state=defaultState();
+      if(hasPendingLocal) mergePendingLocalState(state,localBefore);
+      state.tab=ui.tab;state.viewDate=ui.viewDate;state.calendarMonth=ui.calendarMonth;state.statsFilter=ui.statsFilter;
+      save();applyTheme();render();
+    }
+    // The cloud reads above must succeed before any local-to-cloud write. If there were
+    // pending local edits, merge them into the verified cloud snapshot, then upload that
+    // reconciled state. A failed write leaves the local state and backup intact for retry.
+    if(!profile||hasPendingLocal){
+      await window.AttendanceCloud.syncFullState(user.uid,clone(state),user,buildCloudSessionSnapshots());
+      if(!profile){
+        await window.AttendanceCloud.markMigrationComplete(user.uid);
+        localStorage.setItem(CLOUD_MIGRATION_KEY+":"+user.uid,"1");
+      }
+    }
+    cloudSession.hydrated=true;
+    localStorage.removeItem(CLOUD_PENDING_KEY);cloudSession.lastSync=new Date();cloudSession.error="";updateCloudStatus();render();
+  }catch(e){
+    cloudSession.hydrated=false;cloudSession.error=cloudErrorText(e);updateCloudStatus();showStartupWait();throw e;
+  }
 }
+function mergePendingLocalState(target,local){
+  // Merge only data-bearing local keys over the verified cloud snapshot. This preserves
+  // locally marked attendance through offline periods instead of replacing it with defaults.
+  ["status","records","notes","holidays","overrides","extraClasses"].forEach(name=>{
+    target[name]=target[name]||{};
+    Object.entries(local?.[name]||{}).forEach(([k,v])=>{
+      const nonEmpty = v!==null && v!==undefined && v!==false && v!=="" && !(Array.isArray(v)&&v.length===0) && !(typeof v==="object"&&!Array.isArray(v)&&Object.keys(v).length===0);
+      if(nonEmpty)target[name][k]=clone(v);
+    });
+  });
+  // Preserve user-entered settings when there are unsynced local changes; cloud profile
+  // settings remain the defaults otherwise. Schedule/roll configuration is part of the edit.
+  if(local?.settings){
+    target.settings=target.settings||{};
+    ["name","course","required","rollNumber","rollLocked","schedule","edition","theme"].forEach(k=>{
+      if(local.settings[k]!==undefined && local.settings[k]!==null && local.settings[k]!=="")target.settings[k]=clone(local.settings[k]);
+    });
+  }
+}
+
 function hasMeaningfulLocalData(s){
   if(!s)return false;
   const st=s.settings||{};
@@ -572,17 +618,22 @@ async function openAdminStudent(uid){
   state.adminPage="student";adminCache.selected=uid;adminCache.days=[];adminCache.studentMonth="";adminCache.studentFilter="all";render();
   try{adminCache.days=await window.AttendanceCloud.studentDays(uid);render()}catch(e){toast("Could not load student records");state.adminPage="dashboard";render()}
 }
-function hideStartupWait(){
-  const el=document.getElementById("startupWait");
-  if(el)el.classList.add("hidden");
-}
 function setupFirebaseEvents(){
   const onReady=()=>{cloudSession.ready=true;window.AttendanceCloud?.auth&&updateCloudStatus()};
   window.addEventListener("firebase-cloud-ready",onReady,{once:true});
-  window.addEventListener("firebase-auth-state",e=>{const user=e.detail?.user||null;cloudSession.user=user;cloudSession.admin=!!e.detail?.admin;if(!user){cloudSession.error="";cloudSession.lastSync=null;state.adminPage=null;adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};updateCloudStatus();render();hideStartupWait();return}cloudSession.error="";state.adminPage=null;adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};updateCloudStatus();render();hideStartupWait();if(!cloudSession.admin){hydrateAfterLogin(user).then(()=>{updateCloudStatus()}).catch(()=>{updateCloudStatus()})}else{cloudSession.lastSync=readAdminLastSync();window.AttendanceCloud.listStudents().then(students=>{adminCache.students=students;cloudSession.lastSync=new Date();localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());updateCloudStatus()}).catch(err=>{cloudSession.error=err?.message||"Admin cloud sync failed";updateCloudStatus()})}});
+  window.addEventListener("firebase-auth-state",e=>{
+    const user=e.detail?.user||null;cloudSession.user=user;cloudSession.admin=!!e.detail?.admin;
+    if(cloudGateRetryTimer){clearTimeout(cloudGateRetryTimer);cloudGateRetryTimer=null;}
+    cloudSession.error="";cloudSession.lastSync=null;state.adminPage=null;adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};
+    cloudSession.hydrated=false;
+    if(!user){updateCloudStatus();render();hideStartupWait();return;}
+    showStartupWait();updateCloudStatus();render();
+    if(!cloudSession.admin){hydrateAfterLogin(user).then(()=>{updateCloudStatus();if(!cloudSession.error)hideStartupWait();}).catch(()=>{showStartupWait();scheduleCloudGateRetry();});}
+    else{window.AttendanceCloud.listStudents().then(students=>{adminCache.students=students;cloudSession.lastSync=new Date();cloudSession.error="";localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());updateCloudStatus();render();hideStartupWait();}).catch(err=>{cloudSession.error=cloudErrorText(err);updateCloudStatus();showStartupWait();scheduleCloudGateRetry();});}
+  });
   if(window.AttendanceCloud)onReady();
-  setInterval(()=>{if(cloudSession.user && window.AttendanceCloud && !document.hidden)cloudQueueFull("interval")},CLOUD_SYNC_INTERVAL);
-  window.addEventListener("online",()=>{if(cloudSession.user && window.AttendanceCloud)cloudQueueFull("reconnect")});
+  setInterval(()=>{if(cloudSession.user&&window.AttendanceCloud&&!document.hidden)cloudQueueFull("interval")},CLOUD_SYNC_INTERVAL);
+  window.addEventListener("online",()=>{if(cloudSession.user&&window.AttendanceCloud){showStartupWait();if(cloudSession.admin){cloudQueueFull("reconnect").then(()=>{if(!cloudSession.error)hideStartupWait();});}else{hydrateAfterLogin(cloudSession.user).then(()=>{if(!cloudSession.error)hideStartupWait();}).catch(()=>{showStartupWait();scheduleCloudGateRetry();});}}});
 }
 setupFirebaseEvents();
 function checkDay(){let cur=key(today());if(state.viewDate<key(START_DATE)){state.viewDate=key(START_DATE);save();render()}}document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkDay()});window.addEventListener("focus",checkDay);setInterval(checkDay,60000);
@@ -636,7 +687,7 @@ render();
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",activateGate,{once:true});
 else activateGate();
 if("serviceWorker" in navigator){
-  const registerSW=()=>navigator.serviceWorker.register("sw.js?v=172",{updateViaCache:"none"}).catch(()=>{});
+  const registerSW=()=>navigator.serviceWorker.register("sw.js?v=175",{updateViaCache:"none"}).catch(()=>{});
   if("requestIdleCallback" in window)requestIdleCallback(registerSW,{timeout:1500});
   else setTimeout(registerSW,800);
 }
