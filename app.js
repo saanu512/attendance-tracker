@@ -23,7 +23,7 @@ function cloudErrorText(e){const c=e?.code||"unknown";const op=e?.operation?" ["
 let cloudGateRetryTimer=null,cloudGateRetrying=false;
 function showStartupWait(){const el=document.getElementById("startupWait");if(el)el.classList.remove("hidden");}
 function hideStartupWait(){const el=document.getElementById("startupWait");if(el)el.classList.add("hidden");}
-function scheduleCloudGateRetry(){if(cloudGateRetryTimer||!cloudSession.user)return;cloudGateRetryTimer=setTimeout(async()=>{cloudGateRetryTimer=null;if(!cloudSession.user||cloudGateRetrying)return;cloudGateRetrying=true;showStartupWait();try{if(cloudSession.admin){const students=await window.AttendanceCloud.listStudents();adminCache.students=students;cloudSession.lastSync=new Date();cloudSession.error="";localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());updateCloudStatus();render();hideStartupWait();}else{await hydrateAfterLogin(cloudSession.user);if(cloudSession.error)throw new Error(cloudSession.error);hideStartupWait();}}catch(e){cloudSession.error=cloudErrorText(e);updateCloudStatus();showStartupWait();scheduleCloudGateRetry();}finally{cloudGateRetrying=false;}},10000);}
+function scheduleCloudGateRetry(){if(cloudGateRetryTimer||!cloudSession.user)return;cloudGateRetryTimer=setTimeout(async()=>{cloudGateRetryTimer=null;if(!cloudSession.user||cloudGateRetrying)return;cloudGateRetrying=true;const gateRequired=!cloudSession.hydrated;if(gateRequired)showStartupWait();try{if(cloudSession.admin){const students=await window.AttendanceCloud.listStudents();adminCache.students=students;cloudSession.lastSync=new Date();cloudSession.error="";localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());updateCloudStatus();render();hideStartupWait();}else{await hydrateAfterLogin(cloudSession.user,{background:!gateRequired});if(cloudSession.error)throw new Error(cloudSession.error);hideStartupWait();}}catch(e){cloudSession.error=cloudErrorText(e);updateCloudStatus();if(!cloudSession.hydrated)showStartupWait();scheduleCloudGateRetry();}finally{cloudGateRetrying=false;}},10000);}
 let cloudSyncChain=Promise.resolve();
 let adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};
 function applyEveningLabels(){let changed=false;Object.values(state.settings.schedule||{}).forEach(a=>(a||[]).forEach(s=>{let h=Number(String(s[0]).slice(0,2));if(h>=15&&!/\s\(Evening\)$/.test(s[2])){s[2]=s[2]+" (Evening)";changed=true}}));return changed}
@@ -80,14 +80,18 @@ function cloudQueueFull(label){
   // upload only after those reads succeed. Never upload the current in-memory state
   // directly from a periodic/reconnect retry.
   if(!cloudSession.admin){
-    showStartupWait();
-    return hydrateAfterLogin(cloudSession.user).then(()=>{
+    const wasHydrated=!!cloudSession.hydrated;
+    if(!wasHydrated && label!=="interval")showStartupWait();
+    return hydrateAfterLogin(cloudSession.user,{background:wasHydrated}).then(()=>{
       if(cloudSession.error||!cloudSession.hydrated)throw new Error(cloudSession.error||"Cloud data is not verified yet.");
+      // Successful recovery clears the failure gate; successful routine background syncs
+      // simply hide an already-hidden overlay and do not interrupt normal use.
       hideStartupWait();
     }).catch(e=>{
-      cloudSession.hydrated=false;
+      if(!wasHydrated)cloudSession.hydrated=false;
       cloudSession.error=cloudErrorText(e);
-      updateCloudStatus();showStartupWait();scheduleCloudGateRetry();
+      showStartupWait();
+      updateCloudStatus();scheduleCloudGateRetry();
       throw e;
     });
   }
@@ -534,10 +538,11 @@ async function handleCloudLogout(){
   render();
   toast("Logged out");
 }
-async function hydrateAfterLogin(user){
+async function hydrateAfterLogin(user,options={}){
+  const background=!!options.background && !!cloudSession.hydrated;
   const localBefore=clone(state);
-  cloudSession.hydrated=false;
-  showStartupWait();
+  if(!background)cloudSession.hydrated=false;
+  if(!background)showStartupWait();
   try{
     if(!window.AttendanceCloud)throw Object.assign(new Error("Cloud service is not ready."),{code:"cloud/not-ready"});
     // READ PHASE: both profile and day collection must be fetched successfully before any write.
@@ -587,9 +592,13 @@ async function hydrateAfterLogin(user){
     const completedAt=new Date();
     const authoritativeTimestamp=await window.AttendanceCloud.markSyncSuccess(user.uid,completedAt.toISOString());
     cloudSession.hydrated=true;
-    localStorage.removeItem(CLOUD_PENDING_KEY);cloudSession.lastSync=new Date(authoritativeTimestamp);cloudSession.error="";updateCloudStatus();render();
+    localStorage.removeItem(CLOUD_PENDING_KEY);cloudSession.lastSync=new Date(authoritativeTimestamp);cloudSession.error="";updateCloudStatus();render();hideStartupWait();
   }catch(e){
-    cloudSession.hydrated=false;cloudSession.error=cloudErrorText(e);updateCloudStatus();showStartupWait();throw e;
+    if(!background)cloudSession.hydrated=false;
+    // Background sync does not show a loader while in progress, but a failed attempt
+    // immediately gates the UI until cloud-first recovery completes successfully.
+    showStartupWait();
+    cloudSession.error=cloudErrorText(e);updateCloudStatus();throw e;
   }
 }
 function mergePendingLocalState(target,local){
@@ -641,7 +650,7 @@ function setupFirebaseEvents(){
   });
   if(window.AttendanceCloud)onReady();
   setInterval(()=>{if(cloudSession.user&&window.AttendanceCloud&&!document.hidden)cloudQueueFull("interval")},CLOUD_SYNC_INTERVAL);
-  window.addEventListener("online",()=>{if(cloudSession.user&&window.AttendanceCloud){showStartupWait();if(cloudSession.admin){cloudQueueFull("reconnect").then(()=>{if(!cloudSession.error)hideStartupWait();});}else{hydrateAfterLogin(cloudSession.user).then(()=>{if(!cloudSession.error)hideStartupWait();}).catch(()=>{showStartupWait();scheduleCloudGateRetry();});}}});
+  window.addEventListener("online",()=>{if(cloudSession.user&&window.AttendanceCloud){const gateRequired=!cloudSession.hydrated;if(gateRequired)showStartupWait();if(cloudSession.admin){cloudQueueFull("reconnect").then(()=>{if(!cloudSession.error&&gateRequired)hideStartupWait();}).catch(()=>{if(gateRequired)showStartupWait();});}else{hydrateAfterLogin(cloudSession.user,{background:!gateRequired}).then(()=>{if(!cloudSession.error&&gateRequired)hideStartupWait();}).catch(()=>{if(gateRequired)showStartupWait();scheduleCloudGateRetry();});}}});
 }
 setupFirebaseEvents();
 function checkDay(){let cur=key(today());if(state.viewDate<key(START_DATE)){state.viewDate=key(START_DATE);save();render()}}document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkDay()});window.addEventListener("focus",checkDay);setInterval(checkDay,60000);
