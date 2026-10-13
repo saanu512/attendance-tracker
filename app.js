@@ -641,12 +641,12 @@ function setupFirebaseEvents(){
   window.addEventListener("firebase-auth-state",e=>{
     const user=e.detail?.user||null;cloudSession.user=user;cloudSession.admin=!!e.detail?.admin;
     if(cloudGateRetryTimer){clearTimeout(cloudGateRetryTimer);cloudGateRetryTimer=null;}
-    cloudSession.error="";cloudSession.lastSync=null;state.adminPage=null;adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};
+    cloudSession.error="";cloudSession.lastSync=null;state.adminPage=cloudSession.admin?"dashboard":null;adminCache={students:[],selected:null,days:[],studentMonth:"",studentFilter:"all"};
     cloudSession.hydrated=false;
-    if(!user){updateCloudStatus();render();hideStartupWait();return;}
+    if(!user){state.adminPage=null;updateCloudStatus();render();hideStartupWait();return;}
     showStartupWait();updateCloudStatus();render();
     if(!cloudSession.admin){hydrateAfterLogin(user).then(()=>{updateCloudStatus();if(!cloudSession.error)hideStartupWait();}).catch(()=>{showStartupWait();scheduleCloudGateRetry();});}
-    else{window.AttendanceCloud.listStudents().then(students=>{adminCache.students=students;cloudSession.lastSync=new Date();cloudSession.error="";localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());updateCloudStatus();render();hideStartupWait();}).catch(err=>{cloudSession.error=cloudErrorText(err);updateCloudStatus();showStartupWait();scheduleCloudGateRetry();});}
+    else{window.AttendanceCloud.listStudents().then(students=>{adminCache.students=students;cloudSession.lastSync=new Date();cloudSession.error="";localStorage.setItem(ADMIN_CLOUD_SYNC_KEY,cloudSession.lastSync.toISOString());state.adminPage="dashboard";updateCloudStatus();render();hideStartupWait();}).catch(err=>{state.adminPage="dashboard";cloudSession.error=cloudErrorText(err);updateCloudStatus();showStartupWait();scheduleCloudGateRetry();});}
   });
   if(window.AttendanceCloud)onReady();
   setInterval(()=>{if(cloudSession.user&&window.AttendanceCloud&&!document.hidden)cloudQueueFull("interval")},CLOUD_SYNC_INTERVAL);
